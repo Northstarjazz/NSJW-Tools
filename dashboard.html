@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSJW — Operations Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f4f2;color:#1a1a1a;min-height:100vh}
+
+/* Header */
+.hdr{background:#1a1a1a;color:#fff;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.hdr-l{display:flex;align-items:center;gap:12px}
+.hdr-org{font-size:13px;font-weight:600;letter-spacing:.01em}
+.hdr-title{font-size:11px;color:#777;border-left:1px solid #333;padding-left:12px}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.ts{font-size:11px;color:#666}
+.refresh-btn{font-size:11px;color:#aaa;background:none;border:.5px solid #444;border-radius:12px;padding:3px 10px;cursor:pointer}
+.refresh-btn:hover{color:#fff;border-color:#777}
+
+/* KPI row */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 20px 10px}
+.kpi{background:#fff;border-radius:10px;padding:14px 16px;border:.5px solid #e8e8e6}
+.kpi-n{font-size:28px;font-weight:500;line-height:1;letter-spacing:-.5px}
+.kpi-l{font-size:11px;color:#888;margin-top:5px}
+.kpi-s{font-size:10px;color:#bbb;margin-top:3px}
+
+/* Panels */
+.row-2{display:grid;grid-template-columns:58% 1fr;gap:10px;padding:0 20px 10px}
+.row-3{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:10px;padding:0 20px 10px}
+.row-full{padding:0 20px 20px}
+.panel{background:#fff;border-radius:10px;padding:16px;border:.5px solid #e8e8e6}
+.panel-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+
+/* Bar chart rows */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bar-lbl{font-size:11px;color:#555;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;height:6px;background:#f0f0ee;border-radius:3px}
+.bar-fill{height:6px;border-radius:3px}
+.bar-cnt{font-size:11px;color:#bbb;flex-shrink:0;text-align:right}
+
+/* Pipeline */
+.pipe-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.pipe-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pipe-lbl{font-size:11px;color:#555;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pipe-track{width:100px;height:6px;background:#f0f0ee;border-radius:3px;flex-shrink:0}
+.pipe-fill{height:6px;border-radius:3px}
+.pipe-cnt{font-size:11px;color:#bbb;width:26px;text-align:right;flex-shrink:0}
+
+
+.loading{color:#bbb;font-size:12px;padding:20px 0}
+.no-data{color:#bbb;font-size:12px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <span class="hdr-org">North Star Jazz Workshops</span>
+    <span class="hdr-title">Operations Dashboard</span>
+  </div>
+  <div class="hdr-r">
+    <span class="ts" id="ts">Loading...</span>
+    <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+  </div>
+</div>
+
+<div class="kpi-row" id="kpis">
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Total Active Members</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Ensemble Members</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Class & Program Members</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Total Leads in Pipeline</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">New Leads This Month</div></div>
+</div>
+
+<div class="row-2">
+  <div class="panel">
+    <div class="panel-title">Members by Program</div>
+    <div id="prog-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panels-2">
+    <div class="panel">
+      <div class="panel-title">Member Retention — 12 Months</div>
+      <div id="ret-chart"><div class="loading">Loading...</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Monthly Churn Rate</div>
+      <div id="churn-chart"><div class="loading">Loading...</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="row-3">
+  <div class="panel">
+    <div class="panel-title">Lead Pipeline</div>
+    <div id="pipe-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Leads by Instrument (Top 10)</div>
+    <div id="inst-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Program Interest</div>
+    <div id="int-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Leads by Source</div>
+    <div id="src-chart"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const API_URL = "https://script.google.com/macros/s/AKfycbwuHJ8FTlbvRlyaiPHdFBtkvr_EX2mq50vIdjc0ZF5ke_8ig5qCOo7hfHxeEvpJaBkA5A/exec";
+
+
+
+// ── STATUS COLORS ───────────────────────────────────────────────────────────
+const SC = {"New Lead":"#fdab3d","Qualified":"#9cd326","Meeting Set":"#999","Sit-In Scheduled":"#579bfc","Trial Lesson":"#007eb5","Long-Term Follow-Up":"#037f4c","Not Interested At This Time":"#df2f4a","Unqualified":"#bb3354","Closed Won":"#9d50dd","Closed Lost":"#555"};
+
+// ── UTILITIES ────────────────────────────────────────────────────────────────
+function cat(inst) {
+  if (!inst) return null;
+  const i = inst.toLowerCase();
+  if (i.includes("drum")||i.includes("percuss")) return "Drums";
+  if ((i.includes("bass")||i==="electric bass")&&!i.includes("sax")&&!i.includes("bari")&&!i.includes("trombone")) return "Bass";
+  if (i.includes("guitar")&&!i.includes("bass")&&!i.includes("sax")&&!i.includes("keys")) return "Guitar";
+  if (i.includes("piano")||i.includes("keyboard")||i.includes("keys")) return "Piano";
+  return "Horn";
+}
+function beltLbl(lvl) {
+  if (lvl>=4.2) return "Black";
+  if (lvl>=3.5) return "Brown+";
+  if (lvl>=2.8) return "Purple+";
+  if (lvl>=1.8) return "Blue+";
+  return "Any";
+}
+function parseCSV(txt) {
+  const lines = txt.trim().split("\n");
+  const hdrs  = lines[0].split(",").map(h=>h.trim().replace(/"/g,"").toLowerCase());
+  return lines.slice(1).map(line=>{
+    const vals=line.split(",").map(v=>v.trim().replace(/"/g,""));
+    const o={};
+    hdrs.forEach((h,i)=>o[h]=vals[i]||"");
+    return o;
+  }).filter(r=>r.name&&r.group);
+}
+
+// ── CHART HELPERS ────────────────────────────────────────────────────────────
+function barChart(el, data, lKey, cKey, maxV, color="#1a1a1a", lblW=130) {
+  el.innerHTML = data.map(d=>`
+    <div class="bar-row">
+      <div class="bar-lbl" style="width:${lblW}px" title="${d[lKey]}">${d[lKey]}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d[cKey]/maxV*100)}%;background:${color}"></div></div>
+      <div class="bar-cnt">${d[cKey]}</div>
+    </div>`).join("");
+}
+
+function retChart(el, data) {
+  const W=el.clientWidth||360, H=130;
+  const pad={t:8,b:30,l:24,r:8};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  const maxV=Math.max(...data.map(d=>Math.max(d.joins,d.leaves)),1);
+  const N=data.length, xs=cw/(N-1);
+  const pt=(key,i)=>`${pad.l+i*xs},${pad.t+ch-(data[i][key]/maxV)*ch}`;
+  const line=key=>data.map((_,i)=>pt(key,i)).join(" ");
+  const dots=(key,col)=>data.map((_,i)=>{
+    const [x,y]=pt(key,i).split(",");
+    return `<circle cx="${x}" cy="${y}" r="3" fill="${col}" stroke="#fff" stroke-width="1.5"/>`;
+  }).join("");
+  const lbls=data.map((d,i)=>{
+    if (i%3!==0&&i!==N-1) return "";
+    return `<text x="${pad.l+i*xs}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  }).join("");
+  const ylines=[0,Math.round(maxV/2),maxV].map(v=>{
+    const y=pad.t+ch-(v/maxV)*ch;
+    return `<text x="${pad.l-3}" y="${y+3}" text-anchor="end" font-size="9" fill="#ccc">${v}</text>
+            <line x1="${pad.l}" y1="${y}" x2="${pad.l+cw}" y2="${y}" stroke="#f0f0ee" stroke-width="0.5"/>`;
+  }).join("");
+  el.innerHTML = `
+    <div style="display:flex;gap:14px;margin-bottom:10px;font-size:11px;color:#888">
+      <span><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#1a1a1a" stroke-width="2"/></svg> Joins</span>
+      <span><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#df2f4a" stroke-width="2"/></svg> Leaves</span>
+    </div>
+    <svg width="${W}" height="${H}" style="overflow:visible">
+      ${ylines}
+      <polyline points="${line('joins')}" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+      <polyline points="${line('leaves')}" fill="none" stroke="#df2f4a" stroke-width="1.8" stroke-linejoin="round"/>
+      ${dots('joins','#1a1a1a')}${dots('leaves','#df2f4a')}
+      ${lbls}
+    </svg>`;
+}
+
+function churnChart(el, data) {
+  const W=el.clientWidth||360, H=130;
+  const pad={t:8,b:30,l:32,r:8};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  const maxV=Math.max(...data.map(d=>d.churnRate), 5); // min 5% scale
+  const N=data.length, xs=cw/(N-1);
+  const pt=i=>`${pad.l+i*xs},${pad.t+ch-(data[i].churnRate/maxV)*ch}`;
+  const line=data.map((_,i)=>pt(i)).join(" ");
+  const dots=data.map((_,i)=>{
+    const [x,y]=pt(i).split(",");
+    const r=data[i].churned>0?"4":"2.5";
+    return `<circle cx="${x}" cy="${y}" r="${r}" fill="#df2f4a" stroke="#fff" stroke-width="1.5">
+      <title>${data[i].label}: ${data[i].churnRate}% (${data[i].churned} of ${data[i].activeAtStart})</title>
+    </circle>`;
+  }).join("");
+  const lbls=data.map((d,i)=>{
+    if (i%3!==0&&i!==N-1) return "";
+    return `<text x="${pad.l+i*xs}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  }).join("");
+  const ylines=[0, Math.round(maxV/2), maxV].map(v=>{
+    const y=pad.t+ch-(v/maxV)*ch;
+    return `<text x="${pad.l-4}" y="${y+3}" text-anchor="end" font-size="9" fill="#ccc">${v}%</text>
+            <line x1="${pad.l}" y1="${y}" x2="${pad.l+cw}" y2="${y}" stroke="#f0f0ee" stroke-width="0.5"/>`;
+  }).join("");
+
+  // Avg churn line
+  const avg=data.reduce((s,d)=>s+d.churnRate,0)/N;
+  const avgY=pad.t+ch-(avg/maxV)*ch;
+
+  el.innerHTML=`
+    <div style="display:flex;gap:14px;margin-bottom:10px;font-size:11px;color:#888">
+      <span><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#df2f4a" stroke-width="2"/></svg> Monthly churn %</span>
+      <span><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#ccc" stroke-width="1.5" stroke-dasharray="3,2"/></svg> 12-mo avg (${avg.toFixed(1)}%)</span>
+    </div>
+    <svg width="${W}" height="${H}" style="overflow:visible">
+      ${ylines}
+      <line x1="${pad.l}" y1="${avgY}" x2="${pad.l+cw}" y2="${avgY}" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+      <polyline points="${line}" fill="none" stroke="#df2f4a" stroke-width="1.8" stroke-linejoin="round"/>
+      ${dots}
+      ${lbls}
+    </svg>`;
+}
+
+function pipeChart(el, data) {
+  const maxV=Math.max(...data.map(d=>d.count),1);
+  el.innerHTML=data.map(d=>`
+    <div class="pipe-row">
+      <div class="pipe-dot" style="background:${SC[d.status]||'#ccc'}"></div>
+      <div class="pipe-lbl" title="${d.status}">${d.status}</div>
+      <div class="pipe-track"><div class="pipe-fill" style="width:${Math.round(d.count/maxV*100)}%;background:${SC[d.status]||'#ccc'}"></div></div>
+      <div class="pipe-cnt">${d.count}</div>
+    </div>`).join("");
+}
+
+// ── DASHBOARD RENDER ─────────────────────────────────────────────────────────
+function renderDash(d) {
+  const ens  = d.membersByProgram.find(p=>p.program==="Ensembles")?.count || 0;
+  const cls  = d.totalActive - ens;
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><div class="kpi-n">${d.totalActive}</div><div class="kpi-l">Total Active Members</div></div>
+    <div class="kpi"><div class="kpi-n">${ens}</div><div class="kpi-l">Ensemble Members</div><div class="kpi-s">${d.membersByProgram.length} programs total</div></div>
+    <div class="kpi"><div class="kpi-n">${cls}</div><div class="kpi-l">Class & Program Members</div></div>
+    <div class="kpi"><div class="kpi-n">${d.totalLeads.toLocaleString()}</div><div class="kpi-l">Total Leads in Pipeline</div></div>
+    <div class="kpi"><div class="kpi-n">${d.newLeadsThisMonth}</div><div class="kpi-l">New Leads This Month</div></div>`;
+
+  const maxProg=Math.max(...d.membersByProgram.map(p=>p.count));
+  barChart(document.getElementById("prog-chart"), d.membersByProgram, "program","count", maxProg);
+
+  retChart(document.getElementById("ret-chart"), d.retention);
+  if (d.churnData?.length) churnChart(document.getElementById("churn-chart"), d.churnData);
+  pipeChart(document.getElementById("pipe-chart"), d.leadsByStatus);
+
+  const maxInst=Math.max(...d.leadsByInstrument.map(i=>i.count));
+  barChart(document.getElementById("inst-chart"), d.leadsByInstrument, "instrument","count", maxInst,"#579bfc",90);
+
+  const maxInt=Math.max(...d.programInterest.map(i=>i.count));
+  barChart(document.getElementById("int-chart"), d.programInterest, "program","count", maxInt,"#9d50dd",90);
+
+  if (d.leadsBySource?.length) {
+    const maxSrc=Math.max(...d.leadsBySource.map(i=>i.count));
+    barChart(document.getElementById("src-chart"), d.leadsBySource, "source","count", maxSrc,"#037f4c",90);
+  } else {
+    document.getElementById("src-chart").innerHTML = `<div class="no-data">No source data yet</div>`;
+  }
+
+  document.getElementById("ts").textContent = "Updated " +
+    new Date(d.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+}
+
+
+
+// ── LOAD ALL ─────────────────────────────────────────────────────────────────
+async function loadAll() {
+  document.getElementById("ts").textContent = "Refreshing...";
+  try {
+    const res = await fetch(API_URL + "?type=dashboard");
+    if (res.ok) renderDash(await res.json());
+  } catch(e) {
+    document.getElementById("ts").textContent = "Error — " + e.message;
+  }
+}
+
+loadAll();
+</script>
+</body>
+</html>
