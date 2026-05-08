@@ -5,36 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NSJW Ensemble Openings</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f9f9f7; color: #1a1a1a; padding: 16px; }
-  .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .top-title { font-size: 12px; color: #888; }
-  .refresh-btn { font-size: 11px; color: #555; background: none; border: 0.5px solid #ccc; border-radius: 12px; padding: 3px 10px; cursor: pointer; }
-  .summary-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-  .sc { flex: 1; min-width: 90px; background: #f0f0ee; border-radius: 8px; padding: 10px 12px; }
-  .sn { font-size: 22px; font-weight: 500; color: #1a1a1a; }
-  .sl { font-size: 11px; color: #888; }
-  .filter-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-  .filter-btn { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 0.5px solid #ccc; background: #fff; color: #666; cursor: pointer; transition: all .15s; }
-  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-  .group-card { background: #fff; border: 0.5px solid #e5e5e3; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
-  .gh { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-  .gn { font-size: 14px; font-weight: 500; color: #1a1a1a; }
-  .dots { display: flex; gap: 3px; }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: #ddd; }
-  .dot.on { background: #1a1a1a; }
-  .sched { font-size: 11px; color: #aaa; margin-left: auto; }
-  .mc { font-size: 11px; color: #aaa; margin-left: 4px; }
-  .slots { display: flex; flex-wrap: wrap; gap: 6px; }
-  .open { font-size: 11px; padding: 3px 10px; border-radius: 12px; border: 0.5px solid #f7c1c1; background: #fcebeb; color: #a32d2d; white-space: nowrap; }
-  .belt { font-size: 10px; margin-left: 4px; padding: 1px 5px; border-radius: 8px; font-weight: 500; }
-  .bw { background: #e5e5e5; color: #444; }
-  .bb { background: #dbeafe; color: #1e40af; }
-  .bp { background: #ede9fe; color: #5b21b6; }
-  .br { background: #fef3c7; color: #92400e; }
-  .bk { background: #1f2937; color: #f9fafb; }
-  .empty { text-align: center; padding: 2rem; color: #aaa; font-size: 13px; }
-  .error { text-align: center; padding: 1rem; color: #a32d2d; font-size: 13px; background: #fcebeb; border-radius: 8px; margin-bottom: 12px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f9f9f7;color:#1a1a1a;padding:16px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.top-title{font-size:12px;color:#888}
+.refresh-btn{font-size:11px;color:#555;background:none;border:.5px solid #ccc;border-radius:12px;padding:3px 10px;cursor:pointer}
+.summary-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.sc{flex:1;min-width:90px;background:#f0f0ee;border-radius:8px;padding:10px 12px}
+.sn{font-size:22px;font-weight:500;color:#1a1a1a}
+.sl{font-size:11px;color:#888}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.filter-btn{font-size:12px;padding:4px 12px;border-radius:20px;border:.5px solid #ccc;background:#fff;color:#666;cursor:pointer;transition:all .15s}
+.filter-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.group-card{background:#fff;border:.5px solid #e5e5e3;border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.gh{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.gn{font-size:14px;font-weight:500;color:#1a1a1a}
+.dots{display:flex;gap:3px}
+.dot{width:7px;height:7px;border-radius:50%;background:#ddd}
+.dot.on{background:#1a1a1a}
+.sched{font-size:11px;color:#aaa;margin-left:auto}
+.mc{font-size:11px;color:#aaa;margin-left:4px}
+.slots{display:flex;flex-wrap:wrap;gap:6px}
+.open{font-size:11px;padding:3px 10px;border-radius:12px;border:.5px solid #f7c1c1;background:#fcebeb;color:#a32d2d;white-space:nowrap}
+.belt{font-size:10px;margin-left:4px;padding:1px 5px;border-radius:8px;font-weight:500}
+.bw{background:#e5e5e5;color:#444}
+.bb{background:#dbeafe;color:#1e40af}
+.bp{background:#ede9fe;color:#5b21b6}
+.br{background:#fef3c7;color:#92400e}
+.bk{background:#1f2937;color:#f9fafb}
+.empty{text-align:center;padding:2rem;color:#aaa;font-size:13px}
+.error{text-align:center;padding:1rem;color:#a32d2d;font-size:13px;background:#fcebeb;border-radius:8px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -53,14 +53,115 @@ const ACTIVE_GROUPS = Object.keys(schedules);
 const EXPECTED = {Drums:1,Bass:1,Guitar:1,Piano:1,Horn:3};
 const filterOptions = ["All","Drums","Bass","Guitar","Piano","Horn"];
 let allGroups = [], activeFilter = "All";
-function parseCSV(text){const lines=text.trim().split("\n");const headers=lines[0].split(",").map(h=>h.trim().replace(/"/g,"").toLowerCase());return lines.slice(1).map(line=>{const vals=line.split(",").map(v=>v.trim().replace(/"/g,""));const obj={};headers.forEach((h,i)=>obj[h]=vals[i]||"");return obj;}).filter(r=>r.name&&r.group);}
-function categorize(inst){if(!inst)return null;const i=inst.toLowerCase();if(i.includes("drum")||i==="vibraphone"||i.includes("percuss"))return "Drums";if((i.includes("bass")||i==="electric bass")&&!i.includes("sax")&&!i.includes("bari")&&!i.includes("trombone"))return "Bass";if(i.includes("guitar")&&!i.includes("bass")&&!i.includes("sax")&&!i.includes("keys"))return "Guitar";if(i.includes("piano")||i.includes("keyboard")||i.includes("keys"))return "Piano";return "Horn";}
-function beltNeeded(lvl){if(lvl>=4.2)return "Black";if(lvl>=3.5)return "Brown/Black";if(lvl>=2.8)return "Purple/Brown";if(lvl>=1.8)return "Blue/Purple";return "White/Blue";}
-function beltClass(b){if(!b)return "bb";const l=b.toLowerCase();if(l.includes("black"))return "bk";if(l.includes("brown"))return "br";if(l.includes("purple"))return "bp";if(l.includes("blue"))return "bb";return "bw";}
-function processRows(rows){const groupMap={};rows.forEach(row=>{const g=row.group,inst=row.instrument||"",belt=row.belt||"";if(!ACTIVE_GROUPS.includes(g))return;if(!groupMap[g])groupMap[g]=[];const cat=categorize(inst);if(cat)groupMap[g].push({name:row.name,cat,belt});});allGroups=ACTIVE_GROUPS.map(gname=>{const members=groupMap[gname]||[];const counts={Drums:0,Bass:0,Guitar:0,Piano:0,Horn:0};members.forEach(m=>{if(counts[m.cat]!==undefined)counts[m.cat]++;});const openings=[];Object.entries(EXPECTED).forEach(([cat,needed])=>{const open=Math.max(0,needed-(counts[cat]||0));for(let i=0;i<open;i++)openings.push({inst:cat,belt:beltNeeded(levels[gname]||2)});});return{name:gname,schedule:schedules[gname]||"",level:levels[gname]||2,members,openings};});render();}
-function render(){const withOpenings=allGroups.filter(g=>g.openings.length>0);const filtered=activeFilter==="All"?withOpenings:allGroups.filter(g=>g.openings.some(o=>o.inst===activeFilter));const totalOpen=allGroups.reduce((s,g)=>s+g.openings.length,0);const totalMembers=allGroups.reduce((s,g)=>s+g.members.length,0);document.getElementById("summary").innerHTML=`<div class="sc"><div class="sn">${totalOpen}</div><div class="sl">Open seats</div></div><div class="sc"><div class="sn">${withOpenings.length}</div><div class="sl">Groups with openings</div></div><div class="sc"><div class="sn">${allGroups.length-withOpenings.length}</div><div class="sl">Full groups</div></div><div class="sc"><div class="sn">${totalMembers}</div><div class="sl">Ensemble members</div></div>`;document.getElementById("filters").innerHTML=filterOptions.map(f=>`<button class="filter-btn ${activeFilter===f?"active":""}" onclick="setFilter('${f}')">${f}</button>`).join("");if(!filtered.length){document.getElementById("groups").innerHTML=`<div class="empty">No openings for ${activeFilter} right now.</div>`;return;}document.getElementById("groups").innerHTML=filtered.map(g=>{const dots=[1,2,3,4,5].map(i=>`<div class="dot ${g.level>=i?"on":""}"></div>`).join("");const relevant=activeFilter==="All"?g.openings:g.openings.filter(o=>o.inst===activeFilter);const slots=relevant.map(o=>`<div class="open">${o.inst}<span class="belt ${beltClass(o.belt)}">${o.belt}</span></div>`).join("");return `<div class="group-card"><div class="gh"><span class="gn">${g.name}</span><div class="dots">${dots}</div><span style="font-size:11px;color:#aaa">${g.level.toFixed(1)}</span><span class="mc">${g.members.length}/7</span><span class="sched">${g.schedule}</span></div><div class="slots">${slots}</div></div>`;}).join("");}
-function setFilter(f){activeFilter=f;render();}
-async function loadData(){document.getElementById("source-label").textContent="Loading...";try{const res=await fetch(CSV_URL);if(!res.ok)throw new Error("fetch failed");const text=await res.text();const rows=parseCSV(text);if(!rows.length)throw new Error("empty");document.getElementById("source-label").textContent="North Star Ensemble Openings · Updated "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});processRows(rows);}catch(e){document.getElementById("source-label").textContent="Could not load data";document.getElementById("groups").innerHTML=`<div class="error">Failed to load roster. Check that the Google Sheet is published as CSV.</div>`;}}
+
+function parseCSV(text) {
+  const lines = text.trim().split("\n");
+  const headers = lines[0].split(",").map(h => h.trim().replace(/"/g,"").toLowerCase());
+  return lines.slice(1).map(line => {
+    const vals = line.split(",").map(v => v.trim().replace(/"/g,""));
+    const obj = {};
+    headers.forEach((h,i) => obj[h] = vals[i] || "");
+    return obj;
+  }).filter(r => r.name && r.group);
+}
+
+function categorize(inst) {
+  if (!inst) return null;
+  const i = inst.toLowerCase();
+  if (i.includes("drum") || i === "vibraphone" || i.includes("percuss")) return "Drums";
+  if ((i.includes("bass") || i === "electric bass") && !i.includes("sax") && !i.includes("bari") && !i.includes("trombone")) return "Bass";
+  if (i.includes("guitar") && !i.includes("bass") && !i.includes("sax") && !i.includes("keys")) return "Guitar";
+  if (i.includes("piano") || i.includes("keyboard") || i.includes("keys")) return "Piano";
+  return "Horn";
+}
+
+function beltNeeded(lvl) {
+  if (lvl >= 4.2) return "Black";
+  if (lvl >= 3.5) return "Brown/Black";
+  if (lvl >= 2.8) return "Purple/Brown";
+  if (lvl >= 1.8) return "Blue/Purple";
+  return "White/Blue";
+}
+
+function beltClass(b) {
+  if (!b) return "bb";
+  const l = b.toLowerCase();
+  if (l.includes("black")) return "bk";
+  if (l.includes("brown")) return "br";
+  if (l.includes("purple")) return "bp";
+  if (l.includes("blue")) return "bb";
+  return "bw";
+}
+
+function processRows(rows) {
+  const groupMap = {};
+  rows.forEach(row => {
+    const g = row.group, inst = row.instrument || "";
+    if (!ACTIVE_GROUPS.includes(g)) return;
+    if (!groupMap[g]) groupMap[g] = [];
+    const cat = categorize(inst);
+    if (cat) groupMap[g].push(cat);
+  });
+  allGroups = ACTIVE_GROUPS.map(gname => {
+    const members = groupMap[gname] || [];
+    const counts = {Drums:0,Bass:0,Guitar:0,Piano:0,Horn:0};
+    members.forEach(c => counts[c]++);
+    const openings = [];
+    Object.entries(EXPECTED).forEach(([cat, needed]) => {
+      const open = Math.max(0, needed - (counts[cat] || 0));
+      for (let i = 0; i < open; i++) openings.push({inst: cat, belt: beltNeeded(levels[gname] || 2)});
+    });
+    return {name: gname, schedule: schedules[gname] || "", level: levels[gname] || 2, mCount: members.length, openings};
+  });
+  render();
+}
+
+function render() {
+  const withOpenings = allGroups.filter(g => g.openings.length > 0);
+  const filtered = activeFilter === "All" ? withOpenings : allGroups.filter(g => g.openings.some(o => o.inst === activeFilter));
+  const totalOpen = allGroups.reduce((s,g) => s + g.openings.length, 0);
+  const totalMembers = allGroups.reduce((s,g) => s + g.mCount, 0);
+  document.getElementById("summary").innerHTML = `
+    <div class="sc"><div class="sn">${totalOpen}</div><div class="sl">Open seats</div></div>
+    <div class="sc"><div class="sn">${withOpenings.length}</div><div class="sl">Groups with openings</div></div>
+    <div class="sc"><div class="sn">${allGroups.length - withOpenings.length}</div><div class="sl">Full groups</div></div>
+    <div class="sc"><div class="sn">${totalMembers}</div><div class="sl">Ensemble members</div></div>`;
+  document.getElementById("filters").innerHTML = filterOptions.map(f =>
+    `<button class="filter-btn ${activeFilter === f ? "active" : ""}" onclick="setFilter('${f}')">${f}</button>`).join("");
+  if (!filtered.length) {
+    document.getElementById("groups").innerHTML = `<div class="empty">No openings for ${activeFilter} right now.</div>`;
+    return;
+  }
+  document.getElementById("groups").innerHTML = filtered.map(g => {
+    const dots = [1,2,3,4,5].map(i => `<div class="dot ${g.level >= i ? "on" : ""}"></div>`).join("");
+    const relevant = activeFilter === "All" ? g.openings : g.openings.filter(o => o.inst === activeFilter);
+    const slots = relevant.map(o => `<div class="open">${o.inst}<span class="belt ${beltClass(o.belt)}">${o.belt}</span></div>`).join("");
+    return `<div class="group-card">
+      <div class="gh"><span class="gn">${g.name}</span><div class="dots">${dots}</div><span style="font-size:11px;color:#aaa">${g.level.toFixed(1)}</span><span class="mc">${g.mCount}/7</span><span class="sched">${g.schedule}</span></div>
+      <div class="slots">${slots}</div>
+    </div>`;
+  }).join("");
+}
+
+function setFilter(f) { activeFilter = f; render(); }
+
+async function loadData() {
+  document.getElementById("source-label").textContent = "Loading...";
+  try {
+    const res = await fetch(CSV_URL);
+    if (!res.ok) throw new Error("fetch failed");
+    const text = await res.text();
+    const rows = parseCSV(text);
+    if (!rows.length) throw new Error("empty");
+    document.getElementById("source-label").textContent = "North Star Ensemble Openings · Updated " +
+      new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+    processRows(rows);
+  } catch(e) {
+    document.getElementById("source-label").textContent = "Could not load data";
+    document.getElementById("groups").innerHTML = `<div class="error">Failed to load roster: ${e.message}</div>`;
+  }
+}
+
 loadData();
 </script>
 </body>
