@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSJW — Churn & Retention</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f4f2;color:#1a1a1a;min-height:100vh}
+.hdr{background:#1a1a1a;color:#fff;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.hdr-l{display:flex;align-items:center;gap:12px}
+.hdr-org{font-size:13px;font-weight:600}
+.hdr-title{font-size:11px;color:#777;border-left:1px solid #333;padding-left:12px}
+.ts{font-size:11px;color:#666}
+.refresh-btn{font-size:11px;color:#aaa;background:none;border:.5px solid #444;border-radius:12px;padding:3px 10px;cursor:pointer}
+.refresh-btn:hover{color:#fff;border-color:#777}
+
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 20px 10px}
+.kpi{background:#fff;border-radius:10px;padding:14px 16px;border:.5px solid #e8e8e6}
+.kpi-n{font-size:28px;font-weight:500;line-height:1;letter-spacing:-.5px}
+.kpi-l{font-size:11px;color:#888;margin-top:5px}
+.kpi-s{font-size:10px;color:#bbb;margin-top:3px}
+.kpi.warn .kpi-n{color:#df2f4a}
+.kpi.good .kpi-n{color:#037f4c}
+
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
+.row-2b{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
+.row-full{padding:0 20px 20px}
+.panel{background:#fff;border-radius:10px;padding:16px;border:.5px solid #e8e8e6}
+.panel-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+
+/* Bar rows */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bar-lbl{font-size:11px;color:#555;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-sub{font-size:10px;color:#bbb}
+.bar-track{flex:1;height:6px;background:#f0f0ee;border-radius:3px}
+.bar-fill{height:6px;border-radius:3px}
+.bar-cnt{font-size:11px;color:#bbb;flex-shrink:0;text-align:right}
+
+/* Belt colors */
+.belt-White{background:#e5e5e5}
+.belt-Blue{background:#dbeafe}
+.belt-Purple{background:#ede9fe}
+.belt-Brown{background:#fef3c7}
+.belt-Black{background:#1f2937}
+.belt-Unknown{background:#f0f0ee}
+
+.loading{color:#bbb;font-size:12px;padding:20px 0}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <span class="hdr-org">North Star Jazz Workshops</span>
+    <span class="hdr-title">Ensemble Churn &amp; Retention</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="ts" id="ts">Loading...</span>
+    <button class="refresh-btn" onclick="load()">↻ Refresh</button>
+  </div>
+</div>
+
+<div class="kpi-row" id="kpis">
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Active Ensemble Members</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Total Departures</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Membership Length</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Return Rate</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">12-Mo Avg Churn Rate</div></div>
+</div>
+
+<div class="row-2">
+  <div class="panel">
+    <div class="panel-title">Churn by Group &amp; Teacher</div>
+    <div id="group-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Monthly Churn Rate</div>
+    <div id="rate-chart"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+<div class="row-2b">
+  <div class="panel">
+    <div class="panel-title">Departures by Month</div>
+    <div id="month-chart"><div class="loading">Loading...</div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Churn by Belt Level</div>
+    <div id="belt-chart"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+<div class="row-full">
+  <div class="panel">
+    <div class="panel-title">Membership Length at Departure</div>
+    <div id="length-chart"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwuHJ8FTlbvRlyaiPHdFBtkvr_EX2mq50vIdjc0ZF5ke_8ig5qCOo7hfHxeEvpJaBkA5A/exec";
+
+// ── CHART HELPERS ────────────────────────────────────────────────────────────
+function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=120) {
+  el.innerHTML = data.map(d => `
+    <div class="bar-row">
+      <div style="width:${lblW}px;flex-shrink:0">
+        <div class="bar-lbl" title="${d[lKey]}">${d[lKey]}</div>
+        ${subKey && d[subKey] ? `<div class="bar-sub">${d[subKey]}</div>` : ""}
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d[cKey]/maxV*100)}%;background:${color}"></div></div>
+      <div class="bar-cnt">${d[cKey]}</div>
+    </div>`).join("");
+}
+
+function beltBar(el, data) {
+  const maxV = Math.max(...data.map(d => d.count));
+  const BELT_COLORS = {White:"#aaa",Blue:"#579bfc",Purple:"#9d50dd",Brown:"#c78c3c",Black:"#1a1a1a",Unknown:"#ccc"};
+  el.innerHTML = data.map(d => `
+    <div class="bar-row">
+      <div class="bar-lbl" style="width:70px">${d.belt}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.count/maxV*100)}%;background:${BELT_COLORS[d.belt]||'#ccc'}"></div></div>
+      <div class="bar-cnt">${d.count}</div>
+    </div>`).join("");
+}
+
+function colChart(el, data) {
+  const W = el.clientWidth || 380, H = 120;
+  const pad = {t:8, b:28, l:8, r:8};
+  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const N = data.length;
+  const maxV = Math.max(...data.map(d => d.departures), 1);
+  const bw = Math.max(4, cw/N - 3);
+  const bars = data.map((d, i) => {
+    const bh = Math.max(1, (d.departures/maxV)*ch);
+    const x = pad.l + i*(cw/N) + (cw/N - bw)/2;
+    const y = pad.t + ch - bh;
+    return `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="#1a1a1a" rx="2">
+      <title>${d.label}: ${d.departures}</title></rect>`;
+  }).join("");
+  const lbls = data.map((d, i) => {
+    if (i % 3 !== 0 && i !== N-1) return "";
+    const x = pad.l + i*(cw/N) + (cw/N)/2;
+    return `<text x="${x}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  }).join("");
+  el.innerHTML = `<svg width="${W}" height="${H}" style="overflow:visible">${bars}${lbls}</svg>`;
+}
+
+function lineChart(el, data) {
+  const W = el.clientWidth || 380, H = 130;
+  const pad = {t:8, b:30, l:32, r:8};
+  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const maxV = Math.max(...data.map(d => d.rate), 5);
+  const N = data.length, xs = cw/(N-1);
+  const pt = i => `${pad.l+i*xs},${pad.t+ch-(data[i].rate/maxV)*ch}`;
+  const line = data.map((_,i) => pt(i)).join(" ");
+  const dots = data.map((_,i) => {
+    const [x,y] = pt(i).split(",");
+    return `<circle cx="${x}" cy="${y}" r="${data[i].churned>0?4:2.5}" fill="#df2f4a" stroke="#fff" stroke-width="1.5">
+      <title>${data[i].label}: ${data[i].rate}% (${data[i].churned}/${data[i].activeAtStart})</title>
+    </circle>`;
+  }).join("");
+  const lbls = data.map((d,i) => {
+    if (i%3!==0 && i!==N-1) return "";
+    return `<text x="${pad.l+i*xs}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  }).join("");
+  const avg = data.reduce((s,d)=>s+d.rate,0)/N;
+  const avgY = pad.t+ch-(avg/maxV)*ch;
+  const ylines = [0,Math.round(maxV/2),maxV].map(v => {
+    const y = pad.t+ch-(v/maxV)*ch;
+    return `<text x="${pad.l-4}" y="${y+3}" text-anchor="end" font-size="9" fill="#ccc">${v}%</text>
+            <line x1="${pad.l}" y1="${y}" x2="${pad.l+cw}" y2="${y}" stroke="#f0f0ee" stroke-width="0.5"/>`;
+  }).join("");
+  el.innerHTML = `<svg width="${W}" height="${H}" style="overflow:visible">
+    ${ylines}
+    <line x1="${pad.l}" y1="${avgY}" x2="${pad.l+cw}" y2="${avgY}" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+    <polyline points="${line}" fill="none" stroke="#df2f4a" stroke-width="1.8" stroke-linejoin="round"/>
+    ${dots}${lbls}
+  </svg>`;
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render(d) {
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><div class="kpi-n">${d.totalActive}</div><div class="kpi-l">Active Ensemble Members</div></div>
+    <div class="kpi warn"><div class="kpi-n">${d.totalDeparted}</div><div class="kpi-l">Total Departures</div></div>
+    <div class="kpi"><div class="kpi-n">${d.avgLengthMonths} mo</div><div class="kpi-l">Avg Membership Length</div><div class="kpi-s">at time of departure</div></div>
+    <div class="kpi good"><div class="kpi-n">${d.returnRate}%</div><div class="kpi-l">Return Rate</div><div class="kpi-s">${d.totalReturned} students came back</div></div>
+    <div class="kpi ${d.avgChurnRate > 5 ? "warn" : ""}"><div class="kpi-n">${d.avgChurnRate}%</div><div class="kpi-l">12-Mo Avg Churn Rate</div></div>`;
+
+  const maxG = Math.max(...d.byGroup.map(g => g.count));
+  barChart(document.getElementById("group-chart"), d.byGroup, "group", "teacher", "count", maxG, "#1a1a1a", 80);
+
+  lineChart(document.getElementById("rate-chart"), d.churnRate);
+  colChart(document.getElementById("month-chart"), d.churnRate);
+  beltBar(document.getElementById("belt-chart"), d.byBelt);
+
+  const maxL = Math.max(...d.lengthDistribution.map(b => b.count));
+  barChart(document.getElementById("length-chart"), d.lengthDistribution, "bucket", null, "count", maxL, "#579bfc", 80);
+
+  document.getElementById("ts").textContent = "Updated " +
+    new Date(d.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+}
+
+// ── LOAD ──────────────────────────────────────────────────────────────────────
+async function load() {
+  document.getElementById("ts").textContent = "Refreshing...";
+  try {
+    const res = await fetch(API_URL + "?type=churn");
+    if (res.ok) render(await res.json());
+  } catch(e) {
+    document.getElementById("ts").textContent = "Error — " + e.message;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
