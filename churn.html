@@ -14,7 +14,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .ts{font-size:11px;color:#666}
 .refresh-btn{font-size:11px;color:#aaa;background:none;border:.5px solid #444;border-radius:12px;padding:3px 10px;cursor:pointer}
 .refresh-btn:hover{color:#fff;border-color:#777}
-
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 20px 10px}
 .kpi{background:#fff;border-radius:10px;padding:14px 16px;border:.5px solid #e8e8e6}
 .kpi-n{font-size:28px;font-weight:500;line-height:1;letter-spacing:-.5px}
@@ -22,34 +21,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .kpi-s{font-size:10px;color:#bbb;margin-top:3px}
 .kpi.warn .kpi-n{color:#df2f4a}
 .kpi.good .kpi-n{color:#037f4c}
-
 .row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
 .row-2b{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
 .row-full{padding:0 20px 20px}
 .panel{background:#fff;border-radius:10px;padding:16px;border:.5px solid #e8e8e6}
 .panel-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
-
-/* Bar rows */
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .bar-lbl{font-size:11px;color:#555;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bar-sub{font-size:10px;color:#bbb}
 .bar-track{flex:1;height:6px;background:#f0f0ee;border-radius:3px}
 .bar-fill{height:6px;border-radius:3px}
 .bar-cnt{font-size:11px;color:#bbb;flex-shrink:0;text-align:right}
-
-/* Belt colors */
-.belt-White{background:#e5e5e5}
-.belt-Blue{background:#dbeafe}
-.belt-Purple{background:#ede9fe}
-.belt-Brown{background:#fef3c7}
-.belt-Black{background:#1f2937}
-.belt-Unknown{background:#f0f0ee}
-
 .loading{color:#bbb;font-size:12px;padding:20px 0}
 </style>
 </head>
 <body>
-
 <div class="hdr">
   <div class="hdr-l">
     <span class="hdr-org">North Star Jazz Workshops</span>
@@ -66,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Total Departures</div></div>
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Membership Length</div></div>
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Return Rate</div></div>
-  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">12-Mo Avg Churn Rate</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Monthly Churn</div></div>
 </div>
 
 <div class="row-2">
@@ -79,7 +65,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
     <div id="rate-chart"><div class="loading">Loading...</div></div>
   </div>
 </div>
-
 <div class="row-2b">
   <div class="panel">
     <div class="panel-title">Departures by Month</div>
@@ -90,7 +75,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
     <div id="belt-chart"><div class="loading">Loading...</div></div>
   </div>
 </div>
-
 <div class="row-full">
   <div class="panel">
     <div class="panel-title">Membership Length at Departure</div>
@@ -101,8 +85,122 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxNX3hUfJNitTyT9cy4t1HKAo_iBsDFrN2-0rhAe6g9rCdiucqOegZseTYhXFCzOjjkUg/exec";
 
-// ── CHART HELPERS ────────────────────────────────────────────────────────────
-function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=120) {
+const TEACHERS = {
+  "Group 1":"Joe Hartnett","Group 2":"Joe Hartnett","Group 3":"Joe Hartnett",
+  "Group 4":"Joe Hartnett","Group 7":"Joe Hartnett","Group 8":"Joe Hartnett","Group 14":"Joe Hartnett",
+  "Group 5":"Chris Bates","Group 6":"Chris Bates","Group 9":"Chris Bates",
+  "Group 10":"Chris Bates","Group 11":"Chris Bates","Group 12":"Chris Bates",
+  "Group 15":"Chris Bates","Group 16":"Chris Bates",
+  "Group 17":"Mary Louise Knutson","Group 18":"Jake Baldwin"
+};
+const BELT_ORDER = ["White","Blue","Purple","Brown","Black","Unknown"];
+const BELT_COLORS = {White:"#aaa",Blue:"#579bfc",Purple:"#9d50dd",Brown:"#c78c3c",Black:"#1a1a1a",Unknown:"#ccc"};
+
+// Parse YYYY-MM-DD as UTC date object
+function d(str) {
+  if (!str) return null;
+  const [y,m,day] = str.substring(0,10).split("-").map(Number);
+  return new Date(Date.UTC(y, m-1, day));
+}
+
+// UTC month start/end
+function monthStart(y, m) { return new Date(Date.UTC(y, m, 1)); }
+function monthEnd(y, m)   { return new Date(Date.UTC(y, m+1, 0)); }
+
+function calculate(records) {
+  const now = new Date();
+  const TODAY = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+
+  let totalActive = 0, totalDeparted = 0, totalReturned = 0;
+  const departedLengths = [];
+  const byGroup = {}, byBelt = {}, byMonth = {};
+
+  records.forEach(r => {
+    const join     = d(r.join);
+    const leave    = d(r.leave);
+    const returned = d(r.returned);
+    if (!join) return;
+
+    const isActive   = !leave || leave > TODAY || (returned && returned <= TODAY);
+    const hasChurned = leave && leave <= TODAY && (!returned || returned > TODAY);
+    const hasReturned = leave && returned && returned <= TODAY;
+
+    if (isActive)   totalActive++;
+    if (hasReturned) totalReturned++;
+    if (hasChurned) {
+      totalDeparted++;
+      const months = Math.max(0, Math.round((leave - join) / (1000*60*60*24*30.44)));
+      departedLengths.push(months);
+      byGroup[r.group] = (byGroup[r.group] || 0) + 1;
+      const belt = r.belt || "Unknown";
+      byBelt[belt] = (byBelt[belt] || 0) + 1;
+      const mo = r.leave.substring(0,7);
+      byMonth[mo] = (byMonth[mo] || 0) + 1;
+    }
+  });
+
+  // Monthly churn rate — Jan 2025 to now
+  const months = [];
+  let y = 2025, m = 0; // Jan 2025
+  while (true) {
+    const ms = monthStart(y, m);
+    const me = monthEnd(y, m);
+    if (ms > TODAY) break;
+    const key = ms.toISOString().substring(0,7);
+    const label = ms.toLocaleString("en-US",{month:"short",year:"2-digit",timeZone:"UTC"});
+
+    let activeAtStart = 0, churned = 0;
+    records.forEach(r => {
+      const join     = d(r.join);
+      const leave    = d(r.leave);
+      const returned = d(r.returned);
+      if (!join) return;
+      // Was active at start of this month?
+      const wasActive = join < ms && (
+        !leave || leave >= ms ||
+        (leave < ms && returned && returned < ms)
+      );
+      if (wasActive) activeAtStart++;
+      // Churned this month?
+      const churnedThis = leave && leave >= ms && leave <= me && (!returned || returned > me);
+      if (churnedThis) churned++;
+    });
+
+    const rate = activeAtStart > 0 ? Math.round(churned/activeAtStart*1000)/10 : 0;
+    months.push({key, label, activeAtStart, churned, rate, departures: byMonth[key]||0});
+
+    m++;
+    if (m > 11) { m = 0; y++; }
+  }
+
+  // Average churn rate — only months with actual churn
+  const churnMonths = months.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
+  const avgChurn = churnMonths.length
+    ? Math.round(churnMonths.reduce((s,mo)=>s+mo.rate,0)/churnMonths.length*10)/10 : 0;
+
+  const avgLength = departedLengths.length
+    ? Math.round(departedLengths.reduce((s,l)=>s+l,0)/departedLengths.length*10)/10 : 0;
+
+  const returnRate = (totalDeparted+totalReturned) > 0
+    ? Math.round(totalReturned/(totalDeparted+totalReturned)*1000)/10 : 0;
+
+  const buckets = {"<3 mo":0,"3–6 mo":0,"6–12 mo":0,"1–2 yrs":0,"2+ yrs":0};
+  departedLengths.forEach(l => {
+    if      (l <  3) buckets["<3 mo"]++;
+    else if (l <  6) buckets["3–6 mo"]++;
+    else if (l < 12) buckets["6–12 mo"]++;
+    else if (l < 24) buckets["1–2 yrs"]++;
+    else             buckets["2+ yrs"]++;
+  });
+
+  return {
+    totalActive, totalDeparted, totalReturned,
+    avgLength, returnRate, avgChurn, months, byGroup, byBelt, buckets
+  };
+}
+
+// ── CHARTS ────────────────────────────────────────────────────────────────────
+function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=90) {
   el.innerHTML = data.map(d => `
     <div class="bar-row">
       <div style="width:${lblW}px;flex-shrink:0">
@@ -116,99 +214,108 @@ function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=120)
 
 function beltBar(el, data) {
   const maxV = Math.max(...data.map(d => d.count));
-  const BELT_COLORS = {White:"#aaa",Blue:"#579bfc",Purple:"#9d50dd",Brown:"#c78c3c",Black:"#1a1a1a",Unknown:"#ccc"};
   el.innerHTML = data.map(d => `
     <div class="bar-row">
       <div class="bar-lbl" style="width:70px">${d.belt}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.count/maxV*100)}%;background:${BELT_COLORS[d.belt]||'#ccc'}"></div></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.count/maxV*100)}%;background:${BELT_COLORS[d.belt]||"#ccc"}"></div></div>
       <div class="bar-cnt">${d.count}</div>
     </div>`).join("");
 }
 
 function colChart(el, data) {
-  const W = el.clientWidth || 380, H = 120;
-  const pad = {t:8, b:28, l:8, r:8};
-  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
-  const N = data.length;
-  const maxV = Math.max(...data.map(d => d.departures), 1);
-  const bw = Math.max(4, cw/N - 3);
-  const bars = data.map((d, i) => {
-    const bh = Math.max(1, (d.departures/maxV)*ch);
-    const x = pad.l + i*(cw/N) + (cw/N - bw)/2;
-    const y = pad.t + ch - bh;
-    return `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="#1a1a1a" rx="2">
-      <title>${d.label}: ${d.departures}</title></rect>`;
+  const W = el.clientWidth||380, H=120;
+  const pad={t:8,b:28,l:8,r:8};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  const N=data.length;
+  const maxV=Math.max(...data.map(d=>d.departures),1);
+  const bw=Math.max(4,cw/N-2);
+  const bars=data.map((d,i)=>{
+    const bh=Math.max(1,(d.departures/maxV)*ch);
+    const x=pad.l+i*(cw/N)+(cw/N-bw)/2;
+    const y=pad.t+ch-bh;
+    return `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="#1a1a1a" rx="2"><title>${d.label}: ${d.departures}</title></rect>`;
   }).join("");
-  const lbls = data.map((d, i) => {
-    if (i % 3 !== 0 && i !== N-1) return "";
-    const x = pad.l + i*(cw/N) + (cw/N)/2;
-    return `<text x="${x}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  const lbls=data.map((d,i)=>{
+    if(i%3!==0&&i!==N-1)return"";
+    return`<text x="${pad.l+i*(cw/N)+(cw/N)/2}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
   }).join("");
-  el.innerHTML = `<svg width="${W}" height="${H}" style="overflow:visible">${bars}${lbls}</svg>`;
+  el.innerHTML=`<svg width="${W}" height="${H}" style="overflow:visible">${bars}${lbls}</svg>`;
 }
 
 function lineChart(el, data) {
-  const W = el.clientWidth || 380, H = 130;
-  const pad = {t:8, b:30, l:32, r:8};
-  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
-  const maxV = Math.max(...data.map(d => d.rate), 5);
-  const N = data.length, xs = cw/(N-1);
-  const pt = i => `${pad.l+i*xs},${pad.t+ch-(data[i].rate/maxV)*ch}`;
-  const line = data.map((_,i) => pt(i)).join(" ");
-  const dots = data.map((_,i) => {
-    const [x,y] = pt(i).split(",");
-    return `<circle cx="${x}" cy="${y}" r="${data[i].churned>0?4:2.5}" fill="#df2f4a" stroke="#fff" stroke-width="1.5">
-      <title>${data[i].label}: ${data[i].rate}% (${data[i].churned}/${data[i].activeAtStart})</title>
-    </circle>`;
+  const W=el.clientWidth||380, H=140;
+  const pad={t:10,b:30,l:36,r:8};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  const maxV=Math.max(...data.map(d=>d.rate),1);
+  const N=data.length, xs=cw/(N-1||1);
+  const pt=i=>[pad.l+i*xs, pad.t+ch-(data[i].rate/maxV)*ch];
+  const line=data.map((_,i)=>pt(i).join(",")).join(" ");
+  const dots=data.map((_,i)=>{
+    const [x,y]=pt(i);
+    const r=data[i].churned>0?4:2;
+    return`<circle cx="${x}" cy="${y}" r="${r}" fill="${data[i].churned>0?"#df2f4a":"#ddd"}" stroke="#fff" stroke-width="1.5"><title>${data[i].label}: ${data[i].rate}% (${data[i].churned}/${data[i].activeAtStart})</title></circle>`;
   }).join("");
-  const lbls = data.map((d,i) => {
-    if (i%3!==0 && i!==N-1) return "";
-    return `<text x="${pad.l+i*xs}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
+  const lbls=data.map((d,i)=>{
+    if(i%3!==0&&i!==N-1)return"";
+    return`<text x="${pad.l+i*xs}" y="${H-4}" text-anchor="middle" font-size="9" fill="#bbb">${d.label}</text>`;
   }).join("");
-  const avg = data.reduce((s,d)=>s+d.rate,0)/N;
-  const avgY = pad.t+ch-(avg/maxV)*ch;
-  const ylines = [0,Math.round(maxV/2),maxV].map(v => {
-    const y = pad.t+ch-(v/maxV)*ch;
-    return `<text x="${pad.l-4}" y="${y+3}" text-anchor="end" font-size="9" fill="#ccc">${v}%</text>
-            <line x1="${pad.l}" y1="${y}" x2="${pad.l+cw}" y2="${y}" stroke="#f0f0ee" stroke-width="0.5"/>`;
+  const avg=data.reduce((s,d)=>s+d.rate,0)/N;
+  const avgY=pad.t+ch-(avg/maxV)*ch;
+  const ylines=[0,Math.round(maxV/2),maxV].map(v=>{
+    const y=pad.t+ch-(v/maxV)*ch;
+    return`<text x="${pad.l-4}" y="${y+3}" text-anchor="end" font-size="9" fill="#ccc">${v}%</text>
+           <line x1="${pad.l}" y1="${y}" x2="${pad.l+cw}" y2="${y}" stroke="#f0f0ee" stroke-width="0.5"/>`;
   }).join("");
-  el.innerHTML = `<svg width="${W}" height="${H}" style="overflow:visible">
-    ${ylines}
-    <line x1="${pad.l}" y1="${avgY}" x2="${pad.l+cw}" y2="${avgY}" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
-    <polyline points="${line}" fill="none" stroke="#df2f4a" stroke-width="1.8" stroke-linejoin="round"/>
-    ${dots}${lbls}
-  </svg>`;
+  el.innerHTML=`
+    <div style="display:flex;gap:14px;margin-bottom:8px;font-size:11px;color:#888">
+      <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#df2f4a" stroke-width="2"/></svg>Monthly churn</span>
+      <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="2"><line x1="0" y1="1" x2="14" y2="1" stroke="#ccc" stroke-width="1.5" stroke-dasharray="3,2"/></svg>Avg (${avg.toFixed(1)}%)</span>
+    </div>
+    <svg width="${W}" height="${H}" style="overflow:visible">
+      ${ylines}
+      <line x1="${pad.l}" y1="${avgY}" x2="${pad.l+cw}" y2="${avgY}" stroke="#ddd" stroke-width="1" stroke-dasharray="3,2"/>
+      <polyline points="${line}" fill="none" stroke="#df2f4a" stroke-width="1.8" stroke-linejoin="round"/>
+      ${dots}${lbls}
+    </svg>`;
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
-function render(d) {
-  document.getElementById("kpis").innerHTML = `
-    <div class="kpi"><div class="kpi-n">${d.totalActive}</div><div class="kpi-l">Active Ensemble Members</div></div>
-    <div class="kpi warn"><div class="kpi-n">${d.totalDeparted}</div><div class="kpi-l">Total Departures</div></div>
-    <div class="kpi"><div class="kpi-n">${d.avgLengthMonths} mo</div><div class="kpi-l">Avg Membership Length</div><div class="kpi-s">at time of departure</div></div>
-    <div class="kpi good"><div class="kpi-n">${d.returnRate}%</div><div class="kpi-l">Return Rate</div><div class="kpi-s">${d.totalReturned} students came back</div></div>
-    <div class="kpi ${d.avgChurnRate > 5 ? "warn" : ""}"><div class="kpi-n">${d.avgChurnRate}%</div><div class="kpi-l">12-Mo Avg Churn Rate</div></div>`;
+function render(calc) {
+  document.getElementById("kpis").innerHTML=`
+    <div class="kpi"><div class="kpi-n">${calc.totalActive}</div><div class="kpi-l">Active Ensemble Members</div></div>
+    <div class="kpi warn"><div class="kpi-n">${calc.totalDeparted}</div><div class="kpi-l">Total Departures</div></div>
+    <div class="kpi"><div class="kpi-n">${calc.avgLength} mo</div><div class="kpi-l">Avg Membership Length</div><div class="kpi-s">at time of departure</div></div>
+    <div class="kpi good"><div class="kpi-n">${calc.returnRate}%</div><div class="kpi-l">Return Rate</div><div class="kpi-s">${calc.totalReturned} students came back</div></div>
+    <div class="kpi ${calc.avgChurn>5?"warn":""}"><div class="kpi-n">${calc.avgChurn}%</div><div class="kpi-l">Avg Monthly Churn</div><div class="kpi-s">months with churn only</div></div>`;
 
-  const maxG = Math.max(...d.byGroup.map(g => g.count));
-  barChart(document.getElementById("group-chart"), d.byGroup, "group", "teacher", "count", maxG, "#1a1a1a", 80);
+  const groups = Object.entries(calc.byGroup).sort((a,b)=>b[1]-a[1])
+    .map(([group,count])=>({group,teacher:TEACHERS[group]||"",count}));
+  const maxG = Math.max(...groups.map(g=>g.count));
+  barChart(document.getElementById("group-chart"), groups, "group","teacher","count", maxG);
 
-  lineChart(document.getElementById("rate-chart"), d.churnRate);
-  colChart(document.getElementById("month-chart"), d.churnRate);
-  beltBar(document.getElementById("belt-chart"), d.byBelt);
+  lineChart(document.getElementById("rate-chart"), calc.months);
+  colChart(document.getElementById("month-chart"), calc.months);
 
-  const maxL = Math.max(...d.lengthDistribution.map(b => b.count));
-  barChart(document.getElementById("length-chart"), d.lengthDistribution, "bucket", null, "count", maxL, "#579bfc", 80);
+  const beltData = BELT_ORDER.filter(b=>calc.byBelt[b]).map(b=>({belt:b,count:calc.byBelt[b]}));
+  beltBar(document.getElementById("belt-chart"), beltData);
 
-  document.getElementById("ts").textContent = "Updated " +
-    new Date(d.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+  const lengthData = Object.entries(calc.buckets).map(([bucket,count])=>({bucket,count}));
+  const maxL = Math.max(...lengthData.map(d=>d.count));
+  barChart(document.getElementById("length-chart"), lengthData, "bucket",null,"count",maxL,"#579bfc",80);
 }
 
 // ── LOAD ──────────────────────────────────────────────────────────────────────
 async function load() {
-  document.getElementById("ts").textContent = "Refreshing...";
+  document.getElementById("ts").textContent = "Loading...";
   try {
     const res = await fetch(API_URL + "?type=churn");
-    if (res.ok) render(await res.json());
+    if (!res.ok) throw new Error("fetch failed");
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const calc = calculate(data.records);
+    render(calc);
+    document.getElementById("ts").textContent = "Updated " +
+      new Date(data.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
   } catch(e) {
     document.getElementById("ts").textContent = "Error — " + e.message;
   }
