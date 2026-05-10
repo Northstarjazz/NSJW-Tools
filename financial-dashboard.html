@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Star Jazz — 2026 Financials</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0e0f0c;
+  --bg-2: #161814;
+  --bg-3: #1e2019;
+  --bg-4: #252722;
+  --border: #2e3028;
+  --border-2: #3a3d32;
+  --text: #e8e6df;
+  --text-2: #9a9a8e;
+  --text-3: #5a5a50;
+  --gold: #c8922a;
+  --gold-dim: #7a5518;
+  --gold-bg: #1e1a0e;
+  --teal: #3db88a;
+  --teal-dim: #1e6648;
+  --teal-bg: #0a1812;
+  --blue: #4a9fd4;
+  --blue-dim: #1e5278;
+  --blue-bg: #09141e;
+  --coral: #d4614a;
+  --coral-dim: #7a2e1e;
+  --coral-bg: #1e0e0a;
+  --months: 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec';
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* LOADING */
+#loading {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.5rem; z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+#loading.hidden { opacity: 0; pointer-events: none; }
+
+.loading-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.loading-bar {
+  width: 200px; height: 1px;
+  background: var(--border);
+  position: relative; overflow: hidden;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute; left: -100%; top: 0;
+  width: 100%; height: 100%;
+  background: var(--gold);
+  animation: loadbar 1.2s ease infinite;
+}
+
+@keyframes loadbar {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* LAYOUT */
+.shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.shell.visible { opacity: 1; }
+
+/* HEADER */
+header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.header-left { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.wordmark {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.wordmark span { color: var(--gold); }
+
+.header-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 300;
+}
+
+.header-right { text-align: right; }
+
+.last-updated {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-3);
+  font-weight: 300;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-right: 0.4rem;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ERROR STATE */
+#error-state {
+  display: none;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* KPI STRIP */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.kpi {
+  background: var(--bg-2);
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.kpi.teal::before { background: var(--teal); }
+.kpi.gold::before { background: var(--gold); }
+.kpi.blue::before { background: var(--blue); }
+.kpi.coral::before { background: var(--coral); }
+
+.kpi-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  font-family: 'DM Mono', monospace;
+}
+
+.kpi-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.kpi-sub {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.kpi-sub.pos { color: var(--teal); }
+.kpi-sub.neg { color: var(--coral); }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+
+/* CARD */
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-title::before {
+  content: '';
+  display: block;
+  width: 3px; height: 12px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* CHARTS */
+.chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+canvas { max-width: 100%; }
+
+/* REVENUE PROGRAM BARS */
+.prog-bars { display: flex; flex-direction: column; gap: 1rem; }
+
+.prog-row { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.prog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.prog-name {
+  font-size: 0.78rem;
+  color: var(--text-2);
+  font-weight: 400;
+}
+
+.prog-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 400;
+}
+
+.prog-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-3);
+  margin-left: 0.5rem;
+}
+
+.prog-track {
+  height: 3px;
+  background: var(--bg-4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* MONTHLY TABLE */
+.monthly-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.monthly-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 400;
+  padding: 0.4rem 0.6rem;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+.monthly-table th:first-child { text-align: left; }
+
+.monthly-table td {
+  padding: 0.45rem 0.6rem;
+  text-align: right;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 300;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+}
+
+.monthly-table td:first-child {
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.monthly-table tr:last-child td { border-bottom: none; }
+
+.monthly-table .total-row td {
+  font-weight: 500;
+  color: var(--text);
+  border-top: 1px solid var(--border-2);
+  border-bottom: none;
+  padding-top: 0.6rem;
+}
+
+.monthly-table .sub-row td {
+  color: var(--text-3);
+  font-size: 0.72rem;
+}
+
+.monthly-table .sub-row td:first-child {
+  padding-left: 1.2rem;
+  font-style: italic;
+}
+
+.monthly-table .pos { color: var(--teal) !important; }
+.monthly-table .neg { color: var(--coral) !important; }
+.monthly-table .ytd { color: var(--text) !important; font-weight: 500; }
+.monthly-table .blank { color: var(--text-3) !important; }
+
+/* EXPENSE BARS */
+.expense-list { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.expense-item { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.expense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.expense-name {
+  font-size: 0.78rem;
+  color: var(--text-2);
+}
+
+.expense-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.expense-track {
+  height: 2px;
+  background: var(--bg-4);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.expense-fill {
+  height: 100%;
+  background: var(--border-2);
+  border-radius: 1px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* CONTRACTOR TABLE */
+.contractor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.contractor-section-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.contractor-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.contractor-row:last-child { border-bottom: none; }
+
+.contractor-name {
+  font-size: 0.8rem;
+  color: var(--text-2);
+}
+
+.contractor-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text);
+  font-weight: 300;
+}
+
+/* ENROLLMENT */
+.enroll-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.enroll-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.enroll-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.enroll-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-family: 'DM Mono', monospace;
+}
+
+/* NET INCOME TABLE */
+.net-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.net-month {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-3);
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.net-bar-track {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-4);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.net-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.net-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* NOTES */
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.note-item {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-2);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* SECTION DIVIDER */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.section-divider-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* FOOTER */
+footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-note {
+  font-size: 0.68rem;
+  color: var(--text-3);
+  font-style: italic;
+}
+
+.footer-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.footer-brand span { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .span-2, .span-3 { grid-column: span 1; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .contractor-grid { grid-template-columns: 1fr; }
+  .enroll-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="loading-logo">North Star Jazz ★</div>
+  <div class="loading-bar"></div>
+</div>
+
+<div class="shell" id="shell">
+  <header>
+    <div class="header-left">
+      <div class="wordmark">North Star Jazz <span>★</span></div>
+      <div class="header-sub">2026 Financial Dashboard</div>
+    </div>
+    <div class="header-right">
+      <div class="last-updated">
+        <span class="status-dot"></span>
+        <span id="last-updated-text">Loading...</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="error-state">
+    <p>Could not load spreadsheet data.</p>
+    <p>Make sure the Google Sheet is shared as "Anyone with the link can view."</p>
+  </div>
+
+  <div id="dashboard-content">
+    <!-- KPI STRIP -->
+    <div class="kpi-strip">
+      <div class="kpi teal">
+        <div class="kpi-label">Total Revenue YTD</div>
+        <div class="kpi-value" id="kpi-revenue">—</div>
+        <div class="kpi-sub" id="kpi-revenue-sub">—</div>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">Total Expenses YTD</div>
+        <div class="kpi-value" id="kpi-expenses">—</div>
+        <div class="kpi-sub" id="kpi-expenses-sub">—</div>
+      </div>
+      <div class="kpi blue">
+        <div class="kpi-label">Net Income YTD</div>
+        <div class="kpi-value" id="kpi-net">—</div>
+        <div class="kpi-sub" id="kpi-net-sub">—</div>
+      </div>
+      <div class="kpi coral">
+        <div class="kpi-label">Active Students</div>
+        <div class="kpi-value" id="kpi-students">—</div>
+        <div class="kpi-sub" id="kpi-students-sub">—</div>
+      </div>
+    </div>
+
+    <!-- ROW 1: Revenue chart + Program breakdown -->
+    <div class="section-divider">
+      <div class="section-divider-label">Revenue</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Monthly Revenue — Actual vs Forecast</div>
+        <div class="chart-wrap" style="height:220px">
+          <canvas id="chart-revenue"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Revenue by Program (YTD)</div>
+        <div class="prog-bars" id="prog-bars"></div>
+      </div>
+    </div>
+
+    <!-- Revenue detail table -->
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-title">Revenue Detail by Month</div>
+      <div style="overflow-x:auto">
+        <table class="monthly-table" id="revenue-table"></table>
+      </div>
+    </div>
+
+    <!-- ROW 2: Expenses -->
+    <div class="section-divider">
+      <div class="section-divider-label">Expenses</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Expenses by Category (YTD)</div>
+        <div class="expense-list" id="expense-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Monthly Expenses — Actual vs Forecast</div>
+        <div class="chart-wrap" style="height:220px">
+          <canvas id="chart-expenses"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-title">Expense Detail by Month</div>
+      <div style="overflow-x:auto">
+        <table class="monthly-table" id="expense-table"></table>
+      </div>
+    </div>
+
+    <!-- ROW 3: Net Income -->
+    <div class="section-divider">
+      <div class="section-divider-label">Net Income</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Net Income by Month</div>
+        <div id="net-income-bars"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Net Income — Actual vs Forecast</div>
+        <div class="chart-wrap" style="height:220px">
+          <canvas id="chart-net"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 4: Enrollment + Contractors -->
+    <div class="section-divider">
+      <div class="section-divider-label">Enrollment & Contractors</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Enrollment</div>
+        <div class="enroll-grid" id="enroll-stats"></div>
+        <div class="chart-wrap" style="height:140px">
+          <canvas id="chart-enrollment"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Contract Labor Detail (YTD)</div>
+        <div class="contractor-grid" id="contractor-grid"></div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="card" style="margin-bottom:2rem">
+      <div class="card-title">Notes</div>
+      <div class="notes-list" id="notes-list"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-note">Data source: Google Sheets · Updated automatically on load</div>
+    <div class="footer-brand">North Star Jazz <span>★</span></div>
+  </footer>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────
+const SHEET_ID = '1oQL7OECujlDEERR2kF2XU0IEfPGEQTq3xlksGMwfhoI';
+const SHEET_GID = '348338995';
+const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────
+function fmt(n) {
+  if (n === null || n === undefined || n === '') return '—';
+  const abs = Math.abs(n);
+  const str = abs >= 1000 ? '$' + Math.round(abs).toLocaleString() : '$' + Math.round(abs);
+  return n < 0 ? '(' + str + ')' : str;
+}
+
+function fmtK(n) {
+  if (!n) return '—';
+  const abs = Math.abs(n);
+  const str = abs >= 1000 ? '$' + (abs/1000).toFixed(0) + 'K' : '$' + abs;
+  return n < 0 ? '(' + str + ')' : str;
+}
+
+function parseMoney(s) {
+  if (!s || s.trim() === '' || s.trim() === '—') return null;
+  const clean = String(s).replace(/[$,\s]/g, '').replace(/\(([^)]+)\)/, '-$1');
+  const n = parseFloat(clean);
+  return isNaN(n) ? null : n;
+}
+
+function parseCSV(text) {
+  const rows = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur.trim());
+    rows.push(cols);
+  }
+  return rows;
+}
+
+// ── CHART DEFAULTS ─────────────────────────────────────────────────────────
+Chart.defaults.color = '#5a5a50';
+Chart.defaults.font.family = "'DM Mono', monospace";
+Chart.defaults.font.size = 10;
+
+const CHART_OPTS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: true, position: 'bottom', labels: { boxWidth: 8, padding: 12, color: '#5a5a50' } },
+    tooltip: {
+      backgroundColor: '#1e2019',
+      borderColor: '#2e3028',
+      borderWidth: 1,
+      titleColor: '#e8e6df',
+      bodyColor: '#9a9a8e',
+      callbacks: { label: ctx => ' ' + fmt(ctx.raw) }
+    }
+  },
+  scales: {
+    x: { grid: { color: '#1e2019' }, ticks: { color: '#5a5a50' } },
+    y: { grid: { color: '#1e2019' }, ticks: { color: '#5a5a50', callback: v => fmtK(v) } }
+  }
+};
+
+// ── MAIN ──────────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch(CSV_URL);
+    if (!res.ok) throw new Error('Fetch failed');
+    const text = await res.text();
+    const rows = parseCSV(text);
+    processData(rows);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('error-state').style.display = 'block';
+    document.getElementById('dashboard-content').style.display = 'none';
+    hideSplash();
+  }
+}
+
+function findRow(rows, keyword) {
+  return rows.find(r => r[0] && r[0].trim().toLowerCase().startsWith(keyword.toLowerCase()));
+}
+
+function findRows(rows, keywords) {
+  return keywords.map(k => findRow(rows, k)).filter(Boolean);
+}
+
+function getMonthlyValues(row, startCol = 1) {
+  // Returns up to 12 monthly values
+  const vals = [];
+  for (let i = startCol; i < startCol + 12; i++) {
+    vals.push(parseMoney(row[i]));
+  }
+  return vals;
+}
+
+function processData(rows) {
+  // Find the data column start — look for a row where col[1] = "Jan" or similar
+  // Our sheet has label in col A, then data starts col B (index 1)
+  // The header rows have "Jan" in col B (index 1)
+  
+  const colStart = 1; // Data starts at column index 1 (B)
+
+  // -- Find key rows --
+  const enrollEnsemble = findRow(rows, 'Ensemble Students');
+  const enrollCourse = findRow(rows, 'Course Students');
+  const enrollPL = findRow(rows, 'Private Lesson Students');
+  const enrollTotal = findRow(rows, 'Total Students');
+
+  const revEnsemble = findRow(rows, 'Ensemble Revenue') && !findRow(rows, 'Ensemble Revenue').join('').includes('Forecast')
+    ? rows.find(r => r[0] && r[0].trim() === 'Ensemble Revenue') : null;
+  const revEnsembleRow = rows.find(r => r[0] && r[0].trim() === 'Ensemble Revenue');
+  const revCourseRow = rows.find(r => r[0] && r[0].trim() === 'Course Revenue (recognized)');
+  const revDeferredRow = rows.find(r => r[0] && r[0].trim().toLowerCase().includes('deferred'));
+  const revPLRow = rows.find(r => r[0] && r[0].trim() === 'Private Lesson Revenue');
+  const revWorkshopRow = rows.find(r => r[0] && r[0].trim() === 'Workshop Revenue');
+  const revTotalRow = rows.find(r => r[0] && r[0].trim() === 'Total Revenue');
+  const revForecastRow = rows.find(r => r[0] && r[0].trim() === 'Total Revenue Forecast');
+
+  const expMarketingRow = rows.find(r => r[0] && r[0].trim() === 'Marketing');
+  const expClassRow = rows.find(r => r[0] && r[0].trim() === 'Class/Ensemble Instructor Pay');
+  const expPLRow = rows.find(r => r[0] && r[0].trim() === 'Private Instructor Pay');
+  const expSalRow = rows.find(r => r[0] && r[0].trim() === 'Salaries (Founders)');
+  const expRentRow = rows.find(r => r[0] && r[0].trim() === 'Rent');
+  const expSWRow = rows.find(r => r[0] && r[0].trim() === 'Software & Misc');
+  const expTaxRow = rows.find(r => r[0] && r[0].trim() === 'Taxes');
+  const expTotalRow = rows.find(r => r[0] && r[0].trim() === 'Total Expenses');
+  const expForecastRow = rows.find(r => r[0] && r[0].trim() === 'Total Expenses Forecast');
+
+  const netActualRow = rows.find(r => r[0] && r[0].trim() === 'Net Income Actual');
+  const netForecastRow = rows.find(r => r[0] && r[0].trim() === 'Net Income Forecast');
+
+  const notesStartIdx = rows.findIndex(r => r[0] && r[0].trim() === 'NOTES');
+
+  // Contractor rows
+  const contractors = [
+    { name: 'Pete James Johnson', type: 'Private', row: rows.find(r => r[0] && r[0].trim().startsWith('Pete James')) },
+    { name: 'Joe Hartnett', type: 'Private', row: rows.find(r => r[0] && r[0].trim().startsWith('Joe Hartnett')) },
+    { name: 'Anya Menk', type: 'Private', row: rows.find(r => r[0] && r[0].trim().startsWith('Anya Menk')) },
+    { name: 'Ian Duerr', type: 'Private', row: rows.find(r => r[0] && r[0].trim().startsWith('Ian Duerr')) },
+    { name: 'Mac Santiago', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Mac Santiago')) },
+    { name: 'Chris Graham', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Chris Graham')) },
+    { name: 'Tommy Boynton', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Tommy Boynton')) },
+    { name: 'Jake Baldwin', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Jake Baldwin')) },
+    { name: 'Mary Louise Knutson', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Mary Louise')) },
+    { name: 'Chris Bates', type: 'Class', row: rows.find(r => r[0] && r[0].trim().startsWith('Chris Bates')) },
+    { name: 'Benny Moreno', type: 'Photo', row: rows.find(r => r[0] && r[0].trim().startsWith('Benny Moreno')) },
+  ];
+
+  // Helper: get YTD (last non-null value in col 14 or sum of actuals)
+  function ytd(row) {
+    if (!row) return 0;
+    const v = parseMoney(row[14]);
+    if (v !== null) return v;
+    // Sum columns 1-12
+    let sum = 0;
+    for (let i = 1; i <= 12; i++) {
+      const n = parseMoney(row[i]);
+      if (n !== null) sum += n;
+    }
+    return sum;
+  }
+
+  function monthVals(row) {
+    if (!row) return new Array(12).fill(null);
+    return MONTHS.map((_, i) => parseMoney(row[i + 1]));
+  }
+
+  // Determine active months (non-null in total revenue)
+  const revTotalVals = monthVals(revTotalRow);
+  const activeMonths = MONTHS.filter((_, i) => revTotalVals[i] !== null);
+
+  // Last updated
+  document.getElementById('last-updated-text').textContent = 
+    'Live · ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  // ── KPIs ────────────────────────────────────────────────────────────────
+  const totalRevYTD = ytd(revTotalRow);
+  const totalExpYTD = ytd(expTotalRow);
+  const totalNetYTD = ytd(netActualRow);
+  const totalStudents = enrollTotal ? parseMoney(enrollTotal[1]) || parseMoney(enrollTotal[5]) : null;
+
+  // Get latest month's student count
+  const latestStudents = (() => {
+    if (!enrollTotal) return null;
+    for (let i = 5; i >= 1; i--) {
+      const v = parseMoney(enrollTotal[i]);
+      if (v !== null) return v;
+    }
+    return null;
+  })();
+
+  document.getElementById('kpi-revenue').textContent = fmtK(totalRevYTD);
+  document.getElementById('kpi-revenue-sub').textContent = activeMonths.length + ' months reported';
+
+  document.getElementById('kpi-expenses').textContent = fmtK(totalExpYTD);
+  document.getElementById('kpi-expenses-sub').textContent = 'incl. $10.5K taxes (Mar)';
+  document.getElementById('kpi-expenses-sub').className = 'kpi-sub neg';
+
+  document.getElementById('kpi-net').textContent = fmtK(totalNetYTD);
+  const margin = totalRevYTD ? Math.round(totalNetYTD / totalRevYTD * 100) : 0;
+  document.getElementById('kpi-net-sub').textContent = margin + '% margin';
+  document.getElementById('kpi-net-sub').className = 'kpi-sub ' + (totalNetYTD >= 0 ? 'pos' : 'neg');
+
+  document.getElementById('kpi-students').textContent = latestStudents || '—';
+  const ensLast = enrollEnsemble ? (parseMoney(enrollEnsemble[5]) || 0) : 0;
+  const crsLast = enrollCourse ? (parseMoney(enrollCourse[5]) || 0) : 0;
+  const plLast = enrollPL ? (parseMoney(enrollPL[5]) || 0) : 0;
+  document.getElementById('kpi-students-sub').textContent = 
+    ensLast + ' ensemble · ' + crsLast + ' courses · ' + plLast + ' PL';
+
+  // ── REVENUE CHART ────────────────────────────────────────────────────────
+  const revActualVals = monthVals(revTotalRow);
+  const revForecastVals = monthVals(revForecastRow);
+
+  new Chart(document.getElementById('chart-revenue'), {
+    type: 'bar',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        {
+          label: 'Actual',
+          data: revActualVals,
+          backgroundColor: 'rgba(61, 184, 138, 0.7)',
+          borderColor: '#3db88a',
+          borderWidth: 1,
+          borderRadius: 2,
+        },
+        {
+          label: 'Forecast',
+          data: revForecastVals,
+          type: 'line',
+          borderColor: '#c8922a',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          pointRadius: 3,
+          pointBackgroundColor: '#c8922a',
+          fill: false,
+        }
+      ]
+    },
+    options: { ...CHART_OPTS }
+  });
+
+  // ── PROGRAM BARS ──────────────────────────────────────────────────────────
+  const progData = [
+    { name: 'Ensembles', ytd: ytd(revEnsembleRow), color: '#3db88a' },
+    { name: 'Courses', ytd: ytd(revCourseRow), color: '#c8922a' },
+    { name: 'Private Lessons', ytd: ytd(revPLRow), color: '#4a9fd4' },
+    { name: 'Workshops', ytd: ytd(revWorkshopRow), color: '#d4614a' },
+  ].filter(p => p.ytd > 0);
+
+  const maxProg = Math.max(...progData.map(p => p.ytd));
+  const container = document.getElementById('prog-bars');
+  progData.forEach(p => {
+    const pct = Math.round(p.ytd / totalRevYTD * 100);
+    container.innerHTML += `
+      <div class="prog-row">
+        <div class="prog-header">
+          <span class="prog-name">${p.name}</span>
+          <span class="prog-amount">${fmt(p.ytd)}<span class="prog-pct">${pct}%</span></span>
+        </div>
+        <div class="prog-track">
+          <div class="prog-fill" style="width:${p.ytd/maxProg*100}%; background:${p.color}"></div>
+        </div>
+      </div>`;
+  });
+
+  // ── REVENUE TABLE ─────────────────────────────────────────────────────────
+  buildTable('revenue-table', [
+    { row: revEnsembleRow, label: 'Ensemble Revenue', cls: '' },
+    { row: revCourseRow, label: 'Course Revenue', cls: '' },
+    { row: revDeferredRow, label: '↳ deferred', cls: 'sub-row' },
+    { row: revPLRow, label: 'Private Lesson Revenue', cls: '' },
+    { row: revWorkshopRow, label: 'Workshop Revenue', cls: '' },
+    { row: revTotalRow, label: 'Total Revenue', cls: 'total-row' },
+  ]);
+
+  // ── EXPENSE LIST ──────────────────────────────────────────────────────────
+  const expData = [
+    { name: 'Salaries (Founders)', row: expSalRow },
+    { name: 'Class/Ensemble Instructor Pay', row: expClassRow },
+    { name: 'Private Instructor Pay', row: expPLRow },
+    { name: 'Rent', row: expRentRow },
+    { name: 'Taxes', row: expTaxRow },
+    { name: 'Marketing', row: expMarketingRow },
+    { name: 'Software & Misc', row: expSWRow },
+  ];
+
+  const maxExp = Math.max(...expData.map(e => ytd(e.row)));
+  const expContainer = document.getElementById('expense-list');
+  expData.forEach(e => {
+    const v = ytd(e.row);
+    expContainer.innerHTML += `
+      <div class="expense-item">
+        <div class="expense-header">
+          <span class="expense-name">${e.name}</span>
+          <span class="expense-amount">${fmt(v)}</span>
+        </div>
+        <div class="expense-track">
+          <div class="expense-fill" style="width:${v/maxExp*100}%"></div>
+        </div>
+      </div>`;
+  });
+
+  // ── EXPENSES CHART ────────────────────────────────────────────────────────
+  const expActualVals = monthVals(expTotalRow);
+  const expForecastVals = monthVals(expForecastRow);
+
+  new Chart(document.getElementById('chart-expenses'), {
+    type: 'bar',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        {
+          label: 'Actual',
+          data: expActualVals,
+          backgroundColor: 'rgba(212, 97, 74, 0.7)',
+          borderColor: '#d4614a',
+          borderWidth: 1,
+          borderRadius: 2,
+        },
+        {
+          label: 'Forecast',
+          data: expForecastVals,
+          type: 'line',
+          borderColor: '#c8922a',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          pointRadius: 3,
+          pointBackgroundColor: '#c8922a',
+          fill: false,
+        }
+      ]
+    },
+    options: { ...CHART_OPTS }
+  });
+
+  // ── EXPENSE TABLE ─────────────────────────────────────────────────────────
+  buildTable('expense-table', [
+    { row: expMarketingRow, label: 'Marketing', cls: '' },
+    { row: expClassRow, label: 'Class/Ensemble Instructor Pay', cls: '' },
+    { row: expPLRow, label: 'Private Instructor Pay', cls: '' },
+    { row: expSalRow, label: 'Salaries (Founders)', cls: '' },
+    { row: expRentRow, label: 'Rent', cls: '' },
+    { row: expSWRow, label: 'Software & Misc', cls: '' },
+    { row: expTaxRow, label: 'Taxes', cls: '' },
+    { row: expTotalRow, label: 'Total Expenses', cls: 'total-row' },
+  ]);
+
+  // ── NET INCOME BARS ────────────────────────────────────────────────────────
+  const netVals = monthVals(netActualRow);
+  const maxNetAbs = Math.max(...netVals.filter(v => v !== null).map(v => Math.abs(v)));
+  const netContainer = document.getElementById('net-income-bars');
+
+  MONTHS.forEach((m, i) => {
+    const v = netVals[i];
+    if (v === null) return;
+    const pct = Math.abs(v) / maxNetAbs * 100;
+    const isPos = v >= 0;
+    netContainer.innerHTML += `
+      <div class="net-row">
+        <div class="net-month">${m}</div>
+        <div class="net-bar-track">
+          <div class="net-bar-fill" style="width:${pct}%; background:${isPos ? '#3db88a' : '#d4614a'}"></div>
+        </div>
+        <div class="net-amount ${isPos ? 'pos' : 'neg'}" style="color:${isPos ? '#3db88a' : '#d4614a'}">${fmt(v)}</div>
+      </div>`;
+  });
+
+  // ── NET INCOME CHART ──────────────────────────────────────────────────────
+  const netActualVals = monthVals(netActualRow);
+  const netForecastVals = monthVals(netForecastRow);
+
+  new Chart(document.getElementById('chart-net'), {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        {
+          label: 'Actual',
+          data: netActualVals,
+          borderColor: '#3db88a',
+          backgroundColor: 'rgba(61, 184, 138, 0.1)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#3db88a',
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: 'Forecast',
+          data: netForecastVals,
+          borderColor: '#c8922a',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          pointRadius: 3,
+          pointBackgroundColor: '#c8922a',
+          fill: false,
+          tension: 0.3,
+        }
+      ]
+    },
+    options: { ...CHART_OPTS }
+  });
+
+  // ── ENROLLMENT ────────────────────────────────────────────────────────────
+  const enrollStats = document.getElementById('enroll-stats');
+  const enrData = [
+    { label: 'Ensemble', row: enrollEnsemble, color: '#3db88a' },
+    { label: 'Courses', row: enrollCourse, color: '#c8922a' },
+    { label: 'Private Lessons', row: enrollPL, color: '#4a9fd4' },
+  ];
+
+  enrData.forEach(e => {
+    const latest = (() => {
+      if (!e.row) return null;
+      for (let i = 5; i >= 1; i--) {
+        const v = parseMoney(e.row[i]);
+        if (v !== null) return v;
+      }
+      return null;
+    })();
+
+    enrollStats.innerHTML += `
+      <div class="enroll-stat">
+        <div class="enroll-num" style="color:${e.color}">${latest || '—'}</div>
+        <div class="enroll-label">${e.label}</div>
+      </div>`;
+  });
+
+  // Enrollment trend chart
+  const ensVals = monthVals(enrollEnsemble);
+  const crsVals = monthVals(enrollCourse);
+  const plVals = monthVals(enrollPL);
+
+  new Chart(document.getElementById('chart-enrollment'), {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        { label: 'Ensemble', data: ensVals, borderColor: '#3db88a', borderWidth: 1.5, pointRadius: 2, fill: false, tension: 0.3 },
+        { label: 'Courses', data: crsVals, borderColor: '#c8922a', borderWidth: 1.5, pointRadius: 2, fill: false, tension: 0.3 },
+        { label: 'Private Lessons', data: plVals, borderColor: '#4a9fd4', borderWidth: 1.5, pointRadius: 2, fill: false, tension: 0.3 },
+      ]
+    },
+    options: { ...CHART_OPTS, scales: { ...CHART_OPTS.scales, y: { ...CHART_OPTS.scales.y, ticks: { color: '#5a5a50', callback: v => v } } } }
+  });
+
+  // ── CONTRACTORS ───────────────────────────────────────────────────────────
+  const cgrid = document.getElementById('contractor-grid');
+  const privates = contractors.filter(c => c.type === 'Private');
+  const classes = contractors.filter(c => c.type !== 'Private');
+
+  let privHTML = '<div class="contractor-section-title">Private Lessons</div>';
+  privates.forEach(c => {
+    if (!c.row) return;
+    const v = ytd(c.row);
+    if (!v) return;
+    privHTML += `<div class="contractor-row"><span class="contractor-name">${c.name}</span><span class="contractor-amount">${fmt(v)}</span></div>`;
+  });
+
+  let classHTML = '<div class="contractor-section-title">Class / Ensemble / Other</div>';
+  classes.forEach(c => {
+    if (!c.row) return;
+    const v = ytd(c.row);
+    if (!v) return;
+    classHTML += `<div class="contractor-row"><span class="contractor-name">${c.name}</span><span class="contractor-amount">${fmt(v)}</span></div>`;
+  });
+
+  cgrid.innerHTML = `<div>${privHTML}</div><div>${classHTML}</div>`;
+
+  // ── NOTES ──────────────────────────────────────────────────────────────────
+  const notesList = document.getElementById('notes-list');
+  if (notesStartIdx >= 0) {
+    for (let i = notesStartIdx + 1; i < rows.length; i++) {
+      const note = rows[i][0] && rows[i][0].trim();
+      if (note && note.length > 5) {
+        notesList.innerHTML += `<div class="note-item">${note}</div>`;
+      }
+    }
+  }
+
+  hideSplash();
+}
+
+// ── TABLE BUILDER ──────────────────────────────────────────────────────────
+function buildTable(id, rowDefs) {
+  const table = document.getElementById(id);
+
+  // Header
+  let html = '<thead><tr><th></th>';
+  MONTHS.forEach(m => { html += `<th>${m}</th>`; });
+  html += '<th style="color:var(--text)">YTD</th></tr></thead><tbody>';
+
+  rowDefs.forEach(def => {
+    if (!def.row) return;
+    html += `<tr class="${def.cls}"><td>${def.label}</td>`;
+    const vals = MONTHS.map((_, i) => parseMoney(def.row[i + 1]));
+    const ytdVal = parseMoney(def.row[14]) || vals.reduce((a, b) => (a || 0) + (b || 0), 0);
+
+    vals.forEach(v => {
+      if (v === null) {
+        html += `<td class="blank">—</td>`;
+      } else {
+        const cls = def.label.toLowerCase().includes('variance') ? (v >= 0 ? 'pos' : 'neg') : '';
+        html += `<td class="${cls}">${fmt(v)}</td>`;
+      }
+    });
+
+    const ytdCls = def.label.toLowerCase().includes('variance') ? (ytdVal >= 0 ? 'pos' : 'neg') : 'ytd';
+    html += `<td class="${ytdCls}">${fmt(ytdVal)}</td>`;
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  table.innerHTML = html;
+}
+
+function hideSplash() {
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('shell').classList.add('visible');
+}
+
+loadData();
+</script>
+</body>
+</html>
