@@ -27,6 +27,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .year-stats{display:flex;gap:20px}
 .year-stat .yn{font-size:22px;font-weight:500;letter-spacing:-.5px}
 .year-stat .yl{font-size:11px;color:#888;margin-top:2px}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
 .row-2b{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
 .row-full{padding:0 20px 20px}
 .panel{background:#fff;border-radius:10px;padding:16px;border:.5px solid #e8e8e6}
@@ -55,12 +56,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <div class="kpi-row" id="kpis">
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Active Ensemble Members</div></div>
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Total Departures</div></div>
-  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Membership Length</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Active Member Tenure</div></div>
+  <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Tenure at Departure</div></div>
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Return Rate</div></div>
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Monthly Churn</div></div>
 </div>
 
 <div class="year-row" id="year-row"></div>
+
 <div class="row-2">
   <div class="panel">
     <div class="panel-title">Churn by Group &amp; Teacher</div>
@@ -102,14 +105,11 @@ const TEACHERS = {
 const BELT_ORDER = ["White","Blue","Purple","Brown","Black","Unknown"];
 const BELT_COLORS = {White:"#aaa",Blue:"#579bfc",Purple:"#9d50dd",Brown:"#c78c3c",Black:"#1a1a1a",Unknown:"#ccc"};
 
-// Parse YYYY-MM-DD as UTC date object
 function d(str) {
   if (!str) return null;
   const [y,m,day] = str.substring(0,10).split("-").map(Number);
   return new Date(Date.UTC(y, m-1, day));
 }
-
-// UTC month start/end
 function monthStart(y, m) { return new Date(Date.UTC(y, m, 1)); }
 function monthEnd(y, m)   { return new Date(Date.UTC(y, m+1, 0)); }
 
@@ -117,9 +117,9 @@ function calculate(records) {
   const now = new Date();
   const TODAY = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
 
-  let totalActive = 0, totalDeparted = 0, totalReturned = 0;
-  const departedLengths = [], activeLengths = [];
-  const byGroup = {}, byBelt = {}, byMonth = {};
+  let totalActive=0, totalDeparted=0, totalReturned=0;
+  const departedLengths=[], activeLengths=[];
+  const byGroup={}, byBelt={}, byMonth={};
 
   records.forEach(r => {
     const join     = d(r.join);
@@ -127,108 +127,84 @@ function calculate(records) {
     const returned = d(r.returned);
     if (!join) return;
 
-    const isActive   = !leave || leave > TODAY || (returned && returned <= TODAY);
-    const hasChurned = leave && leave <= TODAY && (!returned || returned > TODAY);
+    const isActive    = !leave || leave > TODAY || (returned && returned <= TODAY);
+    const hasChurned  = leave && leave <= TODAY && (!returned || returned > TODAY);
     const hasReturned = leave && returned && returned <= TODAY;
 
     if (isActive) {
       totalActive++;
-      const months = Math.round((TODAY - join) / (1000*60*60*24*30.44));
-      activeLengths.push(months);
+      activeLengths.push(Math.round((TODAY - join) / (1000*60*60*24*30.44)));
     }
     if (hasReturned) totalReturned++;
     if (hasChurned) {
       totalDeparted++;
-      const months = Math.max(0, Math.round((leave - join) / (1000*60*60*24*30.44)));
-      departedLengths.push(months);
-      byGroup[r.group] = (byGroup[r.group] || 0) + 1;
-      const belt = r.belt || "Unknown";
-      byBelt[belt] = (byBelt[belt] || 0) + 1;
-      const mo = r.leave.substring(0,7);
-      byMonth[mo] = (byMonth[mo] || 0) + 1;
+      departedLengths.push(Math.max(0, Math.round((leave - join) / (1000*60*60*24*30.44))));
+      byGroup[r.group] = (byGroup[r.group]||0) + 1;
+      byBelt[r.belt||"Unknown"] = (byBelt[r.belt||"Unknown"]||0) + 1;
+      byMonth[r.leave.substring(0,7)] = (byMonth[r.leave.substring(0,7)]||0) + 1;
     }
   });
 
-  // Monthly churn rate — Jan 2025 to now
+  // Monthly churn rate Jan 2025 → now
   const months = [];
-  let y = 2025, m = 0; // Jan 2025
+  let y=2025, m=0;
   while (true) {
-    const ms = monthStart(y, m);
-    const me = monthEnd(y, m);
+    const ms=monthStart(y,m), me=monthEnd(y,m);
     if (ms > TODAY) break;
-    const key = ms.toISOString().substring(0,7);
-    const label = ms.toLocaleString("en-US",{month:"short",year:"2-digit",timeZone:"UTC"});
-
-    let activeAtStart = 0, churned = 0;
+    const key=ms.toISOString().substring(0,7);
+    const label=ms.toLocaleString("en-US",{month:"short",year:"2-digit",timeZone:"UTC"});
+    let activeAtStart=0, churned=0;
     records.forEach(r => {
-      const join     = d(r.join);
-      const leave    = d(r.leave);
-      const returned = d(r.returned);
+      const join=d(r.join), leave=d(r.leave), returned=d(r.returned);
       if (!join) return;
-      // Was active at start of this month?
-      const wasActive = join < ms && (
-        !leave || leave >= ms ||
-        (leave < ms && returned && returned < ms)
-      );
-      if (wasActive) activeAtStart++;
-      // Churned this month?
-      const churnedThis = leave && leave >= ms && leave <= me && (!returned || returned > me);
-      if (churnedThis) churned++;
+      if (join < ms && (!leave || leave >= ms || (leave < ms && returned && returned < ms))) activeAtStart++;
+      if (leave && leave >= ms && leave <= me && (!returned || returned > me)) churned++;
     });
-
-    const rate = activeAtStart > 0 ? Math.round(churned/activeAtStart*1000)/10 : 0;
-    months.push({key, label, activeAtStart, churned, rate, departures: byMonth[key]||0});
-
-    m++;
-    if (m > 11) { m = 0; y++; }
+    months.push({key, label, activeAtStart, churned,
+      rate: activeAtStart>0 ? Math.round(churned/activeAtStart*1000)/10 : 0,
+      departures: byMonth[key]||0});
+    m++; if (m>11){m=0;y++;}
   }
 
-  // Average churn rate — only months with actual churn
-  const churnMonths = months.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
-  const avgChurn = churnMonths.length
-    ? Math.round(churnMonths.reduce((s,mo)=>s+mo.rate,0)/churnMonths.length*10)/10 : 0;
+  const churnMonths = months.filter(mo=>mo.churned>0&&mo.activeAtStart>0);
+  const avgChurn = churnMonths.length ? Math.round(churnMonths.reduce((s,mo)=>s+mo.rate,0)/churnMonths.length*10)/10 : 0;
+  const avgLength = departedLengths.length ? Math.round(departedLengths.reduce((s,l)=>s+l,0)/departedLengths.length*10)/10 : 0;
+  const avgActiveTenure = activeLengths.length ? Math.round(activeLengths.reduce((s,l)=>s+l,0)/activeLengths.length*10)/10 : 0;
+  const returnRate = (totalDeparted+totalReturned)>0 ? Math.round(totalReturned/(totalDeparted+totalReturned)*1000)/10 : 0;
 
-  const avgLength = departedLengths.length
-    ? Math.round(departedLengths.reduce((s,l)=>s+l,0)/departedLengths.length*10)/10 : 0;
-
-  const avgActiveTenure = activeLengths.length
-    ? Math.round(activeLengths.reduce((s,l)=>s+l,0)/activeLengths.length*10)/10 : 0;
-
-  const returnRate = (totalDeparted+totalReturned) > 0
-    ? Math.round(totalReturned/(totalDeparted+totalReturned)*1000)/10 : 0;
-
-  const buckets = {"<3 mo":0,"3–6 mo":0,"6–12 mo":0,"1–2 yrs":0,"2+ yrs":0};
-  departedLengths.forEach(l => {
-    if      (l <  3) buckets["<3 mo"]++;
-    else if (l <  6) buckets["3–6 mo"]++;
-    else if (l < 12) buckets["6–12 mo"]++;
-    else if (l < 24) buckets["1–2 yrs"]++;
-    else             buckets["2+ yrs"]++;
+  const buckets={"<3 mo":0,"3–6 mo":0,"6–12 mo":0,"1–2 yrs":0,"2+ yrs":0};
+  departedLengths.forEach(l=>{
+    if(l<3)buckets["<3 mo"]++;
+    else if(l<6)buckets["3–6 mo"]++;
+    else if(l<12)buckets["6–12 mo"]++;
+    else if(l<24)buckets["1–2 yrs"]++;
+    else buckets["2+ yrs"]++;
   });
 
   // Year breakdowns
-  const months2025 = months.filter(mo => mo.key.startsWith("2025"));
-  const months2026 = months.filter(mo => mo.key.startsWith("2026"));
-  const churnMonths2025 = months2025.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
-  const churnMonths2026 = months2026.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
-  const avgChurn2025 = churnMonths2025.length
-    ? Math.round(churnMonths2025.reduce((s,mo)=>s+mo.rate,0)/churnMonths2025.length*10)/10 : 0;
-  const avgChurn2026 = churnMonths2026.length
-    ? Math.round(churnMonths2026.reduce((s,mo)=>s+mo.rate,0)/churnMonths2026.length*10)/10 : 0;
-  const totalChurned2025 = months2025.reduce((s,mo)=>s+mo.churned,0);
-  const totalChurned2026 = months2026.reduce((s,mo)=>s+mo.churned,0);
+  const m25=months.filter(mo=>mo.key.startsWith("2025"));
+  const m26=months.filter(mo=>mo.key.startsWith("2026"));
+  const cm25=m25.filter(mo=>mo.churned>0&&mo.activeAtStart>0);
+  const cm26=m26.filter(mo=>mo.churned>0&&mo.activeAtStart>0);
+
+  return {
     totalActive, totalDeparted, totalReturned,
-    avgLength, avgActiveTenure, returnRate, avgChurn, months, byGroup, byBelt, buckets
+    avgLength, avgActiveTenure, returnRate, avgChurn,
+    avgChurn2025: cm25.length ? Math.round(cm25.reduce((s,mo)=>s+mo.rate,0)/cm25.length*10)/10 : 0,
+    avgChurn2026: cm26.length ? Math.round(cm26.reduce((s,mo)=>s+mo.rate,0)/cm26.length*10)/10 : 0,
+    totalChurned2025: m25.reduce((s,mo)=>s+mo.churned,0),
+    totalChurned2026: m26.reduce((s,mo)=>s+mo.churned,0),
+    months, byGroup, byBelt, buckets
   };
 }
 
-// ── CHARTS ────────────────────────────────────────────────────────────────────
+// ── CHARTS ───────────────────────────────────────────────────────────────────
 function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=90) {
-  el.innerHTML = data.map(d => `
+  el.innerHTML = data.map(d=>`
     <div class="bar-row">
       <div style="width:${lblW}px;flex-shrink:0">
         <div class="bar-lbl" title="${d[lKey]}">${d[lKey]}</div>
-        ${subKey && d[subKey] ? `<div class="bar-sub">${d[subKey]}</div>` : ""}
+        ${subKey&&d[subKey]?`<div class="bar-sub">${d[subKey]}</div>`:""}
       </div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d[cKey]/maxV*100)}%;background:${color}"></div></div>
       <div class="bar-cnt">${d[cKey]}</div>
@@ -236,8 +212,8 @@ function barChart(el, data, lKey, subKey, cKey, maxV, color="#1a1a1a", lblW=90) 
 }
 
 function beltBar(el, data) {
-  const maxV = Math.max(...data.map(d => d.count));
-  el.innerHTML = data.map(d => `
+  const maxV=Math.max(...data.map(d=>d.count));
+  el.innerHTML=data.map(d=>`
     <div class="bar-row">
       <div class="bar-lbl" style="width:70px">${d.belt}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.count/maxV*100)}%;background:${BELT_COLORS[d.belt]||"#ccc"}"></div></div>
@@ -246,17 +222,14 @@ function beltBar(el, data) {
 }
 
 function colChart(el, data) {
-  const W = el.clientWidth||380, H=120;
-  const pad={t:8,b:28,l:8,r:8};
-  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
-  const N=data.length;
+  const W=el.clientWidth||380, H=120, pad={t:8,b:28,l:8,r:8};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b, N=data.length;
   const maxV=Math.max(...data.map(d=>d.departures),1);
   const bw=Math.max(4,cw/N-2);
   const bars=data.map((d,i)=>{
     const bh=Math.max(1,(d.departures/maxV)*ch);
-    const x=pad.l+i*(cw/N)+(cw/N-bw)/2;
-    const y=pad.t+ch-bh;
-    return `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="#1a1a1a" rx="2"><title>${d.label}: ${d.departures}</title></rect>`;
+    const x=pad.l+i*(cw/N)+(cw/N-bw)/2, y=pad.t+ch-bh;
+    return`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="#1a1a1a" rx="2"><title>${d.label}: ${d.departures}</title></rect>`;
   }).join("");
   const lbls=data.map((d,i)=>{
     if(i%3!==0&&i!==N-1)return"";
@@ -266,16 +239,14 @@ function colChart(el, data) {
 }
 
 function lineChart(el, data) {
-  const W=el.clientWidth||380, H=140;
-  const pad={t:10,b:30,l:36,r:8};
+  const W=el.clientWidth||380, H=140, pad={t:10,b:30,l:36,r:8};
   const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
   const maxV=Math.max(...data.map(d=>d.rate),1);
   const N=data.length, xs=cw/(N-1||1);
   const pt=i=>[pad.l+i*xs, pad.t+ch-(data[i].rate/maxV)*ch];
   const line=data.map((_,i)=>pt(i).join(",")).join(" ");
   const dots=data.map((_,i)=>{
-    const [x,y]=pt(i);
-    const r=data[i].churned>0?4:2;
+    const [x,y]=pt(i), r=data[i].churned>0?4:2;
     return`<circle cx="${x}" cy="${y}" r="${r}" fill="${data[i].churned>0?"#df2f4a":"#ddd"}" stroke="#fff" stroke-width="1.5"><title>${data[i].label}: ${data[i].rate}% (${data[i].churned}/${data[i].activeAtStart})</title></circle>`;
   }).join("");
   const lbls=data.map((d,i)=>{
@@ -312,11 +283,7 @@ function render(calc) {
     <div class="kpi good"><div class="kpi-n">${calc.returnRate}%</div><div class="kpi-l">Return Rate</div><div class="kpi-s">${calc.totalReturned} students came back</div></div>
     <div class="kpi ${calc.avgChurn>5?"warn":""}"><div class="kpi-n">${calc.avgChurn}%</div><div class="kpi-l">Avg Monthly Churn</div><div class="kpi-s">months with churn only</div></div>`;
 
-  // Year comparison row
-  const allChurnMonths = calc.months.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
-  const overallAvg = allChurnMonths.length
-    ? Math.round(allChurnMonths.reduce((s,mo)=>s+mo.rate,0)/allChurnMonths.length*10)/10 : 0;
-  document.getElementById("year-row").innerHTML = `
+  document.getElementById("year-row").innerHTML=`
     <div class="year-card">
       <div class="year-title">2025</div>
       <div class="year-stats">
@@ -334,39 +301,32 @@ function render(calc) {
     <div class="year-card">
       <div class="year-title">All Time Average</div>
       <div class="year-stats">
-        <div class="year-stat"><div class="yn">${overallAvg}%</div><div class="yl">Avg monthly churn</div></div>
+        <div class="year-stat"><div class="yn">${calc.avgChurn}%</div><div class="yl">Avg monthly churn</div></div>
         <div class="year-stat"><div class="yn">${calc.totalDeparted}</div><div class="yl">Total departures</div></div>
       </div>
-    </div>`;.sort((a,b)=>b[1]-a[1])
-    .map(([group,count])=>({group,teacher:TEACHERS[group]||"",count}));
-  const maxG = Math.max(...groups.map(g=>g.count));
-  barChart(document.getElementById("group-chart"), groups, "group","teacher","count", maxG);
+    </div>`;
 
-  lineChart(document.getElementById("rate-chart"), calc.months);
-  colChart(document.getElementById("month-chart"), calc.months);
-
-  const beltData = BELT_ORDER.filter(b=>calc.byBelt[b]).map(b=>({belt:b,count:calc.byBelt[b]}));
-  beltBar(document.getElementById("belt-chart"), beltData);
-
-  const lengthData = Object.entries(calc.buckets).map(([bucket,count])=>({bucket,count}));
-  const maxL = Math.max(...lengthData.map(d=>d.count));
-  barChart(document.getElementById("length-chart"), lengthData, "bucket",null,"count",maxL,"#579bfc",80);
+  const groups=Object.entries(calc.byGroup).sort((a,b)=>b[1]-a[1]).map(([group,count])=>({group,teacher:TEACHERS[group]||"",count}));
+  barChart(document.getElementById("group-chart"),groups,"group","teacher","count",Math.max(...groups.map(g=>g.count)));
+  lineChart(document.getElementById("rate-chart"),calc.months);
+  colChart(document.getElementById("month-chart"),calc.months);
+  beltBar(document.getElementById("belt-chart"),BELT_ORDER.filter(b=>calc.byBelt[b]).map(b=>({belt:b,count:calc.byBelt[b]})));
+  const ld=Object.entries(calc.buckets).map(([bucket,count])=>({bucket,count}));
+  barChart(document.getElementById("length-chart"),ld,"bucket",null,"count",Math.max(...ld.map(d=>d.count)),"#579bfc",80);
 }
 
 // ── LOAD ──────────────────────────────────────────────────────────────────────
 async function load() {
-  document.getElementById("ts").textContent = "Loading...";
+  document.getElementById("ts").textContent="Loading...";
   try {
-    const res = await fetch(API_URL + "?type=churn");
-    if (!res.ok) throw new Error("fetch failed");
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    const calc = calculate(data.records);
-    render(calc);
-    document.getElementById("ts").textContent = "Updated " +
-      new Date(data.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+    const res=await fetch(API_URL+"?type=churn");
+    if(!res.ok)throw new Error("fetch failed");
+    const data=await res.json();
+    if(data.error)throw new Error(data.error);
+    render(calculate(data.records));
+    document.getElementById("ts").textContent="Updated "+new Date(data.lastUpdated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
   } catch(e) {
-    document.getElementById("ts").textContent = "Error — " + e.message;
+    document.getElementById("ts").textContent="Error — "+e.message;
   }
 }
 
