@@ -14,14 +14,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .ts{font-size:11px;color:#666}
 .refresh-btn{font-size:11px;color:#aaa;background:none;border:.5px solid #444;border-radius:12px;padding:3px 10px;cursor:pointer}
 .refresh-btn:hover{color:#fff;border-color:#777}
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 20px 10px}
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:16px 20px 10px}
 .kpi{background:#fff;border-radius:10px;padding:14px 16px;border:.5px solid #e8e8e6}
 .kpi-n{font-size:28px;font-weight:500;line-height:1;letter-spacing:-.5px}
 .kpi-l{font-size:11px;color:#888;margin-top:5px}
 .kpi-s{font-size:10px;color:#bbb;margin-top:3px}
 .kpi.warn .kpi-n{color:#df2f4a}
 .kpi.good .kpi-n{color:#037f4c}
-.row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
+.year-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px 10px}
+.year-card{background:#fff;border-radius:10px;padding:14px 16px;border:.5px solid #e8e8e6;display:flex;flex-direction:column;gap:6px}
+.year-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em}
+.year-stats{display:flex;gap:20px}
+.year-stat .yn{font-size:22px;font-weight:500;letter-spacing:-.5px}
+.year-stat .yl{font-size:11px;color:#888;margin-top:2px}
 .row-2b{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 10px}
 .row-full{padding:0 20px 20px}
 .panel{background:#fff;border-radius:10px;padding:16px;border:.5px solid #e8e8e6}
@@ -55,6 +60,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="kpi"><div class="kpi-n">—</div><div class="kpi-l">Avg Monthly Churn</div></div>
 </div>
 
+<div class="year-row" id="year-row"></div>
 <div class="row-2">
   <div class="panel">
     <div class="panel-title">Churn by Group &amp; Teacher</div>
@@ -112,7 +118,7 @@ function calculate(records) {
   const TODAY = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
 
   let totalActive = 0, totalDeparted = 0, totalReturned = 0;
-  const departedLengths = [];
+  const departedLengths = [], activeLengths = [];
   const byGroup = {}, byBelt = {}, byMonth = {};
 
   records.forEach(r => {
@@ -125,7 +131,11 @@ function calculate(records) {
     const hasChurned = leave && leave <= TODAY && (!returned || returned > TODAY);
     const hasReturned = leave && returned && returned <= TODAY;
 
-    if (isActive)   totalActive++;
+    if (isActive) {
+      totalActive++;
+      const months = Math.round((TODAY - join) / (1000*60*60*24*30.44));
+      activeLengths.push(months);
+    }
     if (hasReturned) totalReturned++;
     if (hasChurned) {
       totalDeparted++;
@@ -181,6 +191,9 @@ function calculate(records) {
   const avgLength = departedLengths.length
     ? Math.round(departedLengths.reduce((s,l)=>s+l,0)/departedLengths.length*10)/10 : 0;
 
+  const avgActiveTenure = activeLengths.length
+    ? Math.round(activeLengths.reduce((s,l)=>s+l,0)/activeLengths.length*10)/10 : 0;
+
   const returnRate = (totalDeparted+totalReturned) > 0
     ? Math.round(totalReturned/(totalDeparted+totalReturned)*1000)/10 : 0;
 
@@ -193,9 +206,19 @@ function calculate(records) {
     else             buckets["2+ yrs"]++;
   });
 
-  return {
+  // Year breakdowns
+  const months2025 = months.filter(mo => mo.key.startsWith("2025"));
+  const months2026 = months.filter(mo => mo.key.startsWith("2026"));
+  const churnMonths2025 = months2025.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
+  const churnMonths2026 = months2026.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
+  const avgChurn2025 = churnMonths2025.length
+    ? Math.round(churnMonths2025.reduce((s,mo)=>s+mo.rate,0)/churnMonths2025.length*10)/10 : 0;
+  const avgChurn2026 = churnMonths2026.length
+    ? Math.round(churnMonths2026.reduce((s,mo)=>s+mo.rate,0)/churnMonths2026.length*10)/10 : 0;
+  const totalChurned2025 = months2025.reduce((s,mo)=>s+mo.churned,0);
+  const totalChurned2026 = months2026.reduce((s,mo)=>s+mo.churned,0);
     totalActive, totalDeparted, totalReturned,
-    avgLength, returnRate, avgChurn, months, byGroup, byBelt, buckets
+    avgLength, avgActiveTenure, returnRate, avgChurn, months, byGroup, byBelt, buckets
   };
 }
 
@@ -284,11 +307,37 @@ function render(calc) {
   document.getElementById("kpis").innerHTML=`
     <div class="kpi"><div class="kpi-n">${calc.totalActive}</div><div class="kpi-l">Active Ensemble Members</div></div>
     <div class="kpi warn"><div class="kpi-n">${calc.totalDeparted}</div><div class="kpi-l">Total Departures</div></div>
-    <div class="kpi"><div class="kpi-n">${calc.avgLength} mo</div><div class="kpi-l">Avg Membership Length</div><div class="kpi-s">at time of departure</div></div>
+    <div class="kpi"><div class="kpi-n">${calc.avgActiveTenure} mo</div><div class="kpi-l">Avg Active Member Tenure</div><div class="kpi-s">current members</div></div>
+    <div class="kpi"><div class="kpi-n">${calc.avgLength} mo</div><div class="kpi-l">Avg Tenure at Departure</div><div class="kpi-s">departed members</div></div>
     <div class="kpi good"><div class="kpi-n">${calc.returnRate}%</div><div class="kpi-l">Return Rate</div><div class="kpi-s">${calc.totalReturned} students came back</div></div>
     <div class="kpi ${calc.avgChurn>5?"warn":""}"><div class="kpi-n">${calc.avgChurn}%</div><div class="kpi-l">Avg Monthly Churn</div><div class="kpi-s">months with churn only</div></div>`;
 
-  const groups = Object.entries(calc.byGroup).sort((a,b)=>b[1]-a[1])
+  // Year comparison row
+  const allChurnMonths = calc.months.filter(mo => mo.churned > 0 && mo.activeAtStart > 0);
+  const overallAvg = allChurnMonths.length
+    ? Math.round(allChurnMonths.reduce((s,mo)=>s+mo.rate,0)/allChurnMonths.length*10)/10 : 0;
+  document.getElementById("year-row").innerHTML = `
+    <div class="year-card">
+      <div class="year-title">2025</div>
+      <div class="year-stats">
+        <div class="year-stat"><div class="yn">${calc.avgChurn2025}%</div><div class="yl">Avg monthly churn</div></div>
+        <div class="year-stat"><div class="yn">${calc.totalChurned2025}</div><div class="yl">Total departures</div></div>
+      </div>
+    </div>
+    <div class="year-card">
+      <div class="year-title">2026 (YTD)</div>
+      <div class="year-stats">
+        <div class="year-stat"><div class="yn">${calc.avgChurn2026}%</div><div class="yl">Avg monthly churn</div></div>
+        <div class="year-stat"><div class="yn">${calc.totalChurned2026}</div><div class="yl">Total departures</div></div>
+      </div>
+    </div>
+    <div class="year-card">
+      <div class="year-title">All Time Average</div>
+      <div class="year-stats">
+        <div class="year-stat"><div class="yn">${overallAvg}%</div><div class="yl">Avg monthly churn</div></div>
+        <div class="year-stat"><div class="yn">${calc.totalDeparted}</div><div class="yl">Total departures</div></div>
+      </div>
+    </div>`;.sort((a,b)=>b[1]-a[1])
     .map(([group,count])=>({group,teacher:TEACHERS[group]||"",count}));
   const maxG = Math.max(...groups.map(g=>g.count));
   barChart(document.getElementById("group-chart"), groups, "group","teacher","count", maxG);
