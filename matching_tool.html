@@ -23,7 +23,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .legend-swatch.stretch { background: #fffef5; border: 1px dashed #d4c87a; }
 .teacher-card { background: #fff; border: 0.5px solid #e5e5e3; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
 .teacher-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 0.5px solid #f0f0ee; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; background: #f0f0ee; color: #444; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
 .teacher-info { flex: 1; }
 .teacher-name { font-size: 14px; font-weight: 500; }
 .teacher-meta { font-size: 11px; color: #888; margin-top: 2px; }
@@ -33,7 +33,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .cap-pip.open { background: #d1fae5; border: 1px solid #6ee7b7; }
 .cap-pip.stretch { background: #fff; border: 1px dashed #aaa; }
 .windows-section { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
-.window-block { }
 .window-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .weeks-tag { font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #f0f0ee; color: #666; font-weight: 400; text-transform: none; letter-spacing: 0; }
 .slots-row { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -68,21 +67,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
   <div class="legend-item"><div class="legend-swatch stretch"></div>Stretch (confirm with teacher)</div>
 </div>
 
-<p class="update-note">To update slots, edit the <a href="https://docs.google.com/spreadsheets/d/1o36Nyvb3EGnAeRH0dtvClP1C4Autz0axBUCJ94zKYuQ/edit#gid=1048672252" target="_blank">Teacher Slots sheet</a> — changes appear here automatically.</p>
+<p class="update-note">To update slots, edit the <a href="https://docs.google.com/spreadsheets/d/1o36Nyvb3EGnAeRH0dtvClP1C4Autz0axBUCJ94zKYuQ/edit#gid=1048672252" target="_blank">Teacher Slots sheet ↗</a> — changes appear here on next refresh.</p>
 
 <div class="filter-row" id="filters"></div>
 <div id="teachers-container"><div class="loading">Loading teacher availability...</div></div>
 
 <script>
-const CSV_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://docs.google.com/spreadsheets/d/e/2PACX-1vQbfie-mofJw0XS5aPxcZRH_YEOAjFxHuKotzquxtY0_F9akhMWiMFZvTYsvnvT82JnCvrQtbYfcpGh/pub?gid=1048672252&single=true&output=csv");
+const API_URL = "https://script.google.com/macros/s/AKfycbzI3Wp79JSX_FZKlS-d1oRvBr-uJ87VIEv5u_xYQ8TJrLyE06mRVx0Mc1rs1jxT7cFYtg/exec";
 
 const TEACHER_COLORS = {
-  "Pete James Johnson":  "background:#E6F1FB;color:#0C447C;",
-  "Joe Hartnett":        "background:#E1F5EE;color:#085041;",
-  "Chris Bates":         "background:#FAEEDA;color:#633806;",
-  "Ian Duerr":           "background:#FBEAF0;color:#72243E;",
-  "Anya Menk":           "background:#EEEDFE;color:#3C3489;",
-  "Chris Olson":         "background:#EAF3DE;color:#27500A;",
+  "Pete James Johnson": "background:#E6F1FB;color:#0C447C;",
+  "Joe Hartnett":       "background:#E1F5EE;color:#085041;",
+  "Chris Bates":        "background:#FAEEDA;color:#633806;",
+  "Ian Duerr":          "background:#FBEAF0;color:#72243E;",
+  "Anya Menk":          "background:#EEEDFE;color:#3C3489;",
+  "Chris Olson":        "background:#EAF3DE;color:#27500A;",
 };
 
 const TEACHER_INSTRUMENTS = {
@@ -94,40 +93,23 @@ const TEACHER_INSTRUMENTS = {
   "Chris Olson":        "Guitar",
 };
 
-const ALL_INSTRUMENTS = ["All", "Drums", "Bass", "Piano", "Guitar", "Voice", "Flute", "Horn"];
+const ALL_INSTRUMENTS = ["All","Drums","Bass","Piano","Guitar","Voice","Flute","Horn"];
 let activeFilter = "All";
 let teacherData = {};
-
-function parseCSV(text) {
-  const lines = text.trim().split("\n");
-  const headers = lines[0].split(",").map(h => h.trim().replace(/"/g, "").toLowerCase());
-  return lines.slice(1).map(line => {
-    const vals = line.split(",").map(v => v.trim().replace(/"/g, ""));
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = vals[i] || "");
-    return obj;
-  }).filter(r => r.teacher);
-}
 
 function buildTeacherData(rows) {
   const teachers = {};
   rows.forEach(row => {
     const name = row.teacher;
-    if (!teachers[name]) {
-      teachers[name] = { name, windows: {} };
+    if (!name) return;
+    if (!teachers[name]) teachers[name] = { name, windows: {} };
+    const key = (row.day||"") + "|" + (row.weeks||"") + "|" + (row.location||"");
+    if (!teachers[name].windows[key]) {
+      teachers[name].windows[key] = { day: row.day, weeks: row.weeks, location: row.location, slots: [] };
     }
-    const windowKey = row.day + "|" + row.weeks + "|" + row.location;
-    if (!teachers[name].windows[windowKey]) {
-      teachers[name].windows[windowKey] = {
-        day: row.day,
-        weeks: row.weeks,
-        location: row.location,
-        slots: []
-      };
-    }
-    teachers[name].windows[windowKey].slots.push({
+    teachers[name].windows[key].slots.push({
       time: row.starttime,
-      status: row.status,
+      status: (row.status||"open").toLowerCase(),
       student: row.student || null
     });
   });
@@ -135,30 +117,27 @@ function buildTeacherData(rows) {
 }
 
 function initials(name) {
-  return name.split(" ").filter(Boolean).map(p => p[0]).join("").slice(0, 2).toUpperCase();
+  return name.split(" ").filter(Boolean).map(p => p[0]).join("").slice(0,2).toUpperCase();
 }
 
 function matchesFilter(name) {
   if (activeFilter === "All") return true;
-  const inst = TEACHER_INSTRUMENTS[name] || "";
-  return inst.toLowerCase().includes(activeFilter.toLowerCase());
+  return (TEACHER_INSTRUMENTS[name] || "").toLowerCase().includes(activeFilter.toLowerCase());
 }
 
 function renderSlot(slot) {
-  const studentHTML = slot.student
-    ? `<span class="slot-name">${slot.student}</span>`
-    : slot.status === "stretch"
-    ? `<span class="slot-name">confirm w/ teacher</span>`
-    : "";
-  return `<div class="slot ${slot.status}">${slot.time}${studentHTML}</div>`;
+  let sub = "";
+  if (slot.student) sub = `<span class="slot-name">${slot.student}</span>`;
+  else if (slot.status === "stretch") sub = `<span class="slot-name">confirm w/ teacher</span>`;
+  return `<div class="slot ${slot.status}">${slot.time}${sub}</div>`;
 }
 
 function renderWindow(win) {
   const tags = [
     win.weeks ? `<span class="weeks-tag">${win.weeks}</span>` : "",
     win.location ? `<span class="weeks-tag">${win.location}</span>` : ""
-  ].join("");
-  return `<div class="window-block">
+  ].filter(Boolean).join("");
+  return `<div>
     <div class="window-title">${win.day} ${tags}</div>
     <div class="slots-row">${win.slots.map(renderSlot).join("")}</div>
   </div>`;
@@ -176,7 +155,6 @@ function renderTeacher(name, data) {
     ...Array(open).fill('<div class="cap-pip open"></div>'),
     ...Array(stretch).fill('<div class="cap-pip stretch"></div>'),
   ].join("");
-  const windows = Object.values(data.windows).map(renderWindow).join("");
   return `<div class="teacher-card">
     <div class="teacher-header">
       <div class="avatar" style="${color}">${initials(name)}</div>
@@ -189,7 +167,7 @@ function renderTeacher(name, data) {
         <div style="font-size:10px;color:#aaa;margin-top:3px">${open} open · ${filled} filled</div>
       </div>
     </div>
-    <div class="windows-section">${windows}</div>
+    <div class="windows-section">${Object.values(data.windows).map(renderWindow).join("")}</div>
   </div>`;
 }
 
@@ -210,24 +188,23 @@ function render() {
 
 function buildFilters() {
   document.getElementById("filters").innerHTML = ALL_INSTRUMENTS.map(inst =>
-    `<button class="filter-btn ${inst === "All" ? "active" : ""}" data-filter="${inst}" onclick="setFilter('${inst}')">${inst}</button>`
+    `<button class="filter-btn ${inst==="All"?"active":""}" data-filter="${inst}" onclick="setFilter('${inst}')">${inst}</button>`
   ).join("");
 }
 
 async function loadData() {
   document.getElementById("last-updated").textContent = "Loading...";
   try {
-    const res = await fetch(CSV_URL);
-    if (!res.ok) throw new Error("fetch failed");
-    const text = await res.text();
-    const rows = parseCSV(text);
-    if (!rows.length) throw new Error("empty");
+    const res = await fetch(API_URL + "?action=slots");
+    if (!res.ok) throw new Error("failed");
+    const rows = await res.json();
+    if (!rows || !rows.length) throw new Error("empty");
     teacherData = buildTeacherData(rows);
-    document.getElementById("last-updated").textContent = "Updated " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    document.getElementById("last-updated").textContent = "Updated " + new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
     render();
   } catch(e) {
     document.getElementById("last-updated").textContent = "Could not load data";
-    document.getElementById("teachers-container").innerHTML = `<div class="error-box">Failed to load teacher slots. Check that the Google Sheet is published as CSV.</div>`;
+    document.getElementById("teachers-container").innerHTML = `<div class="error-box">Failed to load teacher slots. Check the Apps Script deployment.</div>`;
   }
 }
 
