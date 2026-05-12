@@ -93,9 +93,10 @@ const TEACHER_INSTRUMENTS = {
   "Chris Olson":        "Guitar",
 };
 
-const ALL_INSTRUMENTS = ["All","Drums","Bass","Piano","Guitar","Voice","Flute","Horn"];
+const ALL_INSTRUMENTS = ["All","Drums","Bass","Sax","Piano","Guitar","Voice","Flute","Horn"];
 let activeFilter = "All";
 let teacherData = {};
+let teacherInstruments = {};
 
 function buildTeacherData(rows) {
   const teachers = {};
@@ -122,7 +123,7 @@ function initials(name) {
 
 function matchesFilter(name) {
   if (activeFilter === "All") return true;
-  return (TEACHER_INSTRUMENTS[name] || "").toLowerCase().includes(activeFilter.toLowerCase());
+  return (teacherInstruments[name] || TEACHER_INSTRUMENTS[name] || "").toLowerCase().includes(activeFilter.toLowerCase());
 }
 
 function renderSlot(slot) {
@@ -145,7 +146,7 @@ function renderWindow(win) {
 
 function renderTeacher(name, data) {
   const color = TEACHER_COLORS[name] || "background:#f0f0ee;color:#444;";
-  const instruments = TEACHER_INSTRUMENTS[name] || "";
+  const instruments = teacherInstruments[name] || TEACHER_INSTRUMENTS[name] || "";
   const allSlots = Object.values(data.windows).flatMap(w => w.slots);
   const filled = allSlots.filter(s => s.status === "filled").length;
   const open = allSlots.filter(s => s.status === "open").length;
@@ -195,7 +196,14 @@ function buildFilters() {
 async function loadData() {
   document.getElementById("last-updated").textContent = "Loading...";
   try {
-    const res = await fetch(API_URL + "?action=slots");
+    const [slotsRes, teachersRes] = await Promise.all([
+      fetch(API_URL + "?action=slots"),
+      fetch(API_URL + "?action=teachers_list")
+    ]);
+    if (!slotsRes.ok || !teachersRes.ok) throw new Error("failed");
+    const teachers = await teachersRes.json();
+    teachers.forEach(t => { if (t.teacher) teacherInstruments[t.teacher] = t.instruments || ""; });
+    const res = slotsRes;
     if (!res.ok) throw new Error("failed");
     const rows = await res.json();
     if (!rows || !rows.length) throw new Error("empty");
