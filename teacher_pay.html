@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSJW Teacher Pay</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f5f5f3; color: #1a1a1a; padding: 16px; }
+
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.top-title { font-size: 15px; font-weight: 500; }
+.top-sub { font-size: 12px; color: #888; margin-top: 2px; }
+
+.period-toggle { display: flex; gap: 5px; }
+.period-btn { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid #ccc; background: #fff; color: #666; cursor: pointer; }
+.period-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+.metric { background: #fff; border: 0.5px solid #e5e5e3; border-radius: 10px; padding: 12px 14px; }
+.metric-num { font-size: 24px; font-weight: 500; }
+.metric-label { font-size: 11px; color: #888; margin-top: 2px; }
+
+.section-header { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 8px; }
+
+.teacher-card { background: #fff; border: 0.5px solid #e5e5e3; border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+.teacher-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; }
+.teacher-header:hover { background: #fafaf8; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+.teacher-info { flex: 1; }
+.teacher-name { font-size: 14px; font-weight: 500; }
+.teacher-sub { font-size: 11px; color: #888; margin-top: 1px; }
+.teacher-amount { text-align: right; }
+.teacher-amount .amount { font-size: 18px; font-weight: 500; }
+.teacher-amount .period-label { font-size: 10px; color: #aaa; }
+.chevron { font-size: 12px; color: #aaa; margin-left: 6px; transition: transform 0.2s; }
+.chevron.open { transform: rotate(180deg); }
+
+.teacher-detail { border-top: 0.5px solid #f0f0ee; display: none; }
+.teacher-detail.open { display: block; }
+.detail-row { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-bottom: 0.5px solid #f8f8f6; }
+.detail-row:last-child { border-bottom: none; }
+.detail-name { font-size: 12px; color: #1a1a1a; flex: 1; }
+.detail-info { font-size: 11px; color: #aaa; }
+.detail-pay { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+.venmo-tag { font-size: 10px; background: #f0f4ff; color: #3b4eb8; border-radius: 8px; padding: 1px 7px; margin-left: 4px; }
+.tag-course { font-size: 10px; background: #f0fdf4; color: #166534; border-radius: 8px; padding: 1px 7px; }
+.tag-private { font-size: 10px; background: #faf5ff; color: #6b21a8; border-radius: 8px; padding: 1px 7px; }
+.total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fafaf8; border-top: 0.5px solid #f0f0ee; }
+.total-label { font-size: 12px; color: #888; }
+.total-amount { font-size: 14px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div>
+    <div class="top-title">Teacher Pay</div>
+    <div class="top-sub" id="period-desc">15th payment · 1st–15th</div>
+  </div>
+  <div class="period-toggle">
+    <button class="period-btn active" onclick="setPeriod('15th',this)">15th</button>
+    <button class="period-btn" onclick="setPeriod('last',this)">Last day</button>
+    <button class="period-btn" onclick="setPeriod('monthly',this)">Monthly</button>
+  </div>
+</div>
+
+<div class="summary-grid" id="summary"></div>
+
+<div class="section-header">Course teachers</div>
+<div id="course-teachers"></div>
+
+<div class="section-header">Private lesson teachers</div>
+<div id="private-teachers"></div>
+
+<script>
+const COURSE = [
+  { name:"Jake Baldwin", initials:"JB", color:"background:#E6F1FB;color:#0C447C;", venmo:"",
+    classes:[{name:"Group 18 Ensemble", rate:150, sessionsPerMonth:2}] },
+  { name:"Mary Louise Knutson", initials:"ML", color:"background:#E1F5EE;color:#085041;", venmo:"",
+    classes:[{name:"Group 17 Ensemble", rate:150, sessionsPerMonth:2}] },
+  { name:"Anya Menk", initials:"AM", color:"background:#EEEDFE;color:#3C3489;", venmo:"",
+    classes:[{name:"Jazz Voice Lab", rate:180, sessionsPerMonth:2}] },
+  { name:"Tommy Boynton", initials:"TB", color:"background:#FAEEDA;color:#633806;", venmo:"",
+    classes:[{name:"Jazz Singer's Playground", rate:170, sessionsPerMonth:2}] },
+  { name:"Chris Graham", initials:"CG", color:"background:#EAF3DE;color:#27500A;", venmo:"",
+    classes:[{name:"Jazz Guitar Foundations", rate:150, sessionsPerMonth:2}] },
+];
+
+const PRIVATE = [
+  { name:"Pete James Johnson", initials:"PJ", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"Michael Leville", freq:"weekly", dur:60, n:4},
+      {name:"Jason Digman", freq:"bi-weekly", dur:45, n:2},
+      {name:"Adrian Houston", freq:"bi-weekly", dur:60, n:2},
+      {name:"Josh Dietsche", freq:"monthly", dur:60, n:1},
+    ]},
+  { name:"Joe Hartnett", initials:"JH", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"James Moore", freq:"bi-weekly", dur:60, n:2},
+      {name:"Neil Garcia", freq:"bi-weekly", dur:60, n:2},
+      {name:"Joe Cudzilo", freq:"bi-weekly", dur:60, n:2},
+      {name:"Thoger Boyum", freq:"bi-weekly", dur:60, n:2},
+      {name:"Ron Siven", freq:"monthly", dur:60, n:1},
+    ]},
+  { name:"Chris Bates", initials:"CB", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"Aaron Stoehr", freq:"bi-weekly", dur:60, n:2},
+      {name:"Mohammad Mokhtarabadi", freq:"bi-weekly", dur:60, n:2},
+      {name:"Dave Koch", freq:"monthly", dur:60, n:1},
+    ]},
+  { name:"Ian Duerr", initials:"ID", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"Pat Besanson", freq:"weekly", dur:60, n:4},
+      {name:"Keith Heinen", freq:"bi-weekly", dur:60, n:2},
+    ]},
+  { name:"Anya Menk (private)", initials:"AM", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"Erin Anderson", freq:"bi-weekly", dur:45, n:2},
+    ]},
+  { name:"Chris Olson", initials:"CO", color:"background:#f0f0ee;color:#444;", venmo:"",
+    students:[
+      {name:"Peter Ashley", freq:"monthly", dur:60, n:1},
+    ]},
+];
+
+function lessonPay(dur, n) { return (dur === 60 ? 50 : 37.5) * n; }
+function courseMonthly(t) { return t.classes.reduce((s,c) => s + c.rate * c.sessionsPerMonth, 0); }
+function privateMonthly(t) { return t.students.reduce((s,st) => s + lessonPay(st.dur, st.n), 0); }
+
+function periodAmount(monthly, period, sessionsPerMonth) {
+  if (period === 'monthly') return monthly;
+  if (sessionsPerMonth !== undefined) {
+    return monthly / 2;
+  }
+  return monthly / 2;
+}
+
+function fmt(n) { return '$' + Math.round(n); }
+
+let currentPeriod = '15th';
+
+const periodDescs = {
+  '15th': '15th payment · 1st–15th',
+  'last': 'Last day payment · 16th–end of month',
+  'monthly': 'Full monthly total'
+};
+
+function setPeriod(p, btn) {
+  currentPeriod = p;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function toggleDetail(id) {
+  const detail = document.getElementById('detail-' + id);
+  const chevron = document.getElementById('chevron-' + id);
+  detail.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+
+function renderTeacherCard(t, type, id) {
+  const monthly = type === 'course' ? courseMonthly(t) : privateMonthly(t);
+  const periodAmt = currentPeriod === 'monthly' ? monthly : monthly / 2;
+  const tag = type === 'course' ? '<span class="tag-course">course</span>' : '<span class="tag-private">private</span>';
+  const subLabel = type === 'course'
+    ? t.classes.map(c => c.name).join(', ')
+    : `${t.students.length} student${t.students.length !== 1 ? 's' : ''}`;
+
+  let rows = '';
+  if (type === 'course') {
+    rows = t.classes.map(c => {
+      const sessAmt = currentPeriod === 'monthly' ? c.rate * c.sessionsPerMonth : c.rate;
+      return `<div class="detail-row">
+        <div class="detail-name">${c.name}</div>
+        <div class="detail-info">${currentPeriod === 'monthly' ? c.sessionsPerMonth + ' sessions' : '1 session'} · $${c.rate}/session</div>
+        <div class="detail-pay">${fmt(sessAmt)}</div>
+      </div>`;
+    }).join('');
+  } else {
+    rows = t.students.map(st => {
+      const mo = lessonPay(st.dur, st.n);
+      const amt = currentPeriod === 'monthly' ? mo : mo / 2;
+      return `<div class="detail-row">
+        <div class="detail-name">${st.name}</div>
+        <div class="detail-info">${st.freq} · ${st.dur}min</div>
+        <div class="detail-pay">${fmt(amt)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  return `<div class="teacher-card">
+    <div class="teacher-header" onclick="toggleDetail('${id}')">
+      <div class="avatar" style="${t.color}">${t.initials}</div>
+      <div class="teacher-info">
+        <div class="teacher-name">${t.name} ${tag}</div>
+        <div class="teacher-sub">${subLabel}</div>
+      </div>
+      <div class="teacher-amount">
+        <div class="amount">${fmt(periodAmt)}</div>
+        <div class="period-label">${currentPeriod === 'monthly' ? 'this month' : 'this period'}</div>
+      </div>
+      <span class="chevron" id="chevron-${id}">▾</span>
+    </div>
+    <div class="teacher-detail" id="detail-${id}">
+      ${rows}
+      <div class="total-row">
+        <span class="total-label">Monthly total</span>
+        <span class="total-amount">${fmt(monthly)}/mo</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render() {
+  document.getElementById('period-desc').textContent = periodDescs[currentPeriod];
+
+  const courseTotalMonthly = COURSE.reduce((s,t) => s + courseMonthly(t), 0);
+  const privateTotalMonthly = PRIVATE.reduce((s,t) => s + privateMonthly(t), 0);
+  const grandMonthly = courseTotalMonthly + privateTotalMonthly;
+  const coursePeriod = currentPeriod === 'monthly' ? courseTotalMonthly : courseTotalMonthly / 2;
+  const privatePeriod = currentPeriod === 'monthly' ? privateTotalMonthly : privateTotalMonthly / 2;
+  const grandPeriod = coursePeriod + privatePeriod;
+
+  document.getElementById('summary').innerHTML = `
+    <div class="metric"><div class="metric-num">${fmt(grandPeriod)}</div><div class="metric-label">${currentPeriod === 'monthly' ? 'Total this month' : 'Due this period'}</div></div>
+    <div class="metric"><div class="metric-num">${fmt(coursePeriod)}</div><div class="metric-label">Course teachers</div></div>
+    <div class="metric"><div class="metric-num">${fmt(privatePeriod)}</div><div class="metric-label">Private lesson teachers</div></div>
+  `;
+
+  document.getElementById('course-teachers').innerHTML = COURSE.map((t,i) => renderTeacherCard(t,'course','c'+i)).join('');
+  document.getElementById('private-teachers').innerHTML = PRIVATE.map((t,i) => renderTeacherCard(t,'private','p'+i)).join('');
+}
+
+render();
+</script>
+</body>
+</html>
