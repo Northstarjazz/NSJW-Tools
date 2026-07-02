@@ -1,0 +1,40 @@
+name: Sync ensemble roster from Monday
+
+# Refreshes roster.json every morning (and on demand) so the Ensemble Builder
+# always shows current active members + Qualified/Sit-In leads.
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 11:00 UTC = 6:00am Central (CDT). Use "0 12 * * *" in winter (CST).
+  workflow_dispatch: {}     # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Pull roster from Monday
+        env:
+          MONDAY_TOKEN: ${{ secrets.MONDAY_TOKEN }}
+        run: node sync-roster.mjs
+
+      - name: Commit roster.json if it changed
+        run: |
+          git config user.name  "nsjw-roster-bot"
+          git config user.email "actions@github.com"
+          if ! git diff --quiet -- roster.json; then
+            git add roster.json
+            git commit -m "Auto: refresh ensemble roster ($(date -u +%Y-%m-%d))"
+            git push
+            echo "roster.json updated"
+          else
+            echo "No roster changes"
+          fi
