@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NSJW Ensemble Builder</title>
+<style>
+  :root{
+    --coral:#ff5a4d; --coral-dk:#e0392c; --ink:#1c1c22; --muted:#6b6b78;
+    --line:#e6e6ec; --bg:#f4f4f7; --card:#ffffff; --good:#1f9d63; --good-bg:#e7f6ee;
+    --warn:#d98300; --warn-bg:#fff6e6; --bad:#d94436;
+    --drums:#7e57c2; --bass:#5c6bc0; --guitar:#26a69a; --piano:#42a5f5; --horn:#ef6c00; --voice:#ec407a; --other:#90a4ae;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+  header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;flex-wrap:wrap}
+  header h1{font-size:16px;margin:0;font-weight:700}
+  header h1 .dot{color:var(--coral)}
+  header .sub{color:#b9b9c4;font-size:12px}
+  header .spacer{flex:1}
+  .btn{border:none;border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;background:#33333d;color:#fff}
+  .btn:hover{background:#44444f}
+  .btn.primary{background:var(--coral)} .btn.primary:hover{background:var(--coral-dk)}
+  .btn.ghost{background:transparent;border:1px solid #4a4a55}
+  .wrap{display:grid;grid-template-columns:320px 1fr;gap:16px;padding:16px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .left{position:sticky;top:60px}
+  .controls{padding:10px;display:flex;gap:8px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .controls input,.controls select{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit}
+  .controls input{flex:1;min-width:110px}
+  .zone{padding:8px 10px}
+  .zone>.zh{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;padding:6px 4px}
+  .dropzone{border:1.5px dashed transparent;border-radius:10px;min-height:40px;transition:.1s;padding:2px}
+  .dropzone.over{border-color:var(--coral);background:#fff4f3}
+  .leadsZone{max-height:38vh;overflow-y:auto}
+  .benchZone{max-height:30vh;overflow-y:auto;border-top:1px solid var(--line)}
+  .emptxt{color:#b0b0bc;font-size:12px;font-style:italic;padding:8px 6px}
+  .person{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);border-radius:9px;margin:5px 2px;background:#fff;cursor:grab}
+  .person:hover{border-color:#c9c9d2;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  .person.dragging{opacity:.5}
+  .ico{border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+  .person .ico{width:26px;height:26px;font-size:10px}
+  .person .nm{flex:1;min-width:0}
+  .person .nm b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .person .nm small{color:var(--muted);font-size:11px}
+  .tag{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:5px;white-space:nowrap}
+  .tag.q{background:#eaf7d8;color:#5c8a1d}
+  .tag.s{background:#e3effd;color:#2f6fb0}
+  .tag.nq{background:#fdeede;color:#b5651b}
+  .tag.origin{background:#f0eafb;color:#6a3fb0}
+  .tag.lead{background:#fdeede;color:#b5651b}
+  .tag.leaving{background:#fde5e2;color:#c0392b}
+  .chip.leaving-chip{border-color:#f3b6ae;background:#fff7f6}
+  .belt{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.15);flex:none}
+  .ensembles{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .ens{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .ens.modified{border-color:var(--coral);box-shadow:0 0 0 1px var(--coral) inset}
+  .ens.over{border-color:var(--coral);background:#fff8f7}
+  .ens .eh{padding:9px 11px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;background:#fbfbfd}
+  .ens .eh input{border:none;background:transparent;font-size:14.5px;font-weight:700;font-family:inherit;flex:1;min-width:0;padding:2px 3px;border-radius:6px}
+  .ens .eh input:focus{outline:none;background:#fff;box-shadow:0 0 0 2px var(--coral)}
+  .ens .eh .cnt{font-size:11px;color:var(--muted);font-weight:700}
+  .ens .eh .moddot{color:var(--coral);font-size:16px;line-height:0}
+  .ens .eh .x{cursor:pointer;color:#c2c2cc;font-size:16px;font-weight:700;padding:0 3px}
+  .ens .eh .x:hover{color:var(--coral)}
+  .instbar{display:flex;flex-wrap:wrap;gap:4px;padding:8px 10px 4px}
+  .pill{font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;display:flex;align-items:center;gap:4px;color:#fff}
+  .pill.short{opacity:.55} .pill.over{outline:2px solid var(--warn);outline-offset:-2px}
+  .roles{padding:6px 10px 10px;display:flex;flex-direction:column;gap:2px;min-height:40px}
+  .role-row{display:flex;flex-direction:column;gap:3px;padding:4px 0}
+  .role-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .chip{display:flex;align-items:center;gap:6px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:grab;margin-left:2px}
+  .chip:hover{border-color:#c9c9d2}
+  .chip.dragging{opacity:.5}
+  .chip .ico{width:22px;height:22px;font-size:9px}
+  .chip .nm{flex:1;min-width:0}
+  .chip .nm b{display:block;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chip .nm small{color:var(--muted);font-size:10.5px}
+  .chip .rm{cursor:pointer;color:#c4c4cc;font-weight:700;font-size:14px;padding:0 2px}
+  .chip .rm:hover{color:var(--coral)}
+  .ens .empty{color:#b0b0bc;font-size:12px;font-style:italic;padding:6px}
+  .addens{border:2px dashed #d0d0da;border-radius:12px;display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--muted);font-weight:700;cursor:pointer}
+  .addens:hover{border-color:var(--coral);color:var(--coral)}
+  .legend{font-size:11px;color:var(--muted);padding:6px 16px 20px}
+  .legend span{display:inline-flex;align-items:center;gap:4px;margin-right:12px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .syncpill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:#33333d;color:#cfcfd6;white-space:nowrap}
+  .syncpill.live{background:#12341f;color:#54e08a}
+  .syncpill.connecting{background:#3a3320;color:#e8c766}
+  .syncpill.localmode{background:#333;color:#b9b9c4}
+  .syncpill.err{background:#3a2020;color:#ff8a80}
+  @media print{
+    header .btn,.left,.addens,.chip .rm,.ens .eh .x{display:none!important}
+    .wrap{grid-template-columns:1fr}
+    body{background:#fff}
+    .ens{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>North<span class="dot">★</span>Star Ensemble Builder</h1>
+  <span class="sub" id="stamp"></span>
+  <span class="syncpill localmode" id="sync">○ Local</span>
+  <span class="spacer"></span>
+  <button class="btn ghost" onclick="addEnsemble()">+ New Ensemble</button>
+  <button class="btn ghost" onclick="copyLineups()">Copy Lineups</button>
+  <button class="btn ghost" onclick="copyChanges()">Copy Changes</button>
+  <button class="btn ghost" onclick="window.print()">Print / PDF</button>
+  <button class="btn primary" onclick="resetAll()">Reset</button>
+</header>
+
+<div class="wrap">
+  <!-- LEFT -->
+  <div class="panel left">
+    <div class="controls">
+      <input id="search" placeholder="Search name…" oninput="render()">
+      <select id="instFilter" onchange="render()">
+        <option value="">All instruments</option>
+        <option value="drums">Drums</option><option value="bass">Bass</option>
+        <option value="guitar">Guitar</option><option value="piano">Piano/Keys</option>
+        <option value="horn">Horns</option><option value="voice">Voice</option><option value="other">Other</option>
+      </select>
+    </div>
+    <div class="zone">
+      <div class="zh"><span>Leads · Qualified + Sit-In stages</span><span id="leadsCount"></span></div>
+      <div class="dropzone leadsZone" id="leadsZone" data-loc="leads"></div>
+    </div>
+    <div class="zone">
+      <div class="zh"><span>Bench · pulled from bands</span><span id="benchCount"></span></div>
+      <div class="dropzone benchZone" id="benchZone" data-loc="bench"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div>
+    <div class="ensembles" id="ensembles"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+const BAKED = {"members": [{"id": "9130339956", "name": "Richie McDonnell", "band": "Group 1", "instrument": "Drums", "belt": "Blue", "left": "", "returned": ""}, {"id": "9777254165", "name": "Elmer Pierre", "band": "Group 1", "instrument": "Sax/Tenor", "belt": "Blue", "left": "", "returned": ""}, {"id": "9777253825", "name": "Buffy Larson", "band": "Group 1", "instrument": "Trumpet", "belt": "White", "left": "", "returned": ""}, {"id": "9777257633", "name": "Bernardo Prado", "band": "Group 1", "instrument": "Bass", "belt": "Purple", "left": "", "returned": ""}, {"id": "18193875567", "name": "Gerry Pehl", "band": "Group 1", "instrument": "Guitar", "belt": "White", "left": "", "returned": ""}, {"id": "11957648248", "name": "Michael Somermeyer", "band": "Group 1", "instrument": "Piano", "belt": "White", "left": "", "returned": ""}, {"id": "18311040594", "name": "Geoff Grcevich", "band": "Group 2", "instrument": "Drums", "belt": "Black", "left": "", "returned": ""}, {"id": "9130337797", "name": "Ken Baker", "band": "Group 2", "instrument": "Piano", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130338715", "name": "Mike Young", "band": "Group 3", "instrument": "Sax/Tenor", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339031", "name": "Betty Grey", "band": "Group 3", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339239", "name": "Don Taylor", "band": "Group 3", "instrument": "Drums", "belt": "Purple", "left": "", "returned": ""}, {"id": "9777158267", "name": "Bradley Borg", "band": "Group 3", "instrument": "Guitar", "belt": "Brown", "left": "", "returned": ""}, {"id": "9772922598", "name": "Jeff Gurney", "band": "Group 3", "instrument": "Bass", "belt": "Black", "left": "2026-03-01", "returned": "2026-05-01"}, {"id": "9130338062", "name": "Mark Pedigo", "band": "Group 4", "instrument": "Piano", "belt": "Brown", "left": "", "returned": ""}, {"id": "9130338633", "name": "Craig VanDerSchaegen", "band": "Group 4", "instrument": "Drums", "belt": "Black", "left": "", "returned": ""}, {"id": "9130339325", "name": "Dan Christensen-Cowan", "band": "Group 4", "instrument": "Bass", "belt": "Brown", "left": "", "returned": ""}, {"id": "9130339504", "name": "Sam Liska", "band": "Group 4", "instrument": "Trumpet", "belt": "Black", "left": "", "returned": ""}, {"id": "9988880116", "name": "Christopher Dunlap", "band": "Group 4", "instrument": "Sax/Tenor", "belt": "Black", "left": "", "returned": ""}, {"id": "9130337385", "name": "Tony Ruccolo", "band": "Group 5", "instrument": "Bass", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130337864", "name": "Brandon Mickelson", "band": "Group 5", "instrument": "Drums", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130338335", "name": "Ron Siven", "band": "Group 5", "instrument": "Sax/Alto", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339472", "name": "Matt Kazinka", "band": "Group 5", "instrument": "Trombone", "belt": "Purple", "left": "", "returned": ""}, {"id": "10888021214", "name": "Laura Stone-Jeraj", "band": "Group 5", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339390", "name": "Hall Sanders", "band": "Group 5", "instrument": "Sax/Tenor", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130337859", "name": "Aaron Thompson", "band": "Group 6", "instrument": "Drums", "belt": "White", "left": "2026-02-01", "returned": "2026-04-01"}, {"id": "9130337457", "name": "Rob Hanson", "band": "Group 6", "instrument": "Guitar", "belt": "White", "left": "", "returned": ""}, {"id": "9130339265", "name": "Stephen Elfstrand", "band": "Group 6", "instrument": "Sax/Tenor", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130339800", "name": "Tom Walsh", "band": "Group 6", "instrument": "Trumpet", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130339902", "name": "Charlie Vanek", "band": "Group 6", "instrument": "Bass", "belt": "Blue", "left": "", "returned": ""}, {"id": "9777257063", "name": "Benjamin Downs", "band": "Group 6", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130337444", "name": "Sean Coleman", "band": "Group 7", "instrument": "Guitar", "belt": "White", "left": "", "returned": ""}, {"id": "9130337646", "name": "Mark Berglund", "band": "Group 7", "instrument": "Bass", "belt": "White", "left": "", "returned": ""}, {"id": "9130337882", "name": "Ashlyn Pietrowski", "band": "Group 7", "instrument": "Sax/Alto", "belt": "White", "left": "", "returned": ""}, {"id": "9130339470", "name": "Dan Emerson", "band": "Group 7", "instrument": "Piano", "belt": "White", "left": "", "returned": ""}, {"id": "9130337618", "name": "Antonio Jennie", "band": "Group 7", "instrument": "Drums", "belt": "Blue", "left": "", "returned": ""}, {"id": "18009864527", "name": "Jeff Mason", "band": "Group 7", "instrument": "Trumpet", "belt": "White", "left": "", "returned": ""}, {"id": "11723327161", "name": "Megan Fitterman", "band": "Group 8", "instrument": "Voice", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130337480", "name": "Maria Meade", "band": "Group 8", "instrument": "Bass", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130340164", "name": "Karl Washburn", "band": "Group 8", "instrument": "Piano", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130337934", "name": "Kendra Snyder", "band": "Group 8", "instrument": "Sax/Alto", "belt": "Blue", "left": "", "returned": ""}, {"id": "10056431112", "name": "Mike Dougherty", "band": "Group 8", "instrument": "Guitar", "belt": "Purple", "left": "", "returned": ""}, {"id": "10557744734", "name": "Cory Chargo", "band": "Group 8", "instrument": "Trumpet", "belt": "White", "left": "", "returned": ""}, {"id": "9130338538", "name": "Adam Ziemet", "band": "Group 8", "instrument": "Drums", "belt": "Purple", "left": "2025-11-01", "returned": "2026-02-01"}, {"id": "9130339209", "name": "Matt Boerner", "band": "Group 9", "instrument": "Piano", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130339972", "name": "Bob Stuckey", "band": "Group 9", "instrument": "Trumpet", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130337768", "name": "Travis Freudenberg", "band": "Group 9", "instrument": "Bass", "belt": "Black", "left": "", "returned": ""}, {"id": "9130339049", "name": "Alexander Oftelie", "band": "Group 9", "instrument": "Drums", "belt": "Black", "left": "", "returned": ""}, {"id": "9130337615", "name": "Steven Modica", "band": "Group 9", "instrument": "Guitar", "belt": "Purple", "left": "2026-05-01", "returned": "2026-07-01"}, {"id": "9130338998", "name": "Tiffany DeFoe", "band": "Group 10", "instrument": "Sax/Tenor", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339441", "name": "Andrew Easterling", "band": "Group 10", "instrument": "Bass", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339539", "name": "Todd Bartholomay", "band": "Group 10", "instrument": "Piano", "belt": "Black", "left": "", "returned": ""}, {"id": "9130339626", "name": "Julian Salgado Laredo", "band": "Group 10", "instrument": "Drums", "belt": "Purple", "left": "2026-08-01", "returned": ""}, {"id": "10011237432", "name": "Griffin Trayner", "band": "Group 10", "instrument": "Sax/Alto", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339363", "name": "Joe McMorrow", "band": "Group 11", "instrument": "Bass", "belt": "Blue", "left": "", "returned": ""}, {"id": "9772938389", "name": "Caly McMorrow", "band": "Group 11", "instrument": "Sax/Bari", "belt": "Blue", "left": "", "returned": ""}, {"id": "9783842996", "name": "Bennett Nodell", "band": "Group 11", "instrument": "Drums", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130339578", "name": "Nate Dexter", "band": "Group 11", "instrument": "Trombone", "belt": "Blue", "left": "", "returned": ""}, {"id": "10954551999", "name": "Dustin Bethke", "band": "Group 11", "instrument": "Sax/Alto", "belt": "Blue", "left": "", "returned": ""}, {"id": "10718684451", "name": "Lacey Oar", "band": "Group 11", "instrument": "Piano", "belt": "White", "left": "", "returned": ""}, {"id": "11392210363", "name": "Ryan Moore", "band": "Group 11", "instrument": "Guitar", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130338094", "name": "Jon Norstad", "band": "Group 12", "instrument": "Drums", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130338763", "name": "Curt Bergmann", "band": "Group 12", "instrument": "Sax/Alto", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130339341", "name": "Charles Burdick", "band": "Group 12", "instrument": "Sax/Tenor", "belt": "Blue", "left": "", "returned": ""}, {"id": "9777260072", "name": "Madeline Elmhirst", "band": "Group 12", "instrument": "Piano", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130337402", "name": "John Pohl", "band": "Group 12", "instrument": "Guitar", "belt": "Blue", "left": "", "returned": ""}, {"id": "9130338557", "name": "Jeff Sugerman", "band": "Group 12", "instrument": "Bass", "belt": "Brown", "left": "2025-10-01", "returned": "2026-05-01"}, {"id": "9130338114", "name": "Victoria Clark-West", "band": "Group 12", "instrument": "Voice", "belt": "Brown", "left": "2026-04-01", "returned": "2026-07-01"}, {"id": "11957623671", "name": "Jeff Sugerman", "band": "Group 14", "instrument": "Bass", "belt": "Brown", "left": "", "returned": ""}, {"id": "9130338623", "name": "David Strahan", "band": "Group 14", "instrument": "Guitar", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339169", "name": "Dan Bielenberg", "band": "Group 14", "instrument": "Sax/Tenor/Soprano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339684", "name": "Tom Henchal", "band": "Group 14", "instrument": "Trumpet", "belt": "Purple", "left": "", "returned": ""}, {"id": "9896424548", "name": "Dale Fruehauf", "band": "Group 14", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339261", "name": "Gwen Anderson", "band": "Group 15", "instrument": "French Horn", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339601", "name": "Matt Young", "band": "Group 15", "instrument": "Bass", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130339946", "name": "Nick Brandeau", "band": "Group 15", "instrument": "Drums", "belt": "Purple", "left": "", "returned": ""}, {"id": "9234243740", "name": "Noah Anderson", "band": "Group 15", "instrument": "Sax/Tenor", "belt": "Blue", "left": "", "returned": ""}, {"id": "18345308393", "name": "Mike Davidovich", "band": "Group 15", "instrument": "Piano", "belt": "White", "left": "", "returned": ""}, {"id": "10770387669", "name": "Cara Sego", "band": "Group 15", "instrument": "Trumpet", "belt": "Purple", "left": "", "returned": ""}, {"id": "11685808718", "name": "Dave MacCallum", "band": "Group 15", "instrument": "Guitar", "belt": "Blue", "left": "", "returned": ""}, {"id": "9577933473", "name": "Ron Wiese", "band": "Group 16", "instrument": "Bass", "belt": "Brown", "left": "", "returned": ""}, {"id": "9167240310", "name": "Brad Allen", "band": "Group 16", "instrument": "Sax/Alto/Tenor", "belt": "Black", "left": "", "returned": ""}, {"id": "9130339158", "name": "Bill Hyman", "band": "Group 16", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "9130338337", "name": "Kevin Wall", "band": "Group 16", "instrument": "Drums", "belt": "Black", "left": "2025-12-01", "returned": "2026-04-01"}, {"id": "11309423450", "name": "Kelly Fitz", "band": "Group 16", "instrument": "Guitar", "belt": "Purple", "left": "", "returned": ""}, {"id": "10861829257", "name": "Neal Fredrickson", "band": "Group 17", "instrument": "Drums", "belt": "Purple", "left": "", "returned": ""}, {"id": "10881600021", "name": "Owen Sullivan", "band": "Group 17", "instrument": "Bass", "belt": "White", "left": "", "returned": ""}, {"id": "9130337752", "name": "Parker Brown", "band": "Group 17", "instrument": "Guitar", "belt": "Purple", "left": "", "returned": ""}, {"id": "11010822529", "name": "Eric Frederickson", "band": "Group 17", "instrument": "Piano", "belt": "Purple", "left": "", "returned": ""}, {"id": "11301815845", "name": "Gustavo Ibarra", "band": "Group 18", "instrument": "Piano", "belt": "Brown", "left": "", "returned": ""}, {"id": "11563478398", "name": "Jake Gysland", "band": "Group 18", "instrument": "Trumpet", "belt": "Purple", "left": "", "returned": ""}], "leads": [{"id": "9130339912", "name": "Andy Schulz", "status": "Sit-In", "section": "Sit-In", "instrument": "Trombone", "program": "Ensemble"}, {"id": "11509163364", "name": "Hayley Banker", "status": "Sit-In", "section": "Sit-In", "instrument": "Tenor", "program": "Ensemble"}, {"id": "11729230383", "name": "Dave Rengel", "status": "Sit-In", "section": "Sit-In", "instrument": "Bass", "program": "Ensemble"}, {"id": "11860023721", "name": "Glen Helgeson", "status": "Sit-In", "section": "Sit-In", "instrument": "Guitar", "program": "Ensemble"}, {"id": "12237796402", "name": "Peter Solomon", "status": "Sit-In", "section": "Sit-In", "instrument": "Trombone", "program": "Ensemble"}, {"id": "11529909245", "name": "Lisa Borg", "status": "Sit-In", "section": "Sit-In", "instrument": "Sax, Alto", "program": "Ensemble"}, {"id": "12351867236", "name": "David Mayfield", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble"}, {"id": "12384233464", "name": "Louis Higgins", "status": "Qualified", "section": "Qualified", "instrument": "Piano", "program": "Ensemble"}, {"id": "10047141031", "name": "Marcus Drayton", "status": "Qualified", "section": "Qualified", "instrument": "Sax", "program": "Ensemble, Private Lessons, Clinics"}, {"id": "9942717148", "name": "Milo Lambright", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble, Clinics"}, {"id": "9130338171", "name": "Patrick Dalton", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": ""}, {"id": "9130339410", "name": "Bill O'Donnell", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble, Clinics"}, {"id": "9130339982", "name": "Emerald Peterson", "status": "Qualified", "section": "Qualified", "instrument": "Sax", "program": "Ensemble"}, {"id": "9130338381", "name": "Collin Roycroft", "status": "Qualified", "section": "Qualified", "instrument": "Saxophone", "program": "Clinics"}, {"id": "9130340063", "name": "Nick Vinkemeier", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble, Clinics"}, {"id": "10982821199", "name": "Lucy Dunne", "status": "Qualified", "section": "Qualified", "instrument": "Voice", "program": "Jazz Singers Playground"}, {"id": "10993149010", "name": "Scott Marek", "status": "Qualified", "section": "Qualified", "instrument": "Voice", "program": "Jazz Voice Lab, Jazz Singers Playground"}, {"id": "11138591563", "name": "Ryan Pedersen", "status": "Qualified", "section": "Qualified", "instrument": "Piano", "program": "Foundations of Jazz, Private Lessons"}, {"id": "11201479809", "name": "Evan Skaar", "status": "Qualified", "section": "Qualified", "instrument": "Guitar", "program": "Ensemble"}, {"id": "11308773338", "name": "Andrew McClure", "status": "Qualified", "section": "Qualified", "instrument": "Bass", "program": "Ensemble, Foundations of Jazz, Private Lessons, Jazz Voice Lab"}, {"id": "11333848840", "name": "Craig Rodine", "status": "Qualified", "section": "Qualified", "instrument": "Sax, Alto", "program": "Ensemble"}, {"id": "11339475761", "name": "Jaeger Svennevig-Brosi", "status": "Qualified", "section": "Qualified", "instrument": "Guitar", "program": "Ensemble"}, {"id": "11607819323", "name": "Parks Burgum", "status": "Qualified", "section": "Qualified", "instrument": "Bass", "program": "Ensemble"}, {"id": "11618637698", "name": "Greg Flanagan", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble, Private Lessons, Clinics"}, {"id": "11726316806", "name": "Jay Johnson", "status": "Qualified", "section": "Qualified", "instrument": "Piano", "program": "Clinics"}, {"id": "11841944658", "name": "David Collom", "status": "Qualified", "section": "Qualified", "instrument": "Sax", "program": "Ensemble"}, {"id": "11885158907", "name": "Lauren Hagen", "status": "Qualified", "section": "Qualified", "instrument": "Bass", "program": "Ensemble"}, {"id": "12253020873", "name": "Daniel Goldschmidt", "status": "Qualified", "section": "Qualified", "instrument": "Piano, Voice", "program": "Foundations of Jazz"}, {"id": "12328248085", "name": "Cathleen Gempeler", "status": "Qualified", "section": "Qualified", "instrument": "Piano", "program": "Ensemble"}, {"id": "12416094945", "name": "Aaron Rodriguez", "status": "Qualified", "section": "Qualified", "instrument": "Bass", "program": "Ensemble"}, {"id": "10004251120", "name": "Ryland Nelsen", "status": "Qualified", "section": "Qualified", "instrument": "Guitar", "program": "Foundations of Jazz Guitar"}, {"id": "9772940979", "name": "Stuart Pimsler", "status": "Qualified", "section": "Qualified", "instrument": "Sax, Alto", "program": ""}, {"id": "10521560435", "name": "Christian Milker", "status": "Qualified", "section": "Qualified", "instrument": "Guitar, Piano", "program": ""}, {"id": "9130339989", "name": "Darin Lund", "status": "Qualified", "section": "Qualified", "instrument": "Guitar", "program": ""}, {"id": "18166558167", "name": "Joshua Roeser", "status": "Qualified", "section": "Qualified", "instrument": "Sax", "program": "Ensemble, Private Lessons, Clinics"}, {"id": "18167922985", "name": "Rob Byers", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": "Ensemble, Clinics"}, {"id": "10019108740", "name": "Charles Davis", "status": "Qualified", "section": "Qualified", "instrument": "Drums", "program": ""}, {"id": "10019108778", "name": "Indigo Sabin", "status": "Qualified", "section": "Qualified", "instrument": "Sax", "program": "Ensemble, Private Lessons"}], "stamp": "July 2, 2026"};   // snapshot baked in at build time (offline fallback)
+let RAW = BAKED;          // replaced at runtime by roster.json when hosted
+
+/* ================================================================
+   FIREBASE — paste your project's config between the braces below.
+   Setup steps are in the guide. Until real values are pasted, the
+   tool runs in LOCAL-ONLY mode (saves in your browser, not shared).
+   ================================================================ */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB_n72n1JQb2XVqeypNR5-CWI3A0mY1lpY",
+  authDomain: "nsjw-ensemble-builder.firebaseapp.com",
+  databaseURL: "https://nsjw-ensemble-builder-default-rtdb.firebaseio.com",
+  projectId: "nsjw-ensemble-builder",
+  storageBucket: "nsjw-ensemble-builder.firebasestorage.app",
+  messagingSenderId: "664708219611",
+  appId: "1:664708219611:web:20cbbae3f8ed51650802fe"
+};
+
+/* ---- instrument categorization ---- */
+const CATLABEL={drums:'Drums',bass:'Bass',guitar:'Guitar',piano:'Piano',horn:'Horns',voice:'Voice',other:'Other'};
+const CATCOLOR={drums:'var(--drums)',bass:'var(--bass)',guitar:'var(--guitar)',piano:'var(--piano)',horn:'var(--horn)',voice:'var(--voice)',other:'var(--other)'};
+const CATORDER=['drums','bass','guitar','piano','horn','voice','other'];
+const IDEAL={drums:1,bass:1,guitar:1,piano:1,horn:3};
+function catsOf(instr){const s=(instr||'').toLowerCase();const o=[];
+  if(/drum|percuss/.test(s))o.push('drums');
+  if(/bass|tuba/.test(s))o.push('bass');
+  if(/guitar|banjo|mandolin/.test(s))o.push('guitar');
+  if(/piano|key|vibr/.test(s))o.push('piano');
+  if(/sax|trumpet|trombone|tenor|alto|bari|soprano|flute|clarinet|horn|euphon|brass/.test(s))o.push('horn');
+  if(/voice|vocal|sing/.test(s))o.push('voice');
+  if(!o.length)o.push('other');return o;}
+function primaryCat(i){return catsOf(i)[0];}
+const BELTHEX={white:'#f4f4f4',blue:'#4a90d9',purple:'#8e5cd9',brown:'#8a5a2b',black:'#222'};
+function beltColor(b){const k=(b||'').toLowerCase().split(',')[0].trim();return BELTHEX[k]||'transparent';}
+function initials(n){return n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function fmtDate(s){if(!s)return '';const d=s.split(' ')[0].split('-');return d.length<3?s:(+d[1])+'/'+(+d[2])+'/'+d[0].slice(2);}
+// a member is "leaving" (needs a swap) if they have a Date Left that hasn't been reversed by a later Date Returned
+function leaveInfo(p){
+  if(p.type!=='member'||!p.left)return null;
+  if(p.returned && p.returned>=p.left)return null; // came back
+  return {date:fmtDate(p.left)};
+}
+
+/* ---- registry (rebuilt whenever RAW changes) ---- */
+let PEOPLE={};
+function buildPeople(){
+  PEOPLE={};
+  RAW.leads.forEach(l=>PEOPLE['L'+l.id]={uid:'L'+l.id,type:'lead',name:l.name,instrument:l.instrument,belt:l.belt,status:l.status,section:l.section});
+  RAW.members.forEach(m=>PEOPLE['M'+m.id]={uid:'M'+m.id,type:'member',name:m.name,instrument:m.instrument,belt:m.belt,origBand:m.band,left:m.left||'',returned:m.returned||''});
+}
+
+/* ---- default state ---- */
+function bandNum(b){const n=parseInt((b||'').replace(/\D/g,''));return isNaN(n)?999:n;}
+function buildDefault(){
+  const bands=[...new Set(RAW.members.map(m=>m.band))].sort((a,b)=>bandNum(a)-bandNum(b));
+  const ens=bands.map(b=>({id:'band-'+bandNum(b),name:b,isNew:false}));
+  const place={};
+  RAW.members.forEach(m=>place['M'+m.id]='band-'+bandNum(m.band));
+  RAW.leads.forEach(l=>place['L'+l.id]='leads');
+  return {ens,place};
+}
+let ORIGINAL, ORIG_MEMBERS_BY_BAND;
+// (re)compute registry + change-tracking baseline from the current RAW
+function rebuildData(){
+  buildPeople();
+  ORIGINAL=buildDefault();
+  ORIG_MEMBERS_BY_BAND={};
+  Object.entries(ORIGINAL.place).forEach(([uid,loc])=>{(ORIG_MEMBERS_BY_BAND[loc]=ORIG_MEMBERS_BY_BAND[loc]||new Set()).add(uid);});
+  const st=document.getElementById('stamp'); if(st) st.textContent='Roster from Monday · '+RAW.stamp;
+}
+// fetch the live roster (hosted), fall back to the baked snapshot, then start syncing state
+async function boot(){
+  try{
+    const r=await fetch('roster.json',{cache:'no-store'});
+    if(r.ok){const j=await r.json(); if(j&&Array.isArray(j.members)&&Array.isArray(j.leads)&&j.members.length) RAW=j;}
+  }catch(e){}
+  rebuildData();
+  initSync();
+}
+
+const STORE_KEY='nsjw_ens3';
+let ensembles, place;
+// default placement for everyone, then overlay saved placements for people who still exist,
+// and repair any placement pointing at an ensemble that no longer exists
+function reconcile(savedPlace){
+  const d=buildDefault();
+  const p={...d.place};
+  Object.keys(savedPlace||{}).forEach(u=>{if(PEOPLE[u])p[u]=savedPlace[u];});
+  const ids=new Set((ensembles&&ensembles.length?ensembles:d.ens).map(e=>e.id));
+  Object.keys(p).forEach(u=>{const loc=p[u];
+    if(loc!=='leads'&&loc!=='bench'&&!ids.has(loc))p[u]=PEOPLE[u].type==='lead'?'leads':'bench';});
+  return p;
+}
+
+/* ---------- real-time sync (Firebase) with local-only fallback ---------- */
+let dbRef=null, applyingRemote=false, writeTimer=null;
+function setSync(state){
+  const el=document.getElementById('sync');if(!el)return;
+  const m={live:['live','● Live · shared'],connecting:['connecting','◌ Connecting…'],
+           local:['localmode','○ Local only'],error:['err','● Offline']}[state]||['localmode','○ Local'];
+  el.className='syncpill '+m[0];el.textContent=m[1];
+}
+function initSync(){
+  const cfg=(typeof FIREBASE_CONFIG!=='undefined')?FIREBASE_CONFIG:null;
+  if(!cfg||!cfg.apiKey||cfg.apiKey.indexOf('PASTE')===0||typeof firebase==='undefined'){
+    setSync('local');loadLocal();render();return;
+  }
+  try{
+    firebase.initializeApp(cfg);
+    dbRef=firebase.database().ref('ensembleBuilder');
+    setSync('connecting');
+    dbRef.on('value',snap=>{
+      const remote=snap.val();
+      applyingRemote=true;
+      if(remote&&remote.ens&&remote.place){ensembles=remote.ens;place=reconcile(remote.place);}
+      else{const d=buildDefault();ensembles=d.ens;place=d.place;dbRef.set({ens:ensembles,place:place});}
+      render();
+      applyingRemote=false;
+      setSync('live');
+    },err=>{setSync('error');loadLocal();render();});
+  }catch(e){setSync('local');loadLocal();render();}
+}
+function loadLocal(){
+  const d=buildDefault();ensembles=d.ens;place={...d.place};
+  try{const s=JSON.parse(localStorage.getItem(STORE_KEY));
+    if(s&&s.ens&&s.place){ensembles=s.ens;place=reconcile(s.place);}}catch(e){}
+}
+// called after any change; writes to the shared DB (debounced) or localStorage
+function save(){
+  if(applyingRemote)return;
+  if(dbRef){clearTimeout(writeTimer);writeTimer=setTimeout(()=>dbRef.set({ens:ensembles,place:place}),250);}
+  else{try{localStorage.setItem(STORE_KEY,JSON.stringify({ens:ensembles,place:place}));}catch(e){}}
+}
+function ensName(id){const e=ensembles.find(x=>x.id===id);return e?e.name:id;}
+function peopleAt(loc){return Object.keys(place).filter(u=>place[u]===loc).map(u=>PEOPLE[u]).filter(Boolean);}
+
+/* ---- move ---- */
+function moveTo(uid,loc){
+  if(loc==='leads'&&PEOPLE[uid].type!=='lead')loc='bench'; // members can't sit in leads pool
+  place[uid]=loc;render();
+}
+
+/* ---- pool cards ---- */
+function personCard(p){
+  const cat=primaryCat(p.instrument);const lv=leaveInfo(p);
+  const d=document.createElement('div');d.className='person'+(lv?' leaving-chip':'');d.draggable=true;d.dataset.uid=p.uid;
+  let right='';
+  if(p.type==='lead'){const sm={'Sit-In':['s','Sit-In'],'Qualified':['q','Qualified'],'New-Qualified':['nq','New Qual']}[p.section]||['q',p.status];right='<span class="tag '+sm[0]+'">'+sm[1]+'</span>';}
+  else right='<span class="tag origin">'+esc(p.origBand)+'</span>';
+  if(lv)right+='<span class="tag leaving" title="Leaving — plan a swap">⤴ '+lv.date+'</span>';
+  d.innerHTML='<span class="belt" title="'+esc(p.belt)+'" style="background:'+beltColor(p.belt)+'"></span>'+
+    '<span class="ico" style="background:'+CATCOLOR[cat]+'">'+initials(p.name)+'</span>'+
+    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+esc(p.instrument||'—')+'</small></span>'+right;
+  wireDrag(d,p.uid);
+  return d;
+}
+function wireDrag(el,uid){
+  el.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/uid',uid);e.dataTransfer.effectAllowed='move';el.classList.add('dragging');});
+  el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+}
+function wireDrop(el,loc){
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('over'));
+  el.addEventListener('drop',e=>{e.preventDefault();el.classList.remove('over');const u=e.dataTransfer.getData('text/uid');if(u)moveTo(u,loc);});
+}
+
+/* ---- render ---- */
+function passFilter(p){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const inst=document.getElementById('instFilter').value;
+  return (!q||p.name.toLowerCase().includes(q))&&(!inst||catsOf(p.instrument).includes(inst));
+}
+function render(){
+  // left pools
+  const lz=document.getElementById('leadsZone');lz.innerHTML='';
+  const bz=document.getElementById('benchZone');bz.innerHTML='';
+  const leadsPool=peopleAt('leads').filter(passFilter);
+  const bench=peopleAt('bench').filter(passFilter);
+  document.getElementById('leadsCount').textContent=peopleAt('leads').length;
+  document.getElementById('benchCount').textContent=peopleAt('bench').length;
+  if(!leadsPool.length)lz.innerHTML='<div class="emptxt">No leads here.</div>';
+  leadsPool.forEach(p=>lz.appendChild(personCard(p)));
+  if(!bench.length)bz.innerHTML='<div class="emptxt">Empty — drag anyone here to park them.</div>';
+  bench.forEach(p=>bz.appendChild(personCard(p)));
+
+  // ensembles
+  const wrap=document.getElementById('ensembles');wrap.innerHTML='';
+  ensembles.forEach(ens=>wrap.appendChild(ensCard(ens)));
+  const add=document.createElement('div');add.className='addens';add.textContent='+ Add ensemble';add.onclick=addEnsemble;
+  wrap.appendChild(add);
+
+  buildLegend();save();
+}
+
+function ensCard(ens){
+  const members=Object.keys(place).filter(u=>place[u]===ens.id).map(u=>PEOPLE[u]).filter(Boolean);
+  const byCat={};CATORDER.forEach(c=>byCat[c]=[]);
+  members.forEach(p=>byCat[primaryCat(p.instrument)].push(p));
+
+  const card=document.createElement('div');card.className='ens';
+  // modified?
+  const orig=ORIG_MEMBERS_BY_BAND[ens.id]||new Set();
+  const cur=new Set(members.map(p=>p.uid));
+  const modified=!ens.isNew && (orig.size!==cur.size || [...cur].some(u=>!orig.has(u)) || [...orig].some(u=>!cur.has(u)));
+  const isNewMod=ens.isNew && members.length>0;
+  if(modified||isNewMod)card.classList.add('modified');
+
+  const head=document.createElement('div');head.className='eh';
+  head.innerHTML=(modified||isNewMod?'<span class="moddot" title="Changed from original">●</span>':'')+
+    '<input value="'+esc(ens.name)+'" onchange="renameEns(\''+ens.id+'\',this.value)">'+
+    '<span class="cnt">'+members.length+'</span>'+
+    '<span class="x" title="Remove ensemble" onclick="removeEns(\''+ens.id+'\')">&times;</span>';
+  card.appendChild(head);
+
+  // instrumentation pills
+  const bar=document.createElement('div');bar.className='instbar';
+  Object.keys(IDEAL).forEach(c=>{
+    const have=byCat[c].length,need=IDEAL[c];
+    let cls='pill';if(have<need)cls+=' short';if(have>need)cls+=' over';
+    bar.innerHTML+='<span class="'+cls+'" style="background:'+CATCOLOR[c]+'">'+CATLABEL[c]+' '+have+'/'+need+'</span>';
+  });
+  card.appendChild(bar);
+
+  // role rows
+  const rr=document.createElement('div');rr.className='roles';
+  if(!members.length)rr.innerHTML='<div class="empty">Empty — drag players here.</div>';
+  CATORDER.forEach(c=>{
+    if(!byCat[c].length)return;
+    const row=document.createElement('div');row.className='role-row';
+    row.innerHTML='<div class="role-lbl" style="color:'+CATCOLOR[c]+'">'+CATLABEL[c]+'</div>';
+    byCat[c].forEach(p=>row.appendChild(chip(p,ens)));
+    rr.appendChild(row);
+  });
+  card.appendChild(rr);
+
+  wireDrop(card,ens.id);
+  return card;
+}
+
+function chip(p,ens){
+  const cat=primaryCat(p.instrument);const lv=leaveInfo(p);
+  const c=document.createElement('div');c.className='chip'+(lv?' leaving-chip':'');c.draggable=true;c.dataset.uid=p.uid;
+  let badge='';
+  if(p.type==='lead')badge='<span class="tag lead">lead</span>';
+  if(p.type==='member' && p.origBand!==ens.name)badge='<span class="tag origin">'+esc(p.origBand)+'</span>';
+  if(lv)badge+='<span class="tag leaving" title="Leaving — plan a swap">⤴ '+lv.date+'</span>';
+  c.innerHTML='<span class="ico" style="background:'+CATCOLOR[cat]+'">'+initials(p.name)+'</span>'+
+    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+esc(p.instrument||'—')+'</small></span>'+
+    badge+'<span class="rm" title="Send to bench" onclick="moveTo(\''+p.uid+'\',\'bench\')">&times;</span>';
+  wireDrag(c,p.uid);
+  return c;
+}
+
+/* ---- ensemble ops ---- */
+function renameEns(id,v){const e=ensembles.find(x=>x.id===id);if(e){e.name=v||'Ensemble';save();render();}}
+function addEnsemble(){ensembles.push({id:'new-'+Math.random().toString(36).slice(2,7),name:'New Ensemble',isNew:true});render();}
+function removeEns(id){
+  const e=ensembles.find(x=>x.id===id);const n=Object.keys(place).filter(u=>place[u]===id).length;
+  if(!confirm('Remove "'+e.name+'"?'+(n?' Its '+n+' player(s) go to the Bench.':'')))return;
+  Object.keys(place).forEach(u=>{if(place[u]===id)place[u]='bench';});
+  ensembles=ensembles.filter(x=>x.id!==id);render();
+}
+function resetAll(){if(confirm('Reset everything back to the current Monday rosters?')){const d=buildDefault();ensembles=d.ens;place=d.place;render();}}
+
+/* ---- wire left drop zones ---- */
+wireDrop(document.getElementById('leadsZone'),'leads');
+wireDrop(document.getElementById('benchZone'),'bench');
+
+/* ---- legend ---- */
+function buildLegend(){
+  document.getElementById('legend').innerHTML='Roles: '+
+    Object.keys(CATLABEL).map(c=>'<span><i style="background:'+CATCOLOR[c]+'"></i>'+CATLABEL[c]+'</span>').join('')+
+    ' &nbsp;·&nbsp; target per band = 1 drums · 1 bass · 1 guitar · 1 piano · 3 horns. '+
+    'Faded pill = short, amber outline = over. Purple tag = player’s original band. ● = band changed from Monday. '+
+    '<span style="color:#c0392b;font-weight:700">⤴ red = has a leave date (plan a swap)</span>.';
+}
+
+/* ---- exports ---- */
+function copyLineups(){
+  let t='NORTH STAR — ENSEMBLE LINEUPS ('+RAW.stamp+')\n\n';
+  ensembles.forEach(e=>{
+    const mem=Object.keys(place).filter(u=>place[u]===e.id).map(u=>PEOPLE[u]).filter(Boolean)
+      .sort((a,b)=>CATORDER.indexOf(primaryCat(a.instrument))-CATORDER.indexOf(primaryCat(b.instrument)));
+    t+='■ '+e.name+' ('+mem.length+')\n';
+    if(!mem.length)t+='   (empty)\n';
+    mem.forEach(p=>{t+='   • '+p.name+' — '+(p.instrument||'')+(p.type==='lead'?' [LEAD]':(p.origBand!==e.name?' [from '+p.origBand+']':''))+'\n';});
+    t+='\n';
+  });
+  copyText(t,'Lineups copied.');
+}
+function copyChanges(){
+  const moves=[];
+  Object.keys(place).forEach(u=>{
+    const p=PEOPLE[u];const now=place[u];
+    if(p.type==='member'){
+      const home='band-'+bandNum(p.origBand);
+      if(now!==home){
+        const to = now==='bench'?'Bench':(now==='leads'?'Leads':ensName(now));
+        moves.push(p.origBand+'  →  '+to+'   ('+p.name+', '+(p.instrument||'')+')');
+      }
+    }else{ // lead
+      if(now!=='leads'){
+        const to = now==='bench'?'Bench':ensName(now);
+        moves.push('LEAD  →  '+to+'   ('+p.name+', '+(p.instrument||'')+')');
+      }
+    }
+  });
+  let t='NORTH STAR — PROPOSED CHANGES ('+RAW.stamp+')\n\n';
+  t+= moves.length? moves.sort().join('\n') : 'No changes yet — rosters match Monday.';
+  copyText(t,moves.length+' change(s) copied.');
+}
+function copyText(t,msg){
+  navigator.clipboard.writeText(t).then(()=>alert(msg)).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert(msg);
+  });
+}
+
+boot();
+</script>
+</body>
+</html>
