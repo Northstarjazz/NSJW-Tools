@@ -13,10 +13,11 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
-  header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;flex-wrap:wrap}
-  header h1{font-size:16px;margin:0;font-weight:700}
-  header h1 .dot{color:var(--coral)}
-  header .sub{color:#b9b9c4;font-size:12px}
+  header{background:linear-gradient(100deg,#15141a 0%,#1f2330 55%,#2a2740 100%);color:#fff;padding:11px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;flex-wrap:wrap;border-bottom:2px solid var(--coral)}
+  header .brand{font-family:Georgia,'Iowan Old Style','Times New Roman',serif;font-size:19px;margin:0;font-weight:700;letter-spacing:.2px;color:#f4f1ea;white-space:nowrap}
+  header .brand .star{color:var(--coral)}
+  header .toolname{font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#9fa3b2;border-left:1px solid #4a4a57;padding-left:11px}
+  header .sub{color:#aeb0be;font-size:12px}
   header .spacer{flex:1}
   .btn{border:none;border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;background:#33333d;color:#fff}
   .btn:hover{background:#44444f}
@@ -99,7 +100,8 @@
 </head>
 <body>
 <header>
-  <h1>North<span class="dot">★</span>Star Ensemble Builder</h1>
+  <h1 class="brand">North <span class="star">Star</span> Jazz Workshops</h1>
+  <span class="toolname">Ensemble Builder</span>
   <span class="sub" id="stamp"></span>
   <span class="syncpill localmode" id="sync">○ Local</span>
   <span class="spacer"></span>
