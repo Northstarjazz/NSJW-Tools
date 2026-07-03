@@ -80,6 +80,12 @@
   .chip .rm{cursor:pointer;color:#c4c4cc;font-weight:700;font-size:14px;padding:0 2px}
   .chip .rm:hover{color:var(--coral)}
   .ens .empty{color:#b0b0bc;font-size:12px;font-style:italic;padding:6px}
+  .chip .beltname{color:#8a8a96;font-weight:600}
+  .ens-notes{padding:0 10px 11px}
+  .ens-notes .nlbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:2px 2px 4px}
+  .ens-notes textarea{width:100%;min-height:38px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-family:inherit;font-size:12px;line-height:1.4;color:var(--ink);background:#fbfbff}
+  .ens-notes textarea:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 2px rgba(255,90,77,.15);background:#fff}
+  .ens-notes textarea::placeholder{color:#b7b7c2}
   .addens{border:2px dashed #d0d0da;border-radius:12px;display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--muted);font-weight:700;cursor:pointer}
   .addens:hover{border-color:var(--coral);color:var(--coral)}
   .legend{font-size:11px;color:var(--muted);padding:6px 16px 20px}
@@ -295,9 +301,10 @@ function personCard(p){
   if(p.type==='lead'){const sm={'Sit-In':['s','Sit-In'],'Qualified':['q','Qualified'],'New-Qualified':['nq','New Qual']}[p.section]||['q',p.status];right='<span class="tag '+sm[0]+'">'+sm[1]+'</span>';}
   else right='<span class="tag origin">'+esc(p.origBand)+'</span>';
   if(lv)right+='<span class="tag leaving" title="Leaving — plan a swap">⤴ '+lv.date+'</span>';
-  d.innerHTML='<span class="belt" title="'+esc(p.belt)+'" style="background:'+beltColor(p.belt)+'"></span>'+
+  const sub=esc(p.instrument||'—')+((p.type==='member'&&p.belt)?' · '+esc(p.belt):'');
+  d.innerHTML='<span class="belt" title="'+esc(p.belt)+' belt" style="background:'+beltColor(p.belt)+'"></span>'+
     '<span class="ico" style="background:'+CATCOLOR[cat]+'">'+initials(p.name)+'</span>'+
-    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+esc(p.instrument||'—')+'</small></span>'+right;
+    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+sub+'</small></span>'+right;
   wireDrag(d,p.uid);
   return d;
 }
@@ -318,6 +325,13 @@ function passFilter(p){
   return (!q||p.name.toLowerCase().includes(q))&&(!inst||catsOf(p.instrument).includes(inst));
 }
 function render(){
+  // preserve the notes box someone is typing in, so live updates don't interrupt them
+  let noteFocus=null;
+  const ae=document.activeElement;
+  if(ae&&ae.dataset&&ae.dataset.notesEns){
+    noteFocus={id:ae.dataset.notesEns,val:ae.value,s:ae.selectionStart,e:ae.selectionEnd};
+    const en=ensembles.find(x=>x.id===noteFocus.id);if(en)en.notes=ae.value; // keep in-progress text
+  }
   // left pools
   const lz=document.getElementById('leadsZone');lz.innerHTML='';
   const bz=document.getElementById('benchZone');bz.innerHTML='';
@@ -336,6 +350,11 @@ function render(){
   const add=document.createElement('div');add.className='addens';add.textContent='+ Add ensemble';add.onclick=addEnsemble;
   wrap.appendChild(add);
 
+  // restore notes-box focus + caret after rebuild
+  if(noteFocus){
+    const t=document.querySelector('[data-notes-ens="'+noteFocus.id+'"]');
+    if(t){t.focus();try{t.setSelectionRange(noteFocus.s,noteFocus.e);}catch(e){}}
+  }
   buildLegend();save();
 }
 
@@ -380,9 +399,18 @@ function ensCard(ens){
   });
   card.appendChild(rr);
 
+  // shared notes for discussing this group
+  const notes=document.createElement('div');notes.className='ens-notes';
+  notes.innerHTML='<div class="nlbl">Notes</div>'+
+    '<textarea data-notes-ens="'+ens.id+'" placeholder="Notes for this group — questions, ideas, who to swap in…" '+
+    'oninput="setNotes(\''+ens.id+'\',this.value)">'+esc(ens.notes||'')+'</textarea>';
+  card.appendChild(notes);
+
   wireDrop(card,ens.id);
   return card;
 }
+// update a group's shared note (syncs to everyone; no re-render so typing stays smooth)
+function setNotes(id,v){const e=ensembles.find(x=>x.id===id);if(e){e.notes=v;save();}}
 
 function chip(p,ens){
   const cat=primaryCat(p.instrument);const lv=leaveInfo(p);
@@ -391,8 +419,11 @@ function chip(p,ens){
   if(p.type==='lead')badge='<span class="tag lead">lead</span>';
   if(p.type==='member' && p.origBand!==ens.name)badge='<span class="tag origin">'+esc(p.origBand)+'</span>';
   if(lv)badge+='<span class="tag leaving" title="Leaving — plan a swap">⤴ '+lv.date+'</span>';
-  c.innerHTML='<span class="ico" style="background:'+CATCOLOR[cat]+'">'+initials(p.name)+'</span>'+
-    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+esc(p.instrument||'—')+'</small></span>'+
+  const belt=p.belt||'';
+  const sub=esc(p.instrument||'—')+(belt?' · <span class="beltname">'+esc(belt)+'</span>':'');
+  c.innerHTML=(belt?'<span class="belt" title="'+esc(belt)+' belt" style="background:'+beltColor(belt)+'"></span>':'')+
+    '<span class="ico" style="background:'+CATCOLOR[cat]+'">'+initials(p.name)+'</span>'+
+    '<span class="nm"><b>'+esc(p.name)+'</b><small>'+sub+'</small></span>'+
     badge+'<span class="rm" title="Send to bench" onclick="moveTo(\''+p.uid+'\',\'bench\')">&times;</span>';
   wireDrag(c,p.uid);
   return c;
@@ -430,7 +461,8 @@ function copyLineups(){
       .sort((a,b)=>CATORDER.indexOf(primaryCat(a.instrument))-CATORDER.indexOf(primaryCat(b.instrument)));
     t+='■ '+e.name+' ('+mem.length+')\n';
     if(!mem.length)t+='   (empty)\n';
-    mem.forEach(p=>{t+='   • '+p.name+' — '+(p.instrument||'')+(p.type==='lead'?' [LEAD]':(p.origBand!==e.name?' [from '+p.origBand+']':''))+'\n';});
+    mem.forEach(p=>{t+='   • '+p.name+' — '+(p.instrument||'')+(p.belt?', '+p.belt:'')+(p.type==='lead'?' [LEAD]':(p.origBand!==e.name?' [from '+p.origBand+']':''))+'\n';});
+    if(e.notes&&e.notes.trim())t+='   Notes: '+e.notes.trim().replace(/\n/g,'\n          ')+'\n';
     t+='\n';
   });
   copyText(t,'Lineups copied.');
