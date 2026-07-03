@@ -358,9 +358,10 @@ function wireDrop(el,loc){
   el.addEventListener('drop',e=>{e.preventDefault();el.classList.remove('over');const u=e.dataTransfer.getData('text/uid');if(u)moveTo(u,loc);});
 }
 // on touch devices, tapping a card opens the move menu (desktop keeps drag)
+const IS_TOUCH=(window.matchMedia&&window.matchMedia('(pointer: coarse)').matches)||('ontouchstart' in window)||(navigator.maxTouchPoints>0);
 function wireTap(el,uid){
   el.addEventListener('click',e=>{
-    if(!window.matchMedia('(pointer: coarse)').matches)return;
+    if(!IS_TOUCH)return;
     if(e.target.closest('.rm')||e.target.closest('.mv'))return;
     openAssign(uid);
   });
@@ -382,7 +383,11 @@ function openAssign(uid){
   sec('Holding');
   if(p.type==='lead')add('leads','Leads pool');
   add('bench','Bench');
-  document.getElementById('assignOverlay').classList.add('show');
+  // guard against the trailing "ghost tap" on mobile closing/mis-hitting the menu right after it opens
+  const ov=document.getElementById('assignOverlay');
+  ov.style.pointerEvents='none';
+  ov.classList.add('show');
+  setTimeout(()=>{ov.style.pointerEvents='';},400);
 }
 function closeAssign(){document.getElementById('assignOverlay').classList.remove('show');}
 function toggleLeft(){
