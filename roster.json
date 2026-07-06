@@ -821,14 +821,6 @@
    "program": ""
   },
   {
-   "id": "11509163364",
-   "name": "Hayley Banker",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Tenor",
-   "program": ""
-  },
-  {
    "id": "11729230383",
    "name": "Dave Rengel",
    "status": "Sit-In",
@@ -845,11 +837,11 @@
    "program": ""
   },
   {
-   "id": "12237796402",
-   "name": "Peter Solomon",
+   "id": "11509163364",
+   "name": "Hayley Banker",
    "status": "Sit-In",
    "section": "Sit-In",
-   "instrument": "Trombone",
+   "instrument": "Tenor",
    "program": ""
   },
   {
@@ -861,11 +853,203 @@
    "program": ""
   },
   {
+   "id": "12237796402",
+   "name": "Peter Solomon",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Trombone",
+   "program": ""
+  },
+  {
+   "id": "11308773338",
+   "name": "Andrew McClure",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": ""
+  },
+  {
+   "id": "9130339410",
+   "name": "Bill O'Donnell",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": ""
+  },
+  {
+   "id": "12328248085",
+   "name": "Cathleen Gempeler",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": ""
+  },
+  {
+   "id": "10019108740",
+   "name": "Charles Davis",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": ""
+  },
+  {
+   "id": "10521560435",
+   "name": "Christian Milker",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar, Piano",
+   "program": ""
+  },
+  {
+   "id": "10052084739",
+   "name": "Clint Hoover",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Harmonica",
+   "program": ""
+  },
+  {
+   "id": "9130338381",
+   "name": "Collin Roycroft",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Saxophone",
+   "program": ""
+  },
+  {
+   "id": "11333848840",
+   "name": "Craig Rodine",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax, Alto",
+   "program": ""
+  },
+  {
+   "id": "12253020873",
+   "name": "Daniel Goldschmidt",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano, Voice",
+   "program": ""
+  },
+  {
+   "id": "9130339989",
+   "name": "Darin Lund",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": ""
+  },
+  {
+   "id": "11841944658",
+   "name": "David Collom",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
+   "program": ""
+  },
+  {
+   "id": "9130339982",
+   "name": "Emerald Peterson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
+   "program": ""
+  },
+  {
+   "id": "11201479809",
+   "name": "Evan Skaar",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": ""
+  },
+  {
+   "id": "11618637698",
+   "name": "Greg Flanagan",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": ""
+  },
+  {
+   "id": "10019108778",
+   "name": "Indigo Sabin",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
+   "program": ""
+  },
+  {
+   "id": "11339475761",
+   "name": "Jaeger Svennevig-Brosi",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": ""
+  },
+  {
+   "id": "9954486678",
+   "name": "James Moore",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bari Sax",
+   "program": ""
+  },
+  {
+   "id": "11726316806",
+   "name": "Jay Johnson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": ""
+  },
+  {
+   "id": "9130339240",
+   "name": "Joe Davis",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": ""
+  },
+  {
+   "id": "11483264797",
+   "name": "John Moore",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": ""
+  },
+  {
+   "id": "18166558167",
+   "name": "Joshua Roeser",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
+   "program": ""
+  },
+  {
+   "id": "11885158907",
+   "name": "Lauren Hagen",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": ""
+  },
+  {
    "id": "12384233464",
    "name": "Louis Higgins",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
+   "program": ""
+  },
+  {
+   "id": "10982821199",
+   "name": "Lucy Dunne",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
    "program": ""
   },
   {
@@ -885,99 +1069,11 @@
    "program": ""
   },
   {
-   "id": "9130338171",
-   "name": "Patrick Dalton",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "9130339410",
-   "name": "Bill O'Donnell",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "9130339982",
-   "name": "Emerald Peterson",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
-   "id": "9130338381",
-   "name": "Collin Roycroft",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Saxophone",
-   "program": ""
-  },
-  {
    "id": "9130340063",
    "name": "Nick Vinkemeier",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "10982821199",
-   "name": "Lucy Dunne",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Voice",
-   "program": ""
-  },
-  {
-   "id": "10993149010",
-   "name": "Scott Marek",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Voice",
-   "program": ""
-  },
-  {
-   "id": "11138591563",
-   "name": "Ryan Pedersen",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano",
-   "program": ""
-  },
-  {
-   "id": "11201479809",
-   "name": "Evan Skaar",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
-   "program": ""
-  },
-  {
-   "id": "11308773338",
-   "name": "Andrew McClure",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bass",
-   "program": ""
-  },
-  {
-   "id": "11333848840",
-   "name": "Craig Rodine",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax, Alto",
-   "program": ""
-  },
-  {
-   "id": "11339475761",
-   "name": "Jaeger Svennevig-Brosi",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
    "program": ""
   },
   {
@@ -989,48 +1085,24 @@
    "program": ""
   },
   {
-   "id": "11618637698",
-   "name": "Greg Flanagan",
+   "id": "9130338171",
+   "name": "Patrick Dalton",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
    "program": ""
   },
   {
-   "id": "11726316806",
-   "name": "Jay Johnson",
+   "id": "18167922985",
+   "name": "Rob Byers",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "Piano",
+   "instrument": "Drums",
    "program": ""
   },
   {
-   "id": "11841944658",
-   "name": "David Collom",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
-   "id": "11885158907",
-   "name": "Lauren Hagen",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bass",
-   "program": ""
-  },
-  {
-   "id": "12253020873",
-   "name": "Daniel Goldschmidt",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano, Voice",
-   "program": ""
-  },
-  {
-   "id": "12328248085",
-   "name": "Cathleen Gempeler",
+   "id": "11138591563",
+   "name": "Ryan Pedersen",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
@@ -1045,35 +1117,11 @@
    "program": ""
   },
   {
-   "id": "9954486678",
-   "name": "James Moore",
+   "id": "10993149010",
+   "name": "Scott Marek",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "Bari Sax",
-   "program": ""
-  },
-  {
-   "id": "9772940979",
-   "name": "Stuart Pimsler",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax, Alto",
-   "program": ""
-  },
-  {
-   "id": "10521560435",
-   "name": "Christian Milker",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar, Piano",
-   "program": ""
-  },
-  {
-   "id": "9130339989",
-   "name": "Darin Lund",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
+   "instrument": "Voice",
    "program": ""
   },
   {
@@ -1085,43 +1133,11 @@
    "program": ""
   },
   {
-   "id": "18166558167",
-   "name": "Joshua Roeser",
+   "id": "9772940979",
+   "name": "Stuart Pimsler",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
-   "id": "18167922985",
-   "name": "Rob Byers",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "10019108740",
-   "name": "Charles Davis",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "10019108778",
-   "name": "Indigo Sabin",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
-   "id": "10052084739",
-   "name": "Clint Hoover",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Harmonica",
+   "instrument": "Sax, Alto",
    "program": ""
   }
  ],
