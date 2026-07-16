@@ -1,20 +1,11 @@
 {
  "members": [
   {
-   "id": "9130339956",
-   "name": "Richie McDonnell",
+   "id": "9777257633",
+   "name": "Bernardo Prado",
    "band": "Group 1",
-   "instrument": "Drums",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9777254165",
-   "name": "Elmer Pierre",
-   "band": "Group 1",
-   "instrument": "Sax/Tenor",
-   "belt": "Blue",
+   "instrument": "Bass",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -28,11 +19,20 @@
    "returned": ""
   },
   {
-   "id": "9777257633",
-   "name": "Bernardo Prado",
+   "id": "10954551999",
+   "name": "Dustin Bethke",
    "band": "Group 1",
-   "instrument": "Bass",
-   "belt": "Purple",
+   "instrument": "Sax, Alto",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9777254165",
+   "name": "Elmer Pierre",
+   "band": "Group 1",
+   "instrument": "Sax, Tenor",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -55,6 +55,24 @@
    "returned": ""
   },
   {
+   "id": "9130339956",
+   "name": "Richie McDonnell",
+   "band": "Group 1",
+   "instrument": "Drums",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12416094945",
+   "name": "Aaron Rodriguez",
+   "band": "Group 2",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "18311040594",
    "name": "Geoff Grcevich",
    "band": "Group 2",
@@ -73,11 +91,11 @@
    "returned": ""
   },
   {
-   "id": "9130338715",
-   "name": "Mike Young",
-   "band": "Group 3",
-   "instrument": "Sax/Tenor",
-   "belt": "Purple",
+   "id": "9130339800",
+   "name": "Tom Walsh",
+   "band": "Group 2",
+   "instrument": "Trumpet",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -86,15 +104,6 @@
    "name": "Betty Grey",
    "band": "Group 3",
    "instrument": "Piano",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339239",
-   "name": "Don Taylor",
-   "band": "Group 3",
-   "instrument": "Drums",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -109,6 +118,15 @@
    "returned": ""
   },
   {
+   "id": "9130339239",
+   "name": "Don Taylor",
+   "band": "Group 3",
+   "instrument": "Drums",
+   "belt": "Purple",
+   "left": "2026-08-01",
+   "returned": ""
+  },
+  {
    "id": "9772922598",
    "name": "Jeff Gurney",
    "band": "Group 3",
@@ -118,11 +136,20 @@
    "returned": "2026-05-01"
   },
   {
-   "id": "9130338062",
-   "name": "Mark Pedigo",
+   "id": "9130338715",
+   "name": "Mike Young",
+   "band": "Group 3",
+   "instrument": "Sax, Tenor",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9988880116",
+   "name": "Christopher Dunlap",
    "band": "Group 4",
-   "instrument": "Piano",
-   "belt": "Brown",
+   "instrument": "Sax, Tenor",
+   "belt": "Black",
    "left": "",
    "returned": ""
   },
@@ -145,6 +172,15 @@
    "returned": ""
   },
   {
+   "id": "9130338062",
+   "name": "Mark Pedigo",
+   "band": "Group 4",
+   "instrument": "Piano",
+   "belt": "Brown",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339504",
    "name": "Sam Liska",
    "band": "Group 4",
@@ -154,17 +190,8 @@
    "returned": ""
   },
   {
-   "id": "9988880116",
-   "name": "Christopher Dunlap",
-   "band": "Group 4",
-   "instrument": "Sax/Tenor",
-   "belt": "Black",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130337385",
-   "name": "Tony Ruccolo",
+   "id": "11330593299",
+   "name": "Aaron Stoehr",
    "band": "Group 5",
    "instrument": "Bass",
    "belt": "Blue",
@@ -181,19 +208,10 @@
    "returned": ""
   },
   {
-   "id": "9130338335",
-   "name": "Ron Siven",
+   "id": "9130339390",
+   "name": "Hall Sanders",
    "band": "Group 5",
-   "instrument": "Sax/Alto",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339472",
-   "name": "Matt Kazinka",
-   "band": "Group 5",
-   "instrument": "Trombone",
+   "instrument": "Sax, Tenor",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -208,10 +226,19 @@
    "returned": ""
   },
   {
-   "id": "9130339390",
-   "name": "Hall Sanders",
+   "id": "9130339472",
+   "name": "Matt Kazinka",
    "band": "Group 5",
-   "instrument": "Sax/Tenor",
+   "instrument": "Trombone",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338335",
+   "name": "Ron Siven",
+   "band": "Group 5",
+   "instrument": "Sax, Alto",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -226,6 +253,24 @@
    "returned": "2026-04-01"
   },
   {
+   "id": "9130339902",
+   "name": "Charlie Vanek",
+   "band": "Group 6",
+   "instrument": "Bass",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "18345308393",
+   "name": "Mike Davidovich",
+   "band": "Group 6",
+   "instrument": "Piano",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130337457",
    "name": "Rob Hanson",
    "band": "Group 6",
@@ -238,53 +283,17 @@
    "id": "9130339265",
    "name": "Stephen Elfstrand",
    "band": "Group 6",
-   "instrument": "Sax/Tenor",
+   "instrument": "Sax, Tenor",
    "belt": "Blue",
    "left": "",
    "returned": ""
   },
   {
-   "id": "9130339800",
-   "name": "Tom Walsh",
-   "band": "Group 6",
-   "instrument": "Trumpet",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339902",
-   "name": "Charlie Vanek",
-   "band": "Group 6",
-   "instrument": "Bass",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9777257063",
-   "name": "Benjamin Downs",
-   "band": "Group 6",
-   "instrument": "Piano",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130337444",
-   "name": "Sean Coleman",
+   "id": "9130337618",
+   "name": "Antonio Jennie",
    "band": "Group 7",
-   "instrument": "Guitar",
-   "belt": "White",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130337646",
-   "name": "Mark Berglund",
-   "band": "Group 7",
-   "instrument": "Bass",
-   "belt": "White",
+   "instrument": "Drums",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -292,7 +301,7 @@
    "id": "9130337882",
    "name": "Ashlyn Pietrowski",
    "band": "Group 7",
-   "instrument": "Sax/Alto",
+   "instrument": "Sax, Alto",
    "belt": "White",
    "left": "",
    "returned": ""
@@ -307,10 +316,10 @@
    "returned": ""
   },
   {
-   "id": "9130337618",
-   "name": "Antonio Jennie",
+   "id": "11841944658",
+   "name": "David Collom",
    "band": "Group 7",
-   "instrument": "Drums",
+   "instrument": "Sax",
    "belt": "Blue",
    "left": "",
    "returned": ""
@@ -325,20 +334,38 @@
    "returned": ""
   },
   {
-   "id": "11723327161",
-   "name": "Megan Fitterman",
-   "band": "Group 8",
-   "instrument": "Voice",
-   "belt": "Blue",
+   "id": "9130337646",
+   "name": "Mark Berglund",
+   "band": "Group 7",
+   "instrument": "Bass",
+   "belt": "White",
    "left": "",
    "returned": ""
   },
   {
-   "id": "9130337480",
-   "name": "Maria Meade",
+   "id": "9130337444",
+   "name": "Sean Coleman",
+   "band": "Group 7",
+   "instrument": "Guitar",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338538",
+   "name": "Adam Ziemet",
    "band": "Group 8",
-   "instrument": "Bass",
-   "belt": "Blue",
+   "instrument": "Drums",
+   "belt": "Purple",
+   "left": "2025-11-01",
+   "returned": "2026-02-01"
+  },
+  {
+   "id": "10557744734",
+   "name": "Cory Chargo",
+   "band": "Group 8",
+   "instrument": "Trumpet",
+   "belt": "White",
    "left": "",
    "returned": ""
   },
@@ -355,7 +382,25 @@
    "id": "9130337934",
    "name": "Kendra Snyder",
    "band": "Group 8",
-   "instrument": "Sax/Alto",
+   "instrument": "Sax, Alto",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130337480",
+   "name": "Maria Meade",
+   "band": "Group 8",
+   "instrument": "Bass",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11723327161",
+   "name": "Megan Fitterman",
+   "band": "Group 8",
+   "instrument": "Voice",
    "belt": "Blue",
    "left": "",
    "returned": ""
@@ -370,29 +415,11 @@
    "returned": ""
   },
   {
-   "id": "10557744734",
-   "name": "Cory Chargo",
-   "band": "Group 8",
-   "instrument": "Trumpet",
-   "belt": "White",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130338538",
-   "name": "Adam Ziemet",
-   "band": "Group 8",
-   "instrument": "Drums",
-   "belt": "Purple",
-   "left": "2025-11-01",
-   "returned": "2026-02-01"
-  },
-  {
-   "id": "9130339209",
-   "name": "Matt Boerner",
+   "id": "9130339049",
+   "name": "Alexander Oftelie",
    "band": "Group 9",
-   "instrument": "Piano",
-   "belt": "Blue",
+   "instrument": "Drums",
+   "belt": "Black",
    "left": "",
    "returned": ""
   },
@@ -406,24 +433,6 @@
    "returned": ""
   },
   {
-   "id": "9130337768",
-   "name": "Travis Freudenberg",
-   "band": "Group 9",
-   "instrument": "Bass",
-   "belt": "Black",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339049",
-   "name": "Alexander Oftelie",
-   "band": "Group 9",
-   "instrument": "Drums",
-   "belt": "Black",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130337615",
    "name": "Steven Modica",
    "band": "Group 9",
@@ -433,11 +442,11 @@
    "returned": "2026-07-01"
   },
   {
-   "id": "9130338998",
-   "name": "Tiffany DeFoe",
-   "band": "Group 10",
-   "instrument": "Sax/Tenor",
-   "belt": "Purple",
+   "id": "9130337768",
+   "name": "Travis Freudenberg",
+   "band": "Group 9",
+   "instrument": "Bass",
+   "belt": "Black",
    "left": "",
    "returned": ""
   },
@@ -446,6 +455,51 @@
    "name": "Andrew Easterling",
    "band": "Group 10",
    "instrument": "Bass",
+   "belt": "",
+   "left": "2026-08-01",
+   "returned": ""
+  },
+  {
+   "id": "12398831474",
+   "name": "Dave Rengel",
+   "band": "Group 10",
+   "instrument": "Bass",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "10011237432",
+   "name": "Griffin Trayner",
+   "band": "Group 10",
+   "instrument": "Sax, Alto",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339626",
+   "name": "Julian Salgado Laredo",
+   "band": "Group 10",
+   "instrument": "Drums",
+   "belt": "",
+   "left": "2026-08-01",
+   "returned": ""
+  },
+  {
+   "id": "9130338918",
+   "name": "Skye Russell",
+   "band": "Group 10",
+   "instrument": "Guitar",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338998",
+   "name": "Tiffany DeFoe",
+   "band": "Group 10",
+   "instrument": "Sax, Tenor",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -460,42 +514,6 @@
    "returned": ""
   },
   {
-   "id": "9130339626",
-   "name": "Julian Salgado Laredo",
-   "band": "Group 10",
-   "instrument": "Drums",
-   "belt": "Purple",
-   "left": "2026-08-01",
-   "returned": ""
-  },
-  {
-   "id": "10011237432",
-   "name": "Griffin Trayner",
-   "band": "Group 10",
-   "instrument": "Sax/Alto",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339363",
-   "name": "Joe McMorrow",
-   "band": "Group 11",
-   "instrument": "Bass",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9772938389",
-   "name": "Caly McMorrow",
-   "band": "Group 11",
-   "instrument": "Sax/Bari",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9783842996",
    "name": "Bennett Nodell",
    "band": "Group 11",
@@ -505,19 +523,19 @@
    "returned": ""
   },
   {
-   "id": "9130339578",
-   "name": "Nate Dexter",
+   "id": "9772938389",
+   "name": "Caly McMorrow",
    "band": "Group 11",
-   "instrument": "Trombone",
+   "instrument": "Sax, Bari",
    "belt": "Blue",
    "left": "",
    "returned": ""
   },
   {
-   "id": "10954551999",
-   "name": "Dustin Bethke",
+   "id": "9130339363",
+   "name": "Joe McMorrow",
    "band": "Group 11",
-   "instrument": "Sax/Alto",
+   "instrument": "Bass",
    "belt": "Blue",
    "left": "",
    "returned": ""
@@ -532,9 +550,54 @@
    "returned": ""
   },
   {
+   "id": "9130339578",
+   "name": "Nate Dexter",
+   "band": "Group 11",
+   "instrument": "Trombone",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "11392210363",
    "name": "Ryan Moore",
    "band": "Group 11",
+   "instrument": "Guitar",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339341",
+   "name": "Charles Burdick",
+   "band": "Group 12",
+   "instrument": "Sax, Tenor",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338763",
+   "name": "Curt Bergmann",
+   "band": "Group 12",
+   "instrument": "Sax, Alto",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338557",
+   "name": "Jeff Sugerman",
+   "band": "Group 12",
+   "instrument": "Bass",
+   "belt": "Brown",
+   "left": "2025-10-01",
+   "returned": "2026-05-01"
+  },
+  {
+   "id": "9130337402",
+   "name": "John Pohl",
+   "band": "Group 12",
    "instrument": "Guitar",
    "belt": "Blue",
    "left": "",
@@ -550,24 +613,6 @@
    "returned": ""
   },
   {
-   "id": "9130338763",
-   "name": "Curt Bergmann",
-   "band": "Group 12",
-   "instrument": "Sax/Alto",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339341",
-   "name": "Charles Burdick",
-   "band": "Group 12",
-   "instrument": "Sax/Tenor",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9777260072",
    "name": "Madeline Elmhirst",
    "band": "Group 12",
@@ -577,38 +622,38 @@
    "returned": ""
   },
   {
-   "id": "9130337402",
-   "name": "John Pohl",
-   "band": "Group 12",
-   "instrument": "Guitar",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130338557",
-   "name": "Jeff Sugerman",
-   "band": "Group 12",
-   "instrument": "Bass",
-   "belt": "Brown",
-   "left": "2025-10-01",
-   "returned": "2026-05-01"
-  },
-  {
    "id": "9130338114",
    "name": "Victoria Clark-West",
    "band": "Group 12",
    "instrument": "Voice",
    "belt": "Brown",
    "left": "2026-04-01",
-   "returned": "2026-07-01"
+   "returned": "2026-06-01"
   },
   {
-   "id": "11957623671",
-   "name": "Jeff Sugerman",
+   "id": "9896424548",
+   "name": "Dale Fruehauf",
    "band": "Group 14",
-   "instrument": "Bass",
-   "belt": "Brown",
+   "instrument": "Piano",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339169",
+   "name": "Dan Bielenberg",
+   "band": "Group 14",
+   "instrument": "Sax, Tenor, Soprano",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12351867236",
+   "name": "David Mayfield",
+   "band": "Group 14",
+   "instrument": "Drums",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -622,11 +667,11 @@
    "returned": ""
   },
   {
-   "id": "9130339169",
-   "name": "Dan Bielenberg",
+   "id": "11957623671",
+   "name": "Jeff Sugerman",
    "band": "Group 14",
-   "instrument": "Sax/Tenor/Soprano",
-   "belt": "Purple",
+   "instrument": "Bass",
+   "belt": "Brown",
    "left": "",
    "returned": ""
   },
@@ -640,11 +685,29 @@
    "returned": ""
   },
   {
-   "id": "9896424548",
-   "name": "Dale Fruehauf",
-   "band": "Group 14",
+   "id": "9777257063",
+   "name": "Benjamin Downs",
+   "band": "Group 15",
    "instrument": "Piano",
    "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "10770387669",
+   "name": "Cara Sego",
+   "band": "Group 15",
+   "instrument": "Trumpet",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11685808718",
+   "name": "Dave MacCallum",
+   "band": "Group 15",
+   "instrument": "Guitar",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -679,53 +742,8 @@
    "id": "9234243740",
    "name": "Noah Anderson",
    "band": "Group 15",
-   "instrument": "Sax/Tenor",
+   "instrument": "Sax, Tenor",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "18345308393",
-   "name": "Mike Davidovich",
-   "band": "Group 15",
-   "instrument": "Piano",
-   "belt": "White",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "10770387669",
-   "name": "Cara Sego",
-   "band": "Group 15",
-   "instrument": "Trumpet",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "11685808718",
-   "name": "Dave MacCallum",
-   "band": "Group 15",
-   "instrument": "Guitar",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9577933473",
-   "name": "Ron Wiese",
-   "band": "Group 16",
-   "instrument": "Bass",
-   "belt": "Brown",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9167240310",
-   "name": "Brad Allen",
-   "band": "Group 16",
-   "instrument": "Sax/Alto/Tenor",
-   "belt": "Black",
    "left": "",
    "returned": ""
   },
@@ -734,6 +752,24 @@
    "name": "Bill Hyman",
    "band": "Group 16",
    "instrument": "Piano",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9167240310",
+   "name": "Brad Allen",
+   "band": "Group 16",
+   "instrument": "Sax, Alto, Tenor",
+   "belt": "Black",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11309423450",
+   "name": "Kelly Fitz",
+   "band": "Group 16",
+   "instrument": "Guitar",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -748,10 +784,19 @@
    "returned": "2026-04-01"
   },
   {
-   "id": "11309423450",
-   "name": "Kelly Fitz",
+   "id": "9577933473",
+   "name": "Ron Wiese",
    "band": "Group 16",
-   "instrument": "Guitar",
+   "instrument": "Bass",
+   "belt": "Brown",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11010822529",
+   "name": "Eric Frederickson",
+   "band": "Group 17",
+   "instrument": "Piano",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -784,11 +829,11 @@
    "returned": ""
   },
   {
-   "id": "11010822529",
-   "name": "Eric Frederickson",
-   "band": "Group 17",
-   "instrument": "Piano",
-   "belt": "Purple",
+   "id": "9130339989",
+   "name": "Darin Lund",
+   "band": "Group 18",
+   "instrument": "Guitar",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -802,11 +847,83 @@
    "returned": ""
   },
   {
-   "id": "11563478398",
-   "name": "Jake Gysland",
+   "id": "9130338916",
+   "name": "Lauren Hagen",
    "band": "Group 18",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "18167922985",
+   "name": "Rob Byers",
+   "band": "Group 18",
+   "instrument": "Drums",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11547631121",
+   "name": "Adrian Houston",
+   "band": "Group 19",
+   "instrument": "Drums",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11450081140",
+   "name": "Andrew Bremner",
+   "band": "Group 19",
    "instrument": "Trumpet",
-   "belt": "Purple",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11509181221",
+   "name": "Gregory Berry",
+   "band": "Group 19",
+   "instrument": "Piano",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11547614468",
+   "name": "Melanie Heckt",
+   "band": "Group 19",
+   "instrument": "Bass",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11459228579",
+   "name": "Suzanne Rhees",
+   "band": "Group 19",
+   "instrument": "Flute",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11450099331",
+   "name": "Thoger Boyum",
+   "band": "Group 19",
+   "instrument": "Sax, Tenor",
+   "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "11450117436",
+   "name": "Tim Donnel",
+   "band": "Group 19",
+   "instrument": "Guitar",
+   "belt": "White",
    "left": "",
    "returned": ""
   }
@@ -818,7 +935,7 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Trombone",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11729230383",
@@ -826,7 +943,7 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Bass",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11860023721",
@@ -834,7 +951,7 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Guitar",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11509163364",
@@ -842,7 +959,15 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Tenor",
-   "program": ""
+   "program": "Ensemble"
+  },
+  {
+   "id": "18166558167",
+   "name": "Joshua Roeser",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Sax",
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "11529909245",
@@ -850,7 +975,7 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Sax, Alto",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "12237796402",
@@ -858,7 +983,7 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Trombone",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11308773338",
@@ -866,7 +991,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Bass",
-   "program": ""
+   "program": "Ensemble, Foundations of Jazz, Private Lessons, Jazz Voice Lab"
   },
   {
    "id": "9130339410",
@@ -874,15 +999,15 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
-   "program": ""
+   "program": "Ensemble, Clinics"
   },
   {
    "id": "12328248085",
-   "name": "Cathleen Gempeler",
+   "name": "Cathleen (Cathy) Gempeler",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "10019108740",
@@ -898,7 +1023,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Guitar, Piano",
-   "program": ""
+   "program": "White"
   },
   {
    "id": "10052084739",
@@ -914,7 +1039,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Saxophone",
-   "program": ""
+   "program": "Clinics"
   },
   {
    "id": "11333848840",
@@ -922,7 +1047,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Sax, Alto",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "12253020873",
@@ -930,23 +1055,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano, Voice",
-   "program": ""
-  },
-  {
-   "id": "9130339989",
-   "name": "Darin Lund",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
-   "program": ""
-  },
-  {
-   "id": "11841944658",
-   "name": "David Collom",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
+   "program": "Foundations of Jazz"
   },
   {
    "id": "9130339982",
@@ -954,7 +1063,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Sax",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11201479809",
@@ -962,7 +1071,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Guitar",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "11618637698",
@@ -970,7 +1079,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
-   "program": ""
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "10019108778",
@@ -978,7 +1087,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Sax",
-   "program": ""
+   "program": "Ensemble, Private Lessons"
   },
   {
    "id": "11339475761",
@@ -986,7 +1095,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Guitar",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "9954486678",
@@ -994,7 +1103,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Bari Sax",
-   "program": ""
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "11726316806",
@@ -1002,7 +1111,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": ""
+   "program": "Clinics"
   },
   {
    "id": "9130339240",
@@ -1021,20 +1130,12 @@
    "program": ""
   },
   {
-   "id": "18166558167",
-   "name": "Joshua Roeser",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
    "id": "11885158907",
    "name": "Lauren Hagen",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Bass",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "12384233464",
@@ -1042,7 +1143,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "10982821199",
@@ -1050,7 +1151,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Voice",
-   "program": ""
+   "program": "Jazz Singers Playground"
   },
   {
    "id": "10047141031",
@@ -1058,7 +1159,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Sax",
-   "program": ""
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "9942717148",
@@ -1066,6 +1167,14 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "12443374923",
+   "name": "Neil Garcia (copy)",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
    "program": ""
   },
   {
@@ -1074,7 +1183,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
-   "program": ""
+   "program": "Ensemble, Clinics"
   },
   {
    "id": "11607819323",
@@ -1082,19 +1191,11 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Bass",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "9130338171",
    "name": "Patrick Dalton",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
-  },
-  {
-   "id": "18167922985",
-   "name": "Rob Byers",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
@@ -1106,7 +1207,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": ""
+   "program": "Foundations of Jazz, Private Lessons"
   },
   {
    "id": "10004251120",
@@ -1114,23 +1215,15 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Guitar",
-   "program": ""
+   "program": "Foundations of Jazz Guitar"
   },
   {
    "id": "10993149010",
-   "name": "Scott Marek",
+   "name": "SCOTT MAREK",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Voice",
-   "program": ""
-  },
-  {
-   "id": "9130338918",
-   "name": "Skye Russell",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
-   "program": ""
+   "program": "Jazz Voice Lab, Jazz Singers Playground"
   },
   {
    "id": "9772940979",
@@ -1141,5 +1234,5 @@
    "program": ""
   }
  ],
- "stamp": "July 5, 2026"
+ "stamp": "July 16, 2026"
 }
