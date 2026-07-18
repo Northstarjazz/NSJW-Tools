@@ -938,14 +938,6 @@
    "program": "Ensemble"
   },
   {
-   "id": "11729230383",
-   "name": "Dave Rengel",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Bass",
-   "program": "Ensemble"
-  },
-  {
    "id": "11860023721",
    "name": "Glen Helgeson",
    "status": "Sit-In",
@@ -1130,6 +1122,14 @@
    "program": ""
   },
   {
+   "id": "9130339214",
+   "name": "Josh Loewenhagen",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": ""
+  },
+  {
    "id": "11885158907",
    "name": "Lauren Hagen",
    "status": "Qualified",
@@ -1234,5 +1234,5 @@
    "program": ""
   }
  ],
- "stamp": "July 17, 2026"
+ "stamp": "July 18, 2026"
 }
