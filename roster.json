@@ -68,7 +68,7 @@
    "name": "Aaron Rodriguez",
    "band": "Group 2",
    "instrument": "Bass",
-   "belt": "",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -91,11 +91,20 @@
    "returned": ""
   },
   {
-   "id": "9130339800",
-   "name": "Tom Walsh",
+   "id": "10047141031",
+   "name": "Marcus Drayton",
    "band": "Group 2",
-   "instrument": "Trumpet",
-   "belt": "Blue",
+   "instrument": "Sax",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12237796402",
+   "name": "Peter Solomon",
+   "band": "Group 2",
+   "instrument": "Trombone",
+   "belt": "Brown",
    "left": "",
    "returned": ""
   },
@@ -141,6 +150,15 @@
    "band": "Group 3",
    "instrument": "Sax, Tenor",
    "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339800",
+   "name": "Tom Walsh",
+   "band": "Group 3",
+   "instrument": "Trumpet",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -748,6 +766,15 @@
    "returned": ""
   },
   {
+   "id": "12574239154",
+   "name": "Ben Litwin",
+   "band": "Group 16",
+   "instrument": "Trumpet",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339158",
    "name": "Bill Hyman",
    "band": "Group 16",
@@ -833,7 +860,7 @@
    "name": "Darin Lund",
    "band": "Group 18",
    "instrument": "Guitar",
-   "belt": "",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -851,7 +878,7 @@
    "name": "Lauren Hagen",
    "band": "Group 18",
    "instrument": "Bass",
-   "belt": "",
+   "belt": "Brown",
    "left": "",
    "returned": ""
   },
@@ -967,14 +994,6 @@
    "status": "Sit-In",
    "section": "Sit-In",
    "instrument": "Sax, Alto",
-   "program": "Ensemble"
-  },
-  {
-   "id": "12237796402",
-   "name": "Peter Solomon",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Trombone",
    "program": "Ensemble"
   },
   {
@@ -1154,14 +1173,6 @@
    "program": "Jazz Singers Playground"
   },
   {
-   "id": "10047141031",
-   "name": "Marcus Drayton",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": "Ensemble, Private Lessons, Clinics"
-  },
-  {
    "id": "9942717148",
    "name": "Milo Lambright",
    "status": "Qualified",
@@ -1234,5 +1245,5 @@
    "program": ""
   }
  ],
- "stamp": "July 19, 2026"
+ "stamp": "July 20, 2026"
 }
