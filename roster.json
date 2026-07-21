@@ -473,7 +473,7 @@
    "name": "Andrew Easterling",
    "band": "Group 10",
    "instrument": "Bass",
-   "belt": "",
+   "belt": "Purple",
    "left": "2026-08-01",
    "returned": ""
   },
@@ -500,7 +500,7 @@
    "name": "Julian Salgado Laredo",
    "band": "Group 10",
    "instrument": "Drums",
-   "belt": "",
+   "belt": "Purple",
    "left": "2026-08-01",
    "returned": ""
   },
@@ -509,7 +509,7 @@
    "name": "Skye Russell",
    "band": "Group 10",
    "instrument": "Guitar",
-   "belt": "",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -766,15 +766,6 @@
    "returned": ""
   },
   {
-   "id": "12574239154",
-   "name": "Ben Litwin",
-   "band": "Group 16",
-   "instrument": "Trumpet",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130339158",
    "name": "Bill Hyman",
    "band": "Group 16",
@@ -852,6 +843,15 @@
    "band": "Group 17",
    "instrument": "Guitar",
    "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338381",
+   "name": "Collin Roycroft",
+   "band": "Group 18",
+   "instrument": "Saxophone",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -1043,14 +1043,6 @@
    "section": "Qualified",
    "instrument": "Harmonica",
    "program": ""
-  },
-  {
-   "id": "9130338381",
-   "name": "Collin Roycroft",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Saxophone",
-   "program": "Clinics"
   },
   {
    "id": "11333848840",
@@ -1245,5 +1237,5 @@
    "program": ""
   }
  ],
- "stamp": "July 20, 2026"
+ "stamp": "July 21, 2026"
 }
