@@ -856,15 +856,6 @@
    "returned": ""
   },
   {
-   "id": "9130339989",
-   "name": "Darin Lund",
-   "band": "Group 18",
-   "instrument": "Guitar",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "11301815845",
    "name": "Gustavo Ibarra",
    "band": "Group 18",
@@ -1237,5 +1228,5 @@
    "program": ""
   }
  ],
- "stamp": "July 23, 2026"
+ "stamp": "July 24, 2026"
 }
