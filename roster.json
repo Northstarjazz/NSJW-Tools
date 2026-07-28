@@ -127,15 +127,6 @@
    "returned": ""
   },
   {
-   "id": "9130339239",
-   "name": "Don Taylor",
-   "band": "Group 3",
-   "instrument": "Drums",
-   "belt": "Purple",
-   "left": "2026-08-01",
-   "returned": ""
-  },
-  {
    "id": "9772922598",
    "name": "Jeff Gurney",
    "band": "Group 3",
@@ -150,6 +141,15 @@
    "band": "Group 3",
    "instrument": "Sax, Tenor",
    "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "18167922985",
+   "name": "Rob Byers",
+   "band": "Group 3",
+   "instrument": "Drums",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -212,7 +212,7 @@
    "name": "Aaron Stoehr",
    "band": "Group 5",
    "instrument": "Bass",
-   "belt": "Blue",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -451,6 +451,15 @@
    "returned": ""
   },
   {
+   "id": "18166558167",
+   "name": "Joshua Roeser",
+   "band": "Group 9",
+   "instrument": "Sax",
+   "belt": "",
+   "left": "2026-07-11",
+   "returned": ""
+  },
+  {
    "id": "9130337615",
    "name": "Steven Modica",
    "band": "Group 9",
@@ -466,15 +475,6 @@
    "instrument": "Bass",
    "belt": "Black",
    "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130339441",
-   "name": "Andrew Easterling",
-   "band": "Group 10",
-   "instrument": "Bass",
-   "belt": "Purple",
-   "left": "2026-08-01",
    "returned": ""
   },
   {
@@ -555,15 +555,6 @@
    "band": "Group 11",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "10718684451",
-   "name": "Lacey Oar",
-   "band": "Group 11",
-   "instrument": "Piano",
-   "belt": "White",
    "left": "",
    "returned": ""
   },
@@ -874,13 +865,13 @@
    "returned": ""
   },
   {
-   "id": "18167922985",
-   "name": "Rob Byers",
+   "id": "11412625355",
+   "name": "Ryan Klein",
    "band": "Group 18",
    "instrument": "Drums",
-   "belt": "",
-   "left": "",
-   "returned": ""
+   "belt": "Brown",
+   "left": "2026-06-01",
+   "returned": "2026-08-01"
   },
   {
    "id": "11547631121",
@@ -901,11 +892,20 @@
    "returned": ""
   },
   {
-   "id": "11509181221",
-   "name": "Gregory Berry",
+   "id": "10718684451",
+   "name": "Lacey Oar",
    "band": "Group 19",
    "instrument": "Piano",
    "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12384233464",
+   "name": "Louis Higgins",
+   "band": "Group 19",
+   "instrument": "Piano",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -970,14 +970,6 @@
    "section": "Sit-In",
    "instrument": "Tenor",
    "program": "Ensemble"
-  },
-  {
-   "id": "18166558167",
-   "name": "Joshua Roeser",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Sax",
-   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "11529909245",
@@ -1140,14 +1132,6 @@
    "program": "Ensemble"
   },
   {
-   "id": "12384233464",
-   "name": "Louis Higgins",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano",
-   "program": "Ensemble"
-  },
-  {
    "id": "10982821199",
    "name": "Lucy Dunne",
    "status": "Qualified",
@@ -1228,5 +1212,5 @@
    "program": ""
   }
  ],
- "stamp": "July 27, 2026"
+ "stamp": "July 28, 2026"
 }
