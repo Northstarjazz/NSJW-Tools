@@ -455,8 +455,17 @@
    "name": "Joshua Roeser",
    "band": "Group 9",
    "instrument": "Sax",
-   "belt": "",
+   "belt": "Purple",
    "left": "2026-07-11",
+   "returned": ""
+  },
+  {
+   "id": "12384233464",
+   "name": "Louis Higgins",
+   "band": "Group 9",
+   "instrument": "Piano",
+   "belt": "Purple",
+   "left": "",
    "returned": ""
   },
   {
@@ -550,6 +559,15 @@
    "returned": ""
   },
   {
+   "id": "10019108625",
+   "name": "Jay Johnson",
+   "band": "Group 11",
+   "instrument": "Piano",
+   "belt": "Blue",
+   "left": "2026-02-01",
+   "returned": ""
+  },
+  {
    "id": "9130339363",
    "name": "Joe McMorrow",
    "band": "Group 11",
@@ -573,6 +591,15 @@
    "band": "Group 11",
    "instrument": "Guitar",
    "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9772940979",
+   "name": "Stuart Pimsler",
+   "band": "Group 11",
+   "instrument": "Sax, Alto",
+   "belt": "White",
    "left": "",
    "returned": ""
   },
@@ -662,7 +689,7 @@
    "name": "David Mayfield",
    "band": "Group 14",
    "instrument": "Drums",
-   "belt": "",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -761,7 +788,7 @@
    "name": "Bill Hyman",
    "band": "Group 16",
    "instrument": "Piano",
-   "belt": "Purple",
+   "belt": "Purple, Brown",
    "left": "",
    "returned": ""
   },
@@ -897,15 +924,6 @@
    "band": "Group 19",
    "instrument": "Piano",
    "belt": "White",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "12384233464",
-   "name": "Louis Higgins",
-   "band": "Group 19",
-   "instrument": "Piano",
-   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -1202,15 +1220,7 @@
    "section": "Qualified",
    "instrument": "Voice",
    "program": "Jazz Voice Lab, Jazz Singers Playground"
-  },
-  {
-   "id": "9772940979",
-   "name": "Stuart Pimsler",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax, Alto",
-   "program": ""
   }
  ],
- "stamp": "July 31, 2026"
+ "stamp": "August 1, 2026"
 }
