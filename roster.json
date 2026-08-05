@@ -55,6 +55,15 @@
    "returned": ""
   },
   {
+   "id": "12716323170",
+   "name": "Michael Somermeyer (copy)",
+   "band": "Group 1",
+   "instrument": "Piano",
+   "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339956",
    "name": "Richie McDonnell",
    "band": "Group 1",
@@ -1222,5 +1231,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "August 4, 2026"
+ "stamp": "August 5, 2026"
 }
