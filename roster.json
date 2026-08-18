@@ -262,6 +262,15 @@
    "returned": ""
   },
   {
+   "id": "12820964288",
+   "name": "Ryland Nelsen",
+   "band": "Group 5",
+   "instrument": "Guitar",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130337859",
    "name": "Aaron Thompson",
    "band": "Group 6",
@@ -865,6 +874,15 @@
    "returned": ""
   },
   {
+   "id": "12820969783",
+   "name": "Andrew McClure",
+   "band": "Group 18",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130338381",
    "name": "Collin Roycroft",
    "band": "Group 18",
@@ -878,15 +896,6 @@
    "name": "Gustavo Ibarra",
    "band": "Group 18",
    "instrument": "Piano",
-   "belt": "Brown",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130338916",
-   "name": "Lauren Hagen",
-   "band": "Group 18",
-   "instrument": "Bass",
    "belt": "Brown",
    "left": "",
    "returned": ""
@@ -1222,5 +1231,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "August 17, 2026"
+ "stamp": "August 18, 2026"
 }
