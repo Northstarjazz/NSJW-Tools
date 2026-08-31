@@ -73,6 +73,15 @@
    "returned": ""
   },
   {
+   "id": "9130338133",
+   "name": "Chris Palaskas",
+   "band": "Group 2",
+   "instrument": "Guitar",
+   "belt": "Brown",
+   "left": "2026-06-01",
+   "returned": ""
+  },
+  {
    "id": "18311040594",
    "name": "Geoff Grcevich",
    "band": "Group 2",
@@ -1231,5 +1240,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "August 30, 2026"
+ "stamp": "August 31, 2026"
 }
