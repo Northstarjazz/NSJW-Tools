@@ -984,38 +984,6 @@
  ],
  "leads": [
   {
-   "id": "9130339912",
-   "name": "Andy Schulz",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Trombone",
-   "program": "Ensemble"
-  },
-  {
-   "id": "11860023721",
-   "name": "Glen Helgeson",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Guitar",
-   "program": "Ensemble"
-  },
-  {
-   "id": "11509163364",
-   "name": "Hayley Banker",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Tenor",
-   "program": "Ensemble"
-  },
-  {
-   "id": "11529909245",
-   "name": "Lisa Borg",
-   "status": "Sit-In",
-   "section": "Sit-In",
-   "instrument": "Sax, Alto",
-   "program": "Ensemble"
-  },
-  {
    "id": "11308773338",
    "name": "Andrew McClure",
    "status": "Qualified",
@@ -1120,28 +1088,12 @@
    "program": "Ensemble"
   },
   {
-   "id": "9954486678",
-   "name": "James Moore",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bari Sax",
-   "program": "Ensemble, Private Lessons, Clinics"
-  },
-  {
    "id": "11726316806",
    "name": "Jay Johnson",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
    "program": "Clinics"
-  },
-  {
-   "id": "9130339240",
-   "name": "Joe Davis",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "",
-   "program": ""
   },
   {
    "id": "11483264797",
@@ -1240,5 +1192,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "September 11, 2026"
+ "stamp": "September 12, 2026"
 }
