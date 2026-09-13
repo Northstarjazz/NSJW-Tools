@@ -984,6 +984,174 @@
  ],
  "leads": [
   {
+   "id": "18228427509",
+   "name": "Addie Richman",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Sax, Alto",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "11691850260",
+   "name": "Andy McClure",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "",
+   "program": "Ensemble"
+  },
+  {
+   "id": "9130339912",
+   "name": "Andy Schulz",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Trombone",
+   "program": "Ensemble"
+  },
+  {
+   "id": "18176927868",
+   "name": "Ann McCarthy",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Sax, Alto",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "9777256883",
+   "name": "Barry Lehman",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Trumpet",
+   "program": "Foundations of Jazz"
+  },
+  {
+   "id": "18207009983",
+   "name": "Beth Sullivan-Adams",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Electric bass",
+   "program": "Ensemble, Private Lessons, Clinics"
+  },
+  {
+   "id": "18230267191",
+   "name": "Dennis Peoples",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Guitar, Bass",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "11860023721",
+   "name": "Glen Helgeson",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Guitar",
+   "program": "Ensemble"
+  },
+  {
+   "id": "11509163364",
+   "name": "Hayley Banker",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Tenor",
+   "program": "Ensemble"
+  },
+  {
+   "id": "10525739509",
+   "name": "Jack Carter",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Piano",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "18174112750",
+   "name": "Jack Jester",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Guitar, bass, drums, tuba",
+   "program": "Ensemble, Private Lessons, Clinics"
+  },
+  {
+   "id": "18173760157",
+   "name": "Jasper Moon",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Drums",
+   "program": "Private Lessons"
+  },
+  {
+   "id": "18272144991",
+   "name": "Jeff Mund",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Trumpet",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "18333578397",
+   "name": "Joshua Kue",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Guitar",
+   "program": "Private Lessons"
+  },
+  {
+   "id": "11529909245",
+   "name": "Lisa Borg",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Sax, Alto",
+   "program": "Ensemble"
+  },
+  {
+   "id": "18197213175",
+   "name": "Lucas Ritter",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Piano",
+   "program": "Clinics"
+  },
+  {
+   "id": "9753482194",
+   "name": "Matt Sieberg",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Tenor Sax",
+   "program": ""
+  },
+  {
+   "id": "18217031940",
+   "name": "Nikolas Lopez",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Guitar",
+   "program": "Ensemble, Private Lessons, Clinics"
+  },
+  {
+   "id": "18173969544",
+   "name": "Parker Tabbert",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Drums",
+   "program": "Ensemble, Clinics"
+  },
+  {
+   "id": "18244842854",
+   "name": "Thomas Brandt",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Drums",
+   "program": "Private Lessons, Clinics"
+  },
+  {
+   "id": "18211845121",
+   "name": "Zahid Hasan",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "",
+   "program": "Ensemble, Clinics"
+  },
+  {
    "id": "11308773338",
    "name": "Andrew McClure",
    "status": "Qualified",
@@ -1136,14 +1304,6 @@
    "program": "Ensemble, Clinics"
   },
   {
-   "id": "12443374923",
-   "name": "Neil Garcia (copy)",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": ""
-  },
-  {
    "id": "9130340063",
    "name": "Nick Vinkemeier",
    "status": "Qualified",
@@ -1166,6 +1326,14 @@
    "section": "Qualified",
    "instrument": "Drums",
    "program": ""
+  },
+  {
+   "id": "11946605076",
+   "name": "Roselynn Cordero",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "11138591563",
@@ -1192,5 +1360,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "September 12, 2026"
+ "stamp": "September 13, 2026"
 }
