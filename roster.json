@@ -275,7 +275,7 @@
    "name": "Ryland Nelsen",
    "band": "Group 5",
    "instrument": "Guitar",
-   "belt": "",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -856,6 +856,15 @@
    "returned": ""
   },
   {
+   "id": "12915578825",
+   "name": "Grant Tillery",
+   "band": "Group 17",
+   "instrument": "Sax",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "10861829257",
    "name": "Neal Fredrickson",
    "band": "Group 17",
@@ -887,7 +896,7 @@
    "name": "Andrew McClure",
    "band": "Group 18",
    "instrument": "Bass",
-   "belt": "",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -896,7 +905,7 @@
    "name": "Collin Roycroft",
    "band": "Group 18",
    "instrument": "Saxophone",
-   "belt": "",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -1360,5 +1369,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "September 16, 2026"
+ "stamp": "September 17, 2026"
 }
