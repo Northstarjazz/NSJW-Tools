@@ -1177,14 +1177,6 @@
    "program": "Ensemble, Clinics"
   },
   {
-   "id": "12328248085",
-   "name": "Cathleen (Cathy) Gempeler",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano",
-   "program": "Ensemble"
-  },
-  {
    "id": "10019108740",
    "name": "Charles Davis",
    "status": "Qualified",
@@ -1215,14 +1207,6 @@
    "section": "Qualified",
    "instrument": "Sax, Alto",
    "program": "Ensemble"
-  },
-  {
-   "id": "12253020873",
-   "name": "Daniel Goldschmidt",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano, Voice",
-   "program": "Foundations of Jazz"
   },
   {
    "id": "9130339982",
@@ -1369,5 +1353,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "September 22, 2026"
+ "stamp": "September 23, 2026"
 }
