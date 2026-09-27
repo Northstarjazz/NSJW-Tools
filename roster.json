@@ -775,15 +775,6 @@
    "returned": ""
   },
   {
-   "id": "9130339946",
-   "name": "Nick Brandeau",
-   "band": "Group 15",
-   "instrument": "Drums",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9234243740",
    "name": "Noah Anderson",
    "band": "Group 15",
@@ -874,20 +865,20 @@
    "returned": ""
   },
   {
+   "id": "11607819323",
+   "name": "Parks Burgum",
+   "band": "Group 17",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "12820969783",
    "name": "Andrew McClure",
    "band": "Group 18",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130338381",
-   "name": "Collin Roycroft",
-   "band": "Group 18",
-   "instrument": "Saxophone",
-   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -899,15 +890,6 @@
    "belt": "Brown",
    "left": "2026-06-01",
    "returned": "2026-08-01"
-  },
-  {
-   "id": "11547631121",
-   "name": "Adrian Houston",
-   "band": "Group 19",
-   "instrument": "Drums",
-   "belt": "White",
-   "left": "",
-   "returned": ""
   },
   {
    "id": "11450081140",
@@ -1278,14 +1260,6 @@
    "program": "Ensemble, Clinics"
   },
   {
-   "id": "11607819323",
-   "name": "Parks Burgum",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bass",
-   "program": "Ensemble"
-  },
-  {
    "id": "9130338171",
    "name": "Patrick Dalton",
    "status": "Qualified",
@@ -1326,5 +1300,5 @@
    "program": "Jazz Voice Lab, Jazz Singers Playground"
   }
  ],
- "stamp": "September 26, 2026"
+ "stamp": "September 27, 2026"
 }
