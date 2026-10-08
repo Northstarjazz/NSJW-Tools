@@ -1209,7 +1209,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": "Clinics"
+   "program": "Clinics, Private Lessons"
   },
   {
    "id": "11483264797",
@@ -1226,6 +1226,14 @@
    "section": "Qualified",
    "instrument": "Guitar",
    "program": ""
+  },
+  {
+   "id": "13202909581",
+   "name": "Kevin Peña",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Private Lessons"
   },
   {
    "id": "11885158907",
@@ -1298,7 +1306,23 @@
    "section": "Qualified",
    "instrument": "Voice",
    "program": "Jazz Voice Lab, Jazz Singers Playground"
+  },
+  {
+   "id": "12691250555",
+   "name": "Scott Redfern",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": ""
+  },
+  {
+   "id": "12720840077",
+   "name": "Ty Wilson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 7, 2026"
+ "stamp": "October 8, 2026"
 }
