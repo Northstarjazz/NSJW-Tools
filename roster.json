@@ -865,15 +865,6 @@
    "returned": ""
   },
   {
-   "id": "11607819323",
-   "name": "Parks Burgum",
-   "band": "Group 17",
-   "instrument": "Bass",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "12820969783",
    "name": "Andrew McClure",
    "band": "Group 18",
@@ -1132,6 +1123,14 @@
    "program": "Ensemble, Clinics"
   },
   {
+   "id": "13238633654",
+   "name": "Brent Schumacher",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": "Ensemble"
+  },
+  {
    "id": "10019108740",
    "name": "Charles Davis",
    "status": "Qualified",
@@ -1172,6 +1171,14 @@
    "program": "Ensemble"
   },
   {
+   "id": "13238634274",
+   "name": "Emily (emilyrt480)",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Sax",
+   "program": "Ensemble"
+  },
+  {
    "id": "11201479809",
    "name": "Evan Skaar",
    "status": "Qualified",
@@ -1186,6 +1193,14 @@
    "section": "Qualified",
    "instrument": "Drums",
    "program": "Ensemble, Private Lessons, Clinics"
+  },
+  {
+   "id": "12462307317",
+   "name": "Gregory Olson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": ""
   },
   {
    "id": "10019108778",
@@ -1242,6 +1257,14 @@
    "section": "Qualified",
    "instrument": "Bass",
    "program": "Ensemble"
+  },
+  {
+   "id": "11280268096",
+   "name": "Lisa Peterson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": "Foundations of Jazz"
   },
   {
    "id": "10982821199",
@@ -1324,5 +1347,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 11, 2026"
+ "stamp": "October 12, 2026"
 }
