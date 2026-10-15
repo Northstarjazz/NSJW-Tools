@@ -1204,6 +1204,14 @@
    "program": "Ensemble, Private Lessons, Clinics"
   },
   {
+   "id": "13295959791",
+   "name": "greg lupu",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": ""
+  },
+  {
    "id": "12462307317",
    "name": "Gregory Olson",
    "status": "Qualified",
@@ -1228,6 +1236,14 @@
    "program": "Ensemble"
   },
   {
+   "id": "9130337593",
+   "name": "James Hattis",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Foundations of Jazz"
+  },
+  {
    "id": "11726316806",
    "name": "Jay Johnson",
    "status": "Qualified",
@@ -1242,6 +1258,14 @@
    "section": "Qualified",
    "instrument": "",
    "program": ""
+  },
+  {
+   "id": "12985772401",
+   "name": "Jordan Humphrey",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": "Foundations of Jazz"
   },
   {
    "id": "9130339214",
@@ -1332,6 +1356,14 @@
    "program": "Foundations of Jazz Guitar"
   },
   {
+   "id": "11323328768",
+   "name": "Sally Patrick",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Jazz Singers Playground, Private Lessons"
+  },
+  {
    "id": "10993149010",
    "name": "SCOTT MAREK",
    "status": "Qualified",
@@ -1356,5 +1388,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 14, 2026"
+ "stamp": "October 15, 2026"
 }
