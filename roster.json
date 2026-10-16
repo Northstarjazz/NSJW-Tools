@@ -46,15 +46,6 @@
    "returned": ""
   },
   {
-   "id": "9130339956",
-   "name": "Richie McDonnell",
-   "band": "Group 1",
-   "instrument": "Drums",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "12416094945",
    "name": "Aaron Rodriguez",
    "band": "Group 2",
@@ -573,7 +564,7 @@
    "band": "Group 11",
    "instrument": "Piano",
    "belt": "Blue",
-   "left": "2026-02-01",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -636,7 +627,7 @@
    "band": "Group 12",
    "instrument": "Bass",
    "belt": "Brown",
-   "left": "2025-10-01",
+   "left": "2026-11-01",
    "returned": "2026-05-01"
   },
   {
@@ -717,7 +708,7 @@
    "band": "Group 14",
    "instrument": "Bass",
    "belt": "Brown",
-   "left": "",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -725,15 +716,6 @@
    "name": "Tom Henchal",
    "band": "Group 14",
    "instrument": "Trumpet",
-   "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9777257063",
-   "name": "Benjamin Downs",
-   "band": "Group 15",
-   "instrument": "Piano",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -906,7 +888,7 @@
    "band": "Group 19",
    "instrument": "Piano",
    "belt": "White",
-   "left": "",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -915,6 +897,15 @@
    "band": "Group 19",
    "instrument": "Bass",
    "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339956",
+   "name": "Richie McDonnell",
+   "band": "Group 19",
+   "instrument": "Drums",
+   "belt": "Blue",
    "left": "",
    "returned": ""
   },
@@ -1388,5 +1379,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 15, 2026"
+ "stamp": "October 16, 2026"
 }
