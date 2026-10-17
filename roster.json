@@ -140,7 +140,7 @@
    "name": "Rob Byers",
    "band": "Group 3",
    "instrument": "Drums",
-   "belt": "",
+   "belt": "Brown",
    "left": "",
    "returned": ""
   },
@@ -622,15 +622,6 @@
    "returned": ""
   },
   {
-   "id": "9130338557",
-   "name": "Jeff Sugerman",
-   "band": "Group 12",
-   "instrument": "Bass",
-   "belt": "Brown",
-   "left": "2026-11-01",
-   "returned": "2026-05-01"
-  },
-  {
    "id": "9130337402",
    "name": "John Pohl",
    "band": "Group 12",
@@ -703,21 +694,21 @@
    "returned": ""
   },
   {
-   "id": "11957623671",
-   "name": "Jeff Sugerman",
-   "band": "Group 14",
-   "instrument": "Bass",
-   "belt": "Brown",
-   "left": "2026-11-01",
-   "returned": ""
-  },
-  {
    "id": "9130339684",
    "name": "Tom Henchal",
    "band": "Group 14",
    "instrument": "Trumpet",
    "belt": "Purple",
    "left": "",
+   "returned": ""
+  },
+  {
+   "id": "13312072768",
+   "name": "Brenda Varda (copy)",
+   "band": "Group 15",
+   "instrument": "Voice",
+   "belt": "",
+   "left": "2026-08-17",
    "returned": ""
   },
   {
@@ -736,6 +727,15 @@
    "instrument": "Guitar",
    "belt": "Blue",
    "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339239",
+   "name": "Don Taylor",
+   "band": "Group 15",
+   "instrument": "Drums",
+   "belt": "Purple",
+   "left": "2026-08-01",
    "returned": ""
   },
   {
@@ -781,6 +781,15 @@
    "instrument": "Sax, Alto, Tenor",
    "belt": "Black",
    "left": "",
+   "returned": ""
+  },
+  {
+   "id": "10019108994",
+   "name": "Brent Schumacher",
+   "band": "Group 16",
+   "instrument": "Trumpet",
+   "belt": "Black",
+   "left": "2026-04-01",
    "returned": ""
   },
   {
@@ -865,6 +874,15 @@
    "returned": ""
   },
   {
+   "id": "13238634274",
+   "name": "Emily Thompson",
+   "band": "Group 18",
+   "instrument": "Sax",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "11412625355",
    "name": "Ryan Klein",
    "band": "Group 18",
@@ -935,6 +953,69 @@
    "belt": "White",
    "left": "",
    "returned": ""
+  },
+  {
+   "id": "12667687750",
+   "name": "Christian Milker",
+   "band": "Group 20",
+   "instrument": "Guitar, Piano",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12667687748",
+   "name": "Emerald Peterson",
+   "band": "Group 20",
+   "instrument": "Sax",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12667687749",
+   "name": "Greg Flanagan",
+   "band": "Group 20",
+   "instrument": "Drums",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338987",
+   "name": "Jim Offerman",
+   "band": "Group 20",
+   "instrument": "Bass",
+   "belt": "Blue",
+   "left": "2025-04-01",
+   "returned": ""
+  },
+  {
+   "id": "9130337647",
+   "name": "Keith Heinen",
+   "band": "Group 20",
+   "instrument": "Bass",
+   "belt": "Blue",
+   "left": "2026-05-01",
+   "returned": ""
+  },
+  {
+   "id": "12667687746",
+   "name": "Lisa Borg",
+   "band": "Group 20",
+   "instrument": "Sax, Alto",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "12667687747",
+   "name": "Neil Garcia",
+   "band": "Group 20",
+   "instrument": "Sax",
+   "belt": "",
+   "left": "",
+   "returned": ""
   }
  ],
  "leads": [
@@ -1001,6 +1082,14 @@
    "section": "Sit-In",
    "instrument": "Guitar",
    "program": "Ensemble"
+  },
+  {
+   "id": "9234156016",
+   "name": "Grant Gordon",
+   "status": "Sit-In",
+   "section": "Sit-In",
+   "instrument": "Bass",
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "11509163364",
@@ -1107,14 +1196,6 @@
    "program": "Ensemble, Clinics"
   },
   {
-   "id": "11308773338",
-   "name": "Andrew McClure",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bass",
-   "program": "Ensemble, Foundations of Jazz, Private Lessons, Jazz Voice Lab"
-  },
-  {
    "id": "9130339410",
    "name": "Bill O'Donnell",
    "status": "Qualified",
@@ -1165,14 +1246,6 @@
   {
    "id": "9130339982",
    "name": "Emerald Peterson",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": "Ensemble"
-  },
-  {
-   "id": "13238634274",
-   "name": "Emily (emilyrt480)",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Sax",
@@ -1379,5 +1452,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 16, 2026"
+ "stamp": "October 17, 2026"
 }
