@@ -240,7 +240,7 @@
    "band": "Group 5",
    "instrument": "Trombone",
    "belt": "Purple",
-   "left": "",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -510,7 +510,7 @@
    "band": "Group 10",
    "instrument": "Drums",
    "belt": "Purple",
-   "left": "2026-08-01",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -656,6 +656,33 @@
    "belt": "Brown",
    "left": "2026-04-01",
    "returned": "2026-06-01"
+  },
+  {
+   "id": "11885158907",
+   "name": "Lauren Hagen",
+   "band": "Group 13",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130340063",
+   "name": "Nick Vinkemeier",
+   "band": "Group 13",
+   "instrument": "Drums",
+   "belt": "Medium",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130338171",
+   "name": "Patrick Dalton",
+   "band": "Group 13",
+   "instrument": "Drums",
+   "belt": "High",
+   "left": "",
+   "returned": ""
   },
   {
    "id": "9896424548",
@@ -901,6 +928,15 @@
    "returned": ""
   },
   {
+   "id": "11618637698",
+   "name": "Greg Flanagan",
+   "band": "Group 19",
+   "instrument": "Drums",
+   "belt": "High",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "10718684451",
    "name": "Lacey Oar",
    "band": "Group 19",
@@ -924,6 +960,15 @@
    "band": "Group 19",
    "instrument": "Drums",
    "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "10004251120",
+   "name": "Ryland Nelsen",
+   "band": "Group 19",
+   "instrument": "Guitar",
+   "belt": "Medium",
    "left": "",
    "returned": ""
   },
@@ -1084,6 +1129,14 @@
    "program": "Foundations of Jazz"
   },
   {
+   "id": "13022736965",
+   "name": "Elijah Vang",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Private Lessons"
+  },
+  {
    "id": "9130339982",
    "name": "Emerald Peterson",
    "status": "Qualified",
@@ -1092,28 +1145,20 @@
    "program": "Ensemble"
   },
   {
+   "id": "12496890223",
+   "name": "Eva Bacmeister",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Jazz Singers Playground"
+  },
+  {
    "id": "11201479809",
    "name": "Evan Skaar",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Guitar",
    "program": "Ensemble"
-  },
-  {
-   "id": "11618637698",
-   "name": "Greg Flanagan",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": "Ensemble, Private Lessons, Clinics"
-  },
-  {
-   "id": "13295959791",
-   "name": "greg lupu",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Voice",
-   "program": ""
   },
   {
    "id": "12462307317",
@@ -1188,14 +1233,6 @@
    "program": "Private Lessons"
   },
   {
-   "id": "11885158907",
-   "name": "Lauren Hagen",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Bass",
-   "program": "Ensemble"
-  },
-  {
    "id": "11280268096",
    "name": "Lisa Peterson",
    "status": "Qualified",
@@ -1212,28 +1249,20 @@
    "program": "Jazz Singers Playground"
   },
   {
+   "id": "9130337437",
+   "name": "Max D'Astolfo",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Foundations of Jazz, Ensemble"
+  },
+  {
    "id": "9942717148",
    "name": "Milo Lambright",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Drums",
    "program": "Ensemble, Clinics"
-  },
-  {
-   "id": "9130340063",
-   "name": "Nick Vinkemeier",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": "Ensemble, Clinics"
-  },
-  {
-   "id": "9130338171",
-   "name": "Patrick Dalton",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Drums",
-   "program": ""
   },
   {
    "id": "13320595424",
@@ -1258,14 +1287,6 @@
    "section": "Qualified",
    "instrument": "Piano",
    "program": "Foundations of Jazz, Private Lessons"
-  },
-  {
-   "id": "10004251120",
-   "name": "Ryland Nelsen",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Guitar",
-   "program": "Foundations of Jazz Guitar"
   },
   {
    "id": "11323328768",
@@ -1316,5 +1337,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 21, 2026"
+ "stamp": "October 22, 2026"
 }
