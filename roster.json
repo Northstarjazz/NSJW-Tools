@@ -235,15 +235,6 @@
    "returned": ""
   },
   {
-   "id": "9130339472",
-   "name": "Matt Kazinka",
-   "band": "Group 5",
-   "instrument": "Trombone",
-   "belt": "Purple",
-   "left": "2026-11-01",
-   "returned": ""
-  },
-  {
    "id": "9130338335",
    "name": "Ron Siven",
    "band": "Group 5",
@@ -276,15 +267,6 @@
    "band": "Group 6",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "18345308393",
-   "name": "Mike Davidovich",
-   "band": "Group 6",
-   "instrument": "Piano",
-   "belt": "White",
    "left": "",
    "returned": ""
   },
@@ -505,15 +487,6 @@
    "returned": ""
   },
   {
-   "id": "9130339626",
-   "name": "Julian Salgado Laredo",
-   "band": "Group 10",
-   "instrument": "Drums",
-   "belt": "Purple",
-   "left": "2026-11-01",
-   "returned": ""
-  },
-  {
    "id": "9130338918",
    "name": "Skye Russell",
    "band": "Group 10",
@@ -556,15 +529,6 @@
    "instrument": "Sax, Bari",
    "belt": "Blue",
    "left": "",
-   "returned": ""
-  },
-  {
-   "id": "10019108625",
-   "name": "Jay Johnson",
-   "band": "Group 11",
-   "instrument": "Piano",
-   "belt": "Blue",
-   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -640,15 +604,6 @@
    "returned": ""
   },
   {
-   "id": "9777260072",
-   "name": "Madeline Elmhirst",
-   "band": "Group 12",
-   "instrument": "Piano",
-   "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130338114",
    "name": "Victoria Clark-West",
    "band": "Group 12",
@@ -656,33 +611,6 @@
    "belt": "Brown",
    "left": "2026-04-01",
    "returned": "2026-06-01"
-  },
-  {
-   "id": "11885158907",
-   "name": "Lauren Hagen",
-   "band": "Group 13",
-   "instrument": "Bass",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130340063",
-   "name": "Nick Vinkemeier",
-   "band": "Group 13",
-   "instrument": "Drums",
-   "belt": "Medium",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "9130338171",
-   "name": "Patrick Dalton",
-   "band": "Group 13",
-   "instrument": "Drums",
-   "belt": "High",
-   "left": "",
-   "returned": ""
   },
   {
    "id": "9896424548",
@@ -721,6 +649,15 @@
    "returned": ""
   },
   {
+   "id": "13275098365",
+   "name": "Joshua Smith",
+   "band": "Group 14",
+   "instrument": "",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339684",
    "name": "Tom Henchal",
    "band": "Group 14",
@@ -731,7 +668,7 @@
   },
   {
    "id": "13312072768",
-   "name": "Brenda Varda (copy)",
+   "name": "Brenda Varda",
    "band": "Group 15",
    "instrument": "Voice",
    "belt": "",
@@ -763,7 +700,7 @@
    "instrument": "Drums",
    "belt": "Purple",
    "left": "2026-08-01",
-   "returned": ""
+   "returned": "2026-11-01"
   },
   {
    "id": "9130339261",
@@ -910,6 +847,15 @@
    "returned": ""
   },
   {
+   "id": "13369225220",
+   "name": "Kyle Baxter",
+   "band": "Group 18",
+   "instrument": "Guitar",
+   "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "11412625355",
    "name": "Ryan Klein",
    "band": "Group 18",
@@ -924,15 +870,6 @@
    "band": "Group 19",
    "instrument": "Trumpet",
    "belt": "White",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "11618637698",
-   "name": "Greg Flanagan",
-   "band": "Group 19",
-   "instrument": "Drums",
-   "belt": "High",
    "left": "",
    "returned": ""
   },
@@ -960,15 +897,6 @@
    "band": "Group 19",
    "instrument": "Drums",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "10004251120",
-   "name": "Ryland Nelsen",
-   "band": "Group 19",
-   "instrument": "Guitar",
-   "belt": "Medium",
    "left": "",
    "returned": ""
   },
@@ -1169,14 +1097,6 @@
    "program": ""
   },
   {
-   "id": "10019108778",
-   "name": "Indigo Sabin",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Sax",
-   "program": "Ensemble, Private Lessons"
-  },
-  {
    "id": "11339475761",
    "name": "Jaeger Svennevig-Brosi",
    "status": "Qualified",
@@ -1265,28 +1185,28 @@
    "program": "Ensemble, Clinics"
   },
   {
+   "id": "13356904873",
+   "name": "Nick Reyes",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Foundations of Jazz Guitar"
+  },
+  {
+   "id": "13356876625",
+   "name": "Paulette Mancuso",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Private Lessons"
+  },
+  {
    "id": "13320595424",
    "name": "Robert Wehling",
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "",
    "program": "Foundations of Jazz Guitar"
-  },
-  {
-   "id": "11946605076",
-   "name": "Roselynn Cordero",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Voice",
-   "program": "Ensemble, Private Lessons, Clinics"
-  },
-  {
-   "id": "11138591563",
-   "name": "Ryan Pedersen",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Piano",
-   "program": "Foundations of Jazz, Private Lessons"
   },
   {
    "id": "11323328768",
@@ -1337,5 +1257,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 22, 2026"
+ "stamp": "October 23, 2026"
 }
