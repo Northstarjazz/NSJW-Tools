@@ -415,15 +415,6 @@
    "returned": ""
   },
   {
-   "id": "9130339049",
-   "name": "Alexander Oftelie",
-   "band": "Group 9",
-   "instrument": "Drums",
-   "belt": "Black",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130339972",
    "name": "Bob Stuckey",
    "band": "Group 9",
@@ -464,6 +455,15 @@
    "name": "Travis Freudenberg",
    "band": "Group 9",
    "instrument": "Bass",
+   "belt": "Black",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130339049",
+   "name": "Alexander Oftelie",
+   "band": "Group 10",
+   "instrument": "Drums",
    "belt": "Black",
    "left": "",
    "returned": ""
@@ -652,7 +652,7 @@
    "id": "13275098365",
    "name": "Joshua Smith",
    "band": "Group 14",
-   "instrument": "",
+   "instrument": "Bass",
    "belt": "Purple",
    "left": "",
    "returned": ""
@@ -871,15 +871,6 @@
    "instrument": "Trumpet",
    "belt": "White",
    "left": "",
-   "returned": ""
-  },
-  {
-   "id": "10718684451",
-   "name": "Lacey Oar",
-   "band": "Group 19",
-   "instrument": "Piano",
-   "belt": "White",
-   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -1257,5 +1248,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 24, 2026"
+ "stamp": "October 25, 2026"
 }
