@@ -1144,14 +1144,6 @@
    "program": "Private Lessons"
   },
   {
-   "id": "11280268096",
-   "name": "Lisa Peterson",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "",
-   "program": "Foundations of Jazz"
-  },
-  {
    "id": "10982821199",
    "name": "Lucy Dunne",
    "status": "Qualified",
@@ -1248,5 +1240,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 25, 2026"
+ "stamp": "October 26, 2026"
 }
