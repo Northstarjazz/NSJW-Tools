@@ -984,6 +984,14 @@
  ],
  "leads": [
   {
+   "id": "13379712623",
+   "name": "Ashanti Farrington",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Jazz Singers Playground"
+  },
+  {
    "id": "9130339410",
    "name": "Bill O'Donnell",
    "status": "Qualified",
@@ -1117,7 +1125,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "",
-   "program": ""
+   "program": "Ensemble"
   },
   {
    "id": "12985772401",
@@ -1240,5 +1248,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 26, 2026"
+ "stamp": "October 27, 2026"
 }
