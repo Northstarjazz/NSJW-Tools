@@ -60,7 +60,7 @@
    "band": "Group 2",
    "instrument": "Guitar",
    "belt": "Brown",
-   "left": "2026-06-01",
+   "left": "",
    "returned": ""
   },
   {
@@ -116,15 +116,6 @@
    "belt": "Brown",
    "left": "",
    "returned": ""
-  },
-  {
-   "id": "9772922598",
-   "name": "Jeff Gurney",
-   "band": "Group 3",
-   "instrument": "Bass",
-   "belt": "Black",
-   "left": "2026-03-01",
-   "returned": "2026-05-01"
   },
   {
    "id": "9130338715",
@@ -235,6 +226,15 @@
    "returned": ""
   },
   {
+   "id": "13408454631",
+   "name": "Matt Kazinka",
+   "band": "Group 5",
+   "instrument": "",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130338335",
    "name": "Ron Siven",
    "band": "Group 5",
@@ -258,7 +258,7 @@
    "band": "Group 6",
    "instrument": "Drums",
    "belt": "White",
-   "left": "2026-02-01",
+   "left": "",
    "returned": "2026-04-01"
   },
   {
@@ -267,6 +267,15 @@
    "band": "Group 6",
    "instrument": "Bass",
    "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "13408454634",
+   "name": "Mike Davidovich",
+   "band": "Group 6",
+   "instrument": "",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -357,7 +366,7 @@
    "band": "Group 8",
    "instrument": "Drums",
    "belt": "Purple",
-   "left": "2025-11-01",
+   "left": "",
    "returned": "2026-02-01"
   },
   {
@@ -429,7 +438,7 @@
    "band": "Group 9",
    "instrument": "Sax",
    "belt": "Purple",
-   "left": "2026-07-11",
+   "left": "",
    "returned": ""
   },
   {
@@ -447,7 +456,7 @@
    "band": "Group 9",
    "instrument": "Guitar",
    "belt": "Purple",
-   "left": "2026-05-01",
+   "left": "",
    "returned": "2026-07-01"
   },
   {
@@ -483,6 +492,15 @@
    "band": "Group 10",
    "instrument": "Sax, Alto",
    "belt": "Purple",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "13408454635",
+   "name": "Julian Salgado Laredo",
+   "band": "Group 10",
+   "instrument": "",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -528,6 +546,15 @@
    "band": "Group 11",
    "instrument": "Sax, Bari",
    "belt": "Blue",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "13408454636",
+   "name": "Jay Johnson",
+   "band": "Group 11",
+   "instrument": "",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -586,6 +613,15 @@
    "returned": ""
   },
   {
+   "id": "13408445999",
+   "name": "Jeff Sugerman",
+   "band": "Group 12",
+   "instrument": "",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130337402",
    "name": "John Pohl",
    "band": "Group 12",
@@ -604,12 +640,21 @@
    "returned": ""
   },
   {
+   "id": "13408445997",
+   "name": "Madeline Elmhirst",
+   "band": "Group 12",
+   "instrument": "",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130338114",
    "name": "Victoria Clark-West",
    "band": "Group 12",
    "instrument": "Voice",
    "belt": "Brown",
-   "left": "2026-04-01",
+   "left": "",
    "returned": "2026-06-01"
   },
   {
@@ -649,6 +694,15 @@
    "returned": ""
   },
   {
+   "id": "13408446000",
+   "name": "Jeff Sugerman (Group 14)",
+   "band": "Group 14",
+   "instrument": "",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "13275098365",
    "name": "Joshua Smith",
    "band": "Group 14",
@@ -672,7 +726,7 @@
    "band": "Group 15",
    "instrument": "Voice",
    "belt": "",
-   "left": "2026-08-17",
+   "left": "",
    "returned": ""
   },
   {
@@ -699,7 +753,7 @@
    "band": "Group 15",
    "instrument": "Drums",
    "belt": "Purple",
-   "left": "2026-08-01",
+   "left": "",
    "returned": "2026-11-01"
   },
   {
@@ -753,7 +807,7 @@
    "band": "Group 16",
    "instrument": "Trumpet",
    "belt": "Black",
-   "left": "2026-04-01",
+   "left": "",
    "returned": ""
   },
   {
@@ -771,7 +825,7 @@
    "band": "Group 16",
    "instrument": "Drums",
    "belt": "Black",
-   "left": "2025-12-01",
+   "left": "",
    "returned": "2026-04-01"
   },
   {
@@ -861,7 +915,7 @@
    "band": "Group 18",
    "instrument": "Drums",
    "belt": "Brown",
-   "left": "2026-06-01",
+   "left": "",
    "returned": "2026-08-01"
   },
   {
@@ -870,6 +924,15 @@
    "band": "Group 19",
    "instrument": "Trumpet",
    "belt": "White",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "13408445998",
+   "name": "Lacey Oar",
+   "band": "Group 19",
+   "instrument": "",
+   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -951,7 +1014,7 @@
    "band": "Group 20",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "2025-04-01",
+   "left": "",
    "returned": ""
   },
   {
@@ -960,7 +1023,7 @@
    "band": "Group 20",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "2026-05-01",
+   "left": "",
    "returned": ""
   },
   {
@@ -983,6 +1046,14 @@
   }
  ],
  "leads": [
+  {
+   "id": "18272635143",
+   "name": "Andy Ogg",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": "Ensemble, Private Lessons, Clinics"
+  },
   {
    "id": "13379712623",
    "name": "Ashanti Farrington",
@@ -1248,5 +1319,5 @@
    "program": "Foundations of Jazz Guitar"
   }
  ],
- "stamp": "October 27, 2026"
+ "stamp": "October 28, 2026"
 }
