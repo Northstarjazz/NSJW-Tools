@@ -1215,6 +1215,14 @@
    "program": ""
   },
   {
+   "id": "13389967299",
+   "name": "Joshua Smith",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": "Ensemble"
+  },
+  {
    "id": "13202909581",
    "name": "Kevin Peña",
    "status": "Qualified",
@@ -1317,7 +1325,15 @@
    "section": "Qualified",
    "instrument": "Guitar",
    "program": "Foundations of Jazz Guitar"
+  },
+  {
+   "id": "13389969609",
+   "name": "William Keyes",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "October 28, 2026"
+ "stamp": "October 29, 2026"
 }
