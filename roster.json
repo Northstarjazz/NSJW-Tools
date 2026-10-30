@@ -555,7 +555,7 @@
    "band": "Group 11",
    "instrument": "",
    "belt": "",
-   "left": "",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -725,7 +725,7 @@
    "name": "Brenda Varda",
    "band": "Group 15",
    "instrument": "Voice",
-   "belt": "",
+   "belt": "Purple",
    "left": "",
    "returned": ""
   },
@@ -1335,5 +1335,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "October 29, 2026"
+ "stamp": "October 30, 2026"
 }
