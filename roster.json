@@ -226,15 +226,6 @@
    "returned": ""
   },
   {
-   "id": "13408454631",
-   "name": "Matt Kazinka",
-   "band": "Group 5",
-   "instrument": "",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130338335",
    "name": "Ron Siven",
    "band": "Group 5",
@@ -267,15 +258,6 @@
    "band": "Group 6",
    "instrument": "Bass",
    "belt": "Blue",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "13408454634",
-   "name": "Mike Davidovich",
-   "band": "Group 6",
-   "instrument": "",
-   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -496,15 +478,6 @@
    "returned": ""
   },
   {
-   "id": "13408454635",
-   "name": "Julian Salgado Laredo",
-   "band": "Group 10",
-   "instrument": "",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130338918",
    "name": "Skye Russell",
    "band": "Group 10",
@@ -547,15 +520,6 @@
    "instrument": "Sax, Bari",
    "belt": "Blue",
    "left": "",
-   "returned": ""
-  },
-  {
-   "id": "13408454636",
-   "name": "Jay Johnson",
-   "band": "Group 11",
-   "instrument": "",
-   "belt": "",
-   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -613,15 +577,6 @@
    "returned": ""
   },
   {
-   "id": "13408445999",
-   "name": "Jeff Sugerman",
-   "band": "Group 12",
-   "instrument": "",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "9130337402",
    "name": "John Pohl",
    "band": "Group 12",
@@ -636,15 +591,6 @@
    "band": "Group 12",
    "instrument": "Drums",
    "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "13408445997",
-   "name": "Madeline Elmhirst",
-   "band": "Group 12",
-   "instrument": "",
-   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -690,15 +636,6 @@
    "band": "Group 14",
    "instrument": "Guitar",
    "belt": "Purple",
-   "left": "",
-   "returned": ""
-  },
-  {
-   "id": "13408446000",
-   "name": "Jeff Sugerman (Group 14)",
-   "band": "Group 14",
-   "instrument": "",
-   "belt": "",
    "left": "",
    "returned": ""
   },
@@ -928,15 +865,6 @@
    "returned": ""
   },
   {
-   "id": "13408445998",
-   "name": "Lacey Oar",
-   "band": "Group 19",
-   "instrument": "",
-   "belt": "",
-   "left": "",
-   "returned": ""
-  },
-  {
    "id": "11547614468",
    "name": "Melanie Heckt",
    "band": "Group 19",
@@ -978,7 +906,7 @@
    "band": "Group 19",
    "instrument": "Guitar",
    "belt": "White",
-   "left": "",
+   "left": "2026-11-01",
    "returned": ""
   },
   {
@@ -1191,14 +1119,6 @@
    "program": "Clinics, Private Lessons"
   },
   {
-   "id": "11483264797",
-   "name": "John Moore",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "",
-   "program": "Ensemble"
-  },
-  {
    "id": "12985772401",
    "name": "Jordan Humphrey",
    "status": "Qualified",
@@ -1335,5 +1255,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "October 30, 2026"
+ "stamp": "October 31, 2026"
 }
