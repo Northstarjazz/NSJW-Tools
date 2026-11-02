@@ -1151,6 +1151,14 @@
    "program": "Private Lessons"
   },
   {
+   "id": "12507872532",
+   "name": "Lisa Anderson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Ensemble"
+  },
+  {
    "id": "10982821199",
    "name": "Lucy Dunne",
    "status": "Qualified",
@@ -1255,5 +1263,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 1, 2026"
+ "stamp": "November 2, 2026"
 }
