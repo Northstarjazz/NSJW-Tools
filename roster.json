@@ -975,6 +975,14 @@
  ],
  "leads": [
   {
+   "id": "10662826952",
+   "name": "Al (Donald) Lieffort",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": "Ensemble, Foundations of Jazz"
+  },
+  {
    "id": "18272635143",
    "name": "Andy Ogg",
    "status": "Qualified",
@@ -1055,6 +1063,14 @@
    "program": "Foundations of Jazz"
   },
   {
+   "id": "11729230383",
+   "name": "Dave Rengel",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": "Ensemble"
+  },
+  {
    "id": "13022736965",
    "name": "Elijah Vang",
    "status": "Qualified",
@@ -1085,6 +1101,14 @@
    "section": "Qualified",
    "instrument": "Guitar",
    "program": "Ensemble"
+  },
+  {
+   "id": "9130338251",
+   "name": "Felipe Herrera",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": ""
   },
   {
    "id": "12462307317",
@@ -1263,5 +1287,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 3, 2026"
+ "stamp": "November 4, 2026"
 }
