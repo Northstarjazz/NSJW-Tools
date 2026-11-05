@@ -1223,6 +1223,14 @@
    "program": "Private Lessons"
   },
   {
+   "id": "11946591656",
+   "name": "Peter Ashley",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Ensemble, Private Lessons"
+  },
+  {
    "id": "13320595424",
    "name": "Robert Wehling",
    "status": "Qualified",
@@ -1287,5 +1295,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 4, 2026"
+ "stamp": "November 5, 2026"
 }
