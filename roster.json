@@ -999,6 +999,14 @@
    "program": "Jazz Singers Playground"
   },
   {
+   "id": "13437235358",
+   "name": "Ben Goodwin",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": "Ensemble"
+  },
+  {
    "id": "9130339410",
    "name": "Bill O'Donnell",
    "status": "Qualified",
@@ -1295,5 +1303,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 8, 2026"
+ "stamp": "November 9, 2026"
 }
