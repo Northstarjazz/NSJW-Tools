@@ -1087,6 +1087,14 @@
    "program": "Private Lessons"
   },
   {
+   "id": "13511730827",
+   "name": "Ellen Jensen",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Private Lessons, Ensemble"
+  },
+  {
    "id": "9130339982",
    "name": "Emerald Peterson",
    "status": "Qualified",
@@ -1151,6 +1159,14 @@
    "program": "Clinics, Private Lessons"
   },
   {
+   "id": "13445366137",
+   "name": "John (Jack) Dukatz",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Tenor Sax",
+   "program": "Ensemble"
+  },
+  {
    "id": "12985772401",
    "name": "Jordan Humphrey",
    "status": "Qualified",
@@ -1207,6 +1223,14 @@
    "program": "Foundations of Jazz, Ensemble"
   },
   {
+   "id": "12565528423",
+   "name": "Megan Fitterman",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": "Jazz Singers Playground, Private Lessons"
+  },
+  {
    "id": "9942717148",
    "name": "Milo Lambright",
    "status": "Qualified",
@@ -1237,6 +1261,14 @@
    "section": "Qualified",
    "instrument": "Guitar",
    "program": "Ensemble, Private Lessons"
+  },
+  {
+   "id": "13515875928",
+   "name": "Riley Cutright",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice",
+   "program": "Jazz Singers Playground"
   },
   {
    "id": "13320595424",
@@ -1303,5 +1335,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 11, 2026"
+ "stamp": "November 12, 2026"
 }
