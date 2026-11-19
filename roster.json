@@ -991,6 +991,14 @@
    "program": "Ensemble, Private Lessons, Clinics"
   },
   {
+   "id": "13562503750",
+   "name": "Andy Walsh",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Ensemble"
+  },
+  {
    "id": "13379712623",
    "name": "Ashanti Farrington",
    "status": "Qualified",
@@ -1067,7 +1075,7 @@
    "name": "Daniel Boe",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "",
+   "instrument": "Piano",
    "program": "Foundations of Jazz"
   },
   {
@@ -1171,7 +1179,7 @@
    "name": "Jordan Humphrey",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "",
+   "instrument": "Drums",
    "program": "Foundations of Jazz"
   },
   {
@@ -1271,6 +1279,14 @@
    "program": "Jazz Singers Playground"
   },
   {
+   "id": "13551878733",
+   "name": "Rob Kocher",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Trumpet",
+   "program": "Ensemble"
+  },
+  {
    "id": "13320595424",
    "name": "Robert Wehling",
    "status": "Qualified",
@@ -1300,7 +1316,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": ""
+   "program": "Ensemble, Clinics"
   },
   {
    "id": "13318718721",
@@ -1315,7 +1331,7 @@
    "name": "Tessa Westlund",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "",
+   "instrument": "Voice",
    "program": "Jazz Singers Playground"
   },
   {
@@ -1335,5 +1351,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 18, 2026"
+ "stamp": "November 19, 2026"
 }
