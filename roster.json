@@ -226,6 +226,24 @@
    "returned": ""
   },
   {
+   "id": "13599992423",
+   "name": "Rob Kocher",
+   "band": "Group 5",
+   "instrument": "",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
+   "id": "9130337660",
+   "name": "Rob Sutrick",
+   "band": "Group 5",
+   "instrument": "Bass",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130338335",
    "name": "Ron Siven",
    "band": "Group 5",
@@ -793,6 +811,15 @@
    "returned": ""
   },
   {
+   "id": "13445366137",
+   "name": "John (Jack) Dukatz",
+   "band": "Group 17",
+   "instrument": "Sax",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "10861829257",
    "name": "Neal Fredrickson",
    "band": "Group 17",
@@ -1167,14 +1194,6 @@
    "program": "Clinics, Private Lessons"
   },
   {
-   "id": "13445366137",
-   "name": "John (Jack) Dukatz",
-   "status": "Qualified",
-   "section": "Qualified",
-   "instrument": "Tenor Sax",
-   "program": "Ensemble"
-  },
-  {
    "id": "12985772401",
    "name": "Jordan Humphrey",
    "status": "Qualified",
@@ -1351,5 +1370,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 19, 2026"
+ "stamp": "November 20, 2026"
 }
