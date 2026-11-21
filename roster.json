@@ -541,6 +541,15 @@
    "returned": ""
   },
   {
+   "id": "13606480555",
+   "name": "Curt Shellum",
+   "band": "Group 11",
+   "instrument": "Piano",
+   "belt": "",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339363",
    "name": "Joe McMorrow",
    "band": "Group 11",
@@ -1094,7 +1103,7 @@
    "name": "Curt Shellum",
    "status": "Qualified",
    "section": "Qualified",
-   "instrument": "",
+   "instrument": "Piano",
    "program": "Ensemble"
   },
   {
@@ -1370,5 +1379,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 20, 2026"
+ "stamp": "November 21, 2026"
 }
