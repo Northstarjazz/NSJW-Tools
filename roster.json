@@ -1011,6 +1011,14 @@
  ],
  "leads": [
   {
+   "id": "13500457428",
+   "name": "Adam Sage",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Bass",
+   "program": "Ensemble"
+  },
+  {
    "id": "10662826952",
    "name": "Al (Donald) Lieffort",
    "status": "Qualified",
@@ -1081,6 +1089,14 @@
    "section": "Qualified",
    "instrument": "Guitar, Piano",
    "program": ""
+  },
+  {
+   "id": "13551436977",
+   "name": "Chuck Olsen",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Trumpet",
+   "program": "Private Lessons, Clinics"
   },
   {
    "id": "10052084739",
@@ -1201,6 +1217,22 @@
    "section": "Qualified",
    "instrument": "Piano",
    "program": "Clinics, Private Lessons"
+  },
+  {
+   "id": "13604267972",
+   "name": "Jay Johnson",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Voice, Piano",
+   "program": "Private Lessons"
+  },
+  {
+   "id": "13595123340",
+   "name": "Jonah Snyder",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Private Lessons, Ensemble"
   },
   {
    "id": "12985772401",
@@ -1355,6 +1387,22 @@
    "program": "Jazz Singers Playground"
   },
   {
+   "id": "13553726107",
+   "name": "Stephanie Hotz",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "",
+   "program": ""
+  },
+  {
+   "id": "13531786463",
+   "name": "Steve ADAMSGREEN",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Drums",
+   "program": "Ensemble"
+  },
+  {
    "id": "12968116628",
    "name": "Tessa Westlund",
    "status": "Qualified",
@@ -1379,5 +1427,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 21, 2026"
+ "stamp": "November 22, 2026"
 }
