@@ -937,15 +937,6 @@
    "returned": ""
   },
   {
-   "id": "11450117436",
-   "name": "Tim Donnel",
-   "band": "Group 19",
-   "instrument": "Guitar",
-   "belt": "White",
-   "left": "2026-11-01",
-   "returned": ""
-  },
-  {
    "id": "12667687750",
    "name": "Christian Milker",
    "band": "Group 20",
@@ -1040,7 +1031,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Piano",
-   "program": "Ensemble"
+   "program": "Ensemble, Private Lessons, Foundations of Jazz"
   },
   {
    "id": "13379712623",
@@ -1059,6 +1050,14 @@
    "program": "Ensemble"
   },
   {
+   "id": "9130338912",
+   "name": "Bernard Wollenberg",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Piano",
+   "program": "Ensemble"
+  },
+  {
    "id": "9130339410",
    "name": "Bill O'Donnell",
    "status": "Qualified",
@@ -1073,6 +1072,14 @@
    "section": "Qualified",
    "instrument": "",
    "program": "Ensemble"
+  },
+  {
+   "id": "13499245929",
+   "name": "Bryce Cruey",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Ensemble, Private Lessons, Clinics"
   },
   {
    "id": "10019108740",
@@ -1336,7 +1343,7 @@
    "status": "Qualified",
    "section": "Qualified",
    "instrument": "Voice",
-   "program": "Jazz Singers Playground"
+   "program": "Jazz Singers Playground, Private Lessons"
   },
   {
    "id": "13551878733",
@@ -1427,5 +1434,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 22, 2026"
+ "stamp": "November 23, 2026"
 }
