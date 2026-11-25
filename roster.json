@@ -100,6 +100,15 @@
    "returned": ""
   },
   {
+   "id": "9130339658",
+   "name": "Sam Hermann",
+   "band": "Group 2",
+   "instrument": "Sax, Tenor",
+   "belt": "Brown",
+   "left": "",
+   "returned": ""
+  },
+  {
    "id": "9130339031",
    "name": "Betty Grey",
    "band": "Group 3",
@@ -1434,5 +1443,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 24, 2026"
+ "stamp": "November 25, 2026"
 }
