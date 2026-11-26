@@ -1243,6 +1243,14 @@
    "program": "Private Lessons"
   },
   {
+   "id": "10617613667",
+   "name": "John Sylvestre",
+   "status": "Qualified",
+   "section": "Qualified",
+   "instrument": "Guitar",
+   "program": "Ensemble, Foundations of Jazz Guitar"
+  },
+  {
    "id": "13595123340",
    "name": "Jonah Snyder",
    "status": "Qualified",
@@ -1443,5 +1451,5 @@
    "program": "Jazz Singers Playground"
   }
  ],
- "stamp": "November 25, 2026"
+ "stamp": "November 26, 2026"
 }
